@@ -1905,8 +1905,8 @@ ul.nav-tabs {
       "type" : "string",
       "description" : "Sorting",
       "example" : "ASC",
-      "default" : "DESC",
-      "enum" : [ "ASC", "DESC" ]
+      "enum" : [ "ASC", "DESC" ],
+      "default" : "DESC"
     },
     "to" : {
       "type" : "string",
@@ -2287,8 +2287,8 @@ ul.nav-tabs {
       "type" : "string",
       "description" : "The type of the property",
       "example" : "json",
-      "default" : "infer",
-      "enum" : [ "infer", "base64", "hex", "json" ]
+      "enum" : [ "infer", "base64", "hex", "json" ],
+      "default" : "infer"
     },
     "value" : {
       "description" : "The last value of the property",
@@ -2659,15 +2659,12 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 
 var api = new IotApi.DevicesV2Api()
 var createDevicesV2Payload = ; // {CreateDevicesV2Payload} 
+api.devicesV2Create(createDevicesV2Payload).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.devicesV2Create(createDevicesV2Payload, callback);
 </code></pre>
                             </div>
 
@@ -2912,15 +2909,12 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 
 var api = new IotApi.DevicesV2Api()
 var id = id_example; // {String} The id of the device
+api.devicesV2Delete(id).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
-};
-api.devicesV2Delete(id, callback);
 </code></pre>
                             </div>
 
@@ -3054,15 +3048,12 @@ var id = id_example; // {String} The id of the device
 var opts = {
   'showDeleted': true // {Boolean} If true, shows the soft deleted properties
 };
+api.devicesV2GetProperties(id, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.devicesV2GetProperties(id, opts, callback);
 </code></pre>
                             </div>
 
@@ -3285,15 +3276,12 @@ var api = new IotApi.DevicesV2Api()
 var opts = {
   'acrossUserIds': true // {Boolean} If true, returns all the devices
 };
+api.devicesV2List(opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.devicesV2List(opts, callback);
 </code></pre>
                             </div>
 
@@ -3461,15 +3449,12 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 
 var api = new IotApi.DevicesV2Api()
 var id = id_example; // {String} The id of the device
+api.devicesV2Show(id).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.devicesV2Show(id, callback);
 </code></pre>
                             </div>
 
@@ -3645,15 +3630,12 @@ var opts = {
   'limit': 56, // {Integer} The number of properties to select
   'start': start_example // {String} The time at which to start selecting properties
 };
+api.devicesV2Timeseries(id, pid, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.devicesV2Timeseries(id, pid, opts, callback);
 </code></pre>
                             </div>
 
@@ -3920,15 +3902,12 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 var api = new IotApi.DevicesV2Api()
 var id = id_example; // {String} The id of the device
 var devicev2 = ; // {Devicev2} 
+api.devicesV2Update(id, devicev2).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.devicesV2Update(id, devicev2, callback);
 </code></pre>
                             </div>
 
@@ -4271,15 +4250,12 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 var api = new IotApi.DevicesV2Api()
 var id = id_example; // {String} The id of the device
 var propertiesValues = ; // {PropertiesValues} 
+api.devicesV2UpdateProperties(id, propertiesValues).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
-};
-api.devicesV2UpdateProperties(id, propertiesValues, callback);
 </code></pre>
                             </div>
 
@@ -4470,15 +4446,12 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 var api = new IotApi.PropertiesV2Api()
 var id = id_example; // {String} The id of the thing
 var property = ; // {Property} 
+api.propertiesV2Create(id, property).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.propertiesV2Create(id, property, callback);
 </code></pre>
                             </div>
 
@@ -4846,15 +4819,12 @@ var pid = pid_example; // {String} The id of the property
 var opts = {
   'force': true // {Boolean} If true, hard delete the property
 };
+api.propertiesV2Delete(id, pid, opts).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
-};
-api.propertiesV2Delete(id, pid, opts, callback);
 </code></pre>
                             </div>
 
@@ -5128,15 +5098,12 @@ var id = id_example; // {String} The id of the thing
 var opts = {
   'showDeleted': true // {Boolean} If true, shows the soft deleted properties
 };
+api.propertiesV2List(id, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.propertiesV2List(id, opts, callback);
 </code></pre>
                             </div>
 
@@ -5474,15 +5441,12 @@ var api = new IotApi.PropertiesV2Api()
 var id = id_example; // {String} The id of the thing
 var pid = pid_example; // {String} The id of the property
 var propertyValue = ; // {PropertyValue} 
+api.propertiesV2Publish(id, pid, propertyValue).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
-};
-api.propertiesV2Publish(id, pid, propertyValue, callback);
 </code></pre>
                             </div>
 
@@ -5829,15 +5793,12 @@ var pid = pid_example; // {String} The id of the property
 var opts = {
   'showDeleted': true // {Boolean} If true, shows the soft deleted properties
 };
+api.propertiesV2Show(id, pid, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.propertiesV2Show(id, pid, opts, callback);
 </code></pre>
                             </div>
 
@@ -6199,15 +6160,12 @@ var api = new IotApi.PropertiesV2Api()
 var id = id_example; // {String} The id of the thing
 var pid = pid_example; // {String} The id of the property
 var property = ; // {Property} 
+api.propertiesV2Update(id, pid, property).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.propertiesV2Update(id, pid, property, callback);
 </code></pre>
                             </div>
 
@@ -6642,15 +6600,12 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 
 var api = new IotApi.SeriesV2Api()
 var batchQueryRequestsMediaV1 = ; // {BatchQueryRequestsMediaV1} 
+api.seriesV2BatchQuery(batchQueryRequestsMediaV1).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.seriesV2BatchQuery(batchQueryRequestsMediaV1, callback);
 </code></pre>
                             </div>
 
@@ -7005,15 +6960,12 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 
 var api = new IotApi.SeriesV2Api()
 var batchQueryRawRequestsMediaV1 = ; // {BatchQueryRawRequestsMediaV1} 
+api.seriesV2BatchQueryRaw(batchQueryRawRequestsMediaV1).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.seriesV2BatchQueryRaw(batchQueryRawRequestsMediaV1, callback);
 </code></pre>
                             </div>
 
@@ -7368,15 +7320,12 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 
 var api = new IotApi.SeriesV2Api()
 var batchLastValueRequestsMediaV1 = ; // {BatchLastValueRequestsMediaV1} 
+api.seriesV2BatchQueryRawLastValue(batchLastValueRequestsMediaV1).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.seriesV2BatchQueryRawLastValue(batchLastValueRequestsMediaV1, callback);
 </code></pre>
                             </div>
 
@@ -7737,15 +7686,12 @@ var createThingsV2Payload = ; // {CreateThingsV2Payload}
 var opts = {
   'force': true // {Boolean} If true, detach device from the other thing, and attach to this thing
 };
+api.thingsV2Create(createThingsV2Payload, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.thingsV2Create(createThingsV2Payload, opts, callback);
 </code></pre>
                             </div>
 
@@ -8107,15 +8053,12 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 var api = new IotApi.ThingsV2Api()
 var id = id_example; // {String} The id of the thing
 var thingSketch = ; // {ThingSketch} 
+api.thingsV2CreateSketch(id, thingSketch).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.thingsV2CreateSketch(id, thingSketch, callback);
 </code></pre>
                             </div>
 
@@ -8482,15 +8425,12 @@ var id = id_example; // {String} The id of the thing
 var opts = {
   'force': true // {Boolean} If true, hard delete the thing
 };
+api.thingsV2Delete(id, opts).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
-};
-api.thingsV2Delete(id, opts, callback);
 </code></pre>
                             </div>
 
@@ -8693,15 +8633,12 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 
 var api = new IotApi.ThingsV2Api()
 var id = id_example; // {String} The id of the thing
+api.thingsV2DeleteSketch(id).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.thingsV2DeleteSketch(id, callback);
 </code></pre>
                             </div>
 
@@ -8920,15 +8857,12 @@ var opts = {
   'deviceId': deviceId_example, // {String} The id of the device you want to filter
   'showDeleted': true // {Boolean} If true, shows the soft deleted things
 };
+api.thingsV2List(opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.thingsV2List(opts, callback);
 </code></pre>
                             </div>
 
@@ -9163,15 +9097,12 @@ var id = id_example; // {String} The id of the thing
 var opts = {
   'showDeleted': true // {Boolean} If true, shows the soft deleted thing
 };
+api.thingsV2Show(id, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.thingsV2Show(id, opts, callback);
 </code></pre>
                             </div>
 
@@ -9533,15 +9464,12 @@ var thing = ; // {Thing}
 var opts = {
   'force': true // {Boolean} If true, detach device from the other thing, and attach to this thing
 };
+api.thingsV2Update(id, thing, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.thingsV2Update(id, thing, opts, callback);
 </code></pre>
                             </div>
 
@@ -9956,15 +9884,12 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 var api = new IotApi.ThingsV2Api()
 var id = id_example; // {String} The id of the thing
 var sketchId = sketchId_example; // {String} The id of the sketch
+api.thingsV2UpdateSketch(id, sketchId).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.thingsV2UpdateSketch(id, sketchId, callback);
 </code></pre>
                             </div>
 
