@@ -2660,14 +2660,14 @@ ul.nav-tabs {
                           </div>
 
                             <div class="tab-pane" id="examples-DevicesV2-devicesV2Create-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.DevicesV2Api()
+var api = new ArduinoIotClient.DevicesV2Api()
 var createDevicesV2Payload = ; // {CreateDevicesV2Payload} 
 api.devicesV2Create(createDevicesV2Payload).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -2910,14 +2910,14 @@ $(document).ready(function() {
                           </div>
 
                             <div class="tab-pane" id="examples-DevicesV2-devicesV2Delete-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.DevicesV2Api()
+var api = new ArduinoIotClient.DevicesV2Api()
 var id = id_example; // {String} The id of the device
 api.devicesV2Delete(id).then(function() {
   console.log('API called successfully.');
@@ -3046,14 +3046,14 @@ The id of the device
                           </div>
 
                             <div class="tab-pane" id="examples-DevicesV2-devicesV2GetProperties-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.DevicesV2Api()
+var api = new ArduinoIotClient.DevicesV2Api()
 var id = id_example; // {String} The id of the device
 var opts = {
   'showDeleted': true // {Boolean} If true, shows the soft deleted properties
@@ -3275,14 +3275,14 @@ If true, shows the soft deleted properties
                           </div>
 
                             <div class="tab-pane" id="examples-DevicesV2-devicesV2List-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.DevicesV2Api()
+var api = new ArduinoIotClient.DevicesV2Api()
 var opts = {
   'acrossUserIds': true // {Boolean} If true, returns all the devices
 };
@@ -3450,14 +3450,14 @@ If true, returns all the devices
                           </div>
 
                             <div class="tab-pane" id="examples-DevicesV2-devicesV2Show-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.DevicesV2Api()
+var api = new ArduinoIotClient.DevicesV2Api()
 var id = id_example; // {String} The id of the device
 api.devicesV2Show(id).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -3626,14 +3626,14 @@ The id of the device
                           </div>
 
                             <div class="tab-pane" id="examples-DevicesV2-devicesV2Timeseries-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.DevicesV2Api()
+var api = new ArduinoIotClient.DevicesV2Api()
 var id = id_example; // {String} The id of the device
 var pid = pid_example; // {String} The id of the property
 var opts = {
@@ -3902,14 +3902,14 @@ The time at which to start selecting properties
                           </div>
 
                             <div class="tab-pane" id="examples-DevicesV2-devicesV2Update-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.DevicesV2Api()
+var api = new ArduinoIotClient.DevicesV2Api()
 var id = id_example; // {String} The id of the device
 var devicev2 = ; // {Devicev2} 
 api.devicesV2Update(id, devicev2).then(function(data) {
@@ -4250,14 +4250,14 @@ $(document).ready(function() {
                           </div>
 
                             <div class="tab-pane" id="examples-DevicesV2-devicesV2UpdateProperties-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.DevicesV2Api()
+var api = new ArduinoIotClient.DevicesV2Api()
 var id = id_example; // {String} The id of the device
 var propertiesValues = ; // {PropertiesValues} 
 api.devicesV2UpdateProperties(id, propertiesValues).then(function() {
@@ -4446,14 +4446,14 @@ $(document).ready(function() {
                           </div>
 
                             <div class="tab-pane" id="examples-PropertiesV2-propertiesV2Create-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.PropertiesV2Api()
+var api = new ArduinoIotClient.PropertiesV2Api()
 var id = id_example; // {String} The id of the thing
 var property = ; // {Property} 
 api.propertiesV2Create(id, property).then(function(data) {
@@ -4816,14 +4816,14 @@ $(document).ready(function() {
                           </div>
 
                             <div class="tab-pane" id="examples-PropertiesV2-propertiesV2Delete-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.PropertiesV2Api()
+var api = new ArduinoIotClient.PropertiesV2Api()
 var id = id_example; // {String} The id of the thing
 var pid = pid_example; // {String} The id of the property
 var opts = {
@@ -5096,14 +5096,14 @@ If true, hard delete the property
                           </div>
 
                             <div class="tab-pane" id="examples-PropertiesV2-propertiesV2List-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.PropertiesV2Api()
+var api = new ArduinoIotClient.PropertiesV2Api()
 var id = id_example; // {String} The id of the thing
 var opts = {
   'showDeleted': true // {Boolean} If true, shows the soft deleted properties
@@ -5440,14 +5440,14 @@ If true, shows the soft deleted properties
                           </div>
 
                             <div class="tab-pane" id="examples-PropertiesV2-propertiesV2Publish-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.PropertiesV2Api()
+var api = new ArduinoIotClient.PropertiesV2Api()
 var id = id_example; // {String} The id of the thing
 var pid = pid_example; // {String} The id of the property
 var propertyValue = ; // {PropertyValue} 
@@ -5790,14 +5790,14 @@ $(document).ready(function() {
                           </div>
 
                             <div class="tab-pane" id="examples-PropertiesV2-propertiesV2Show-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.PropertiesV2Api()
+var api = new ArduinoIotClient.PropertiesV2Api()
 var id = id_example; // {String} The id of the thing
 var pid = pid_example; // {String} The id of the property
 var opts = {
@@ -6159,14 +6159,14 @@ If true, shows the soft deleted properties
                           </div>
 
                             <div class="tab-pane" id="examples-PropertiesV2-propertiesV2Update-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.PropertiesV2Api()
+var api = new ArduinoIotClient.PropertiesV2Api()
 var id = id_example; // {String} The id of the thing
 var pid = pid_example; // {String} The id of the property
 var property = ; // {Property} 
@@ -6601,14 +6601,14 @@ $(document).ready(function() {
                           </div>
 
                             <div class="tab-pane" id="examples-SeriesV2-seriesV2BatchQuery-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.SeriesV2Api()
+var api = new ArduinoIotClient.SeriesV2Api()
 var batchQueryRequestsMediaV1 = ; // {BatchQueryRequestsMediaV1} 
 api.seriesV2BatchQuery(batchQueryRequestsMediaV1).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -6961,14 +6961,14 @@ $(document).ready(function() {
                           </div>
 
                             <div class="tab-pane" id="examples-SeriesV2-seriesV2BatchQueryRaw-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.SeriesV2Api()
+var api = new ArduinoIotClient.SeriesV2Api()
 var batchQueryRawRequestsMediaV1 = ; // {BatchQueryRawRequestsMediaV1} 
 api.seriesV2BatchQueryRaw(batchQueryRawRequestsMediaV1).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -7321,14 +7321,14 @@ $(document).ready(function() {
                           </div>
 
                             <div class="tab-pane" id="examples-SeriesV2-seriesV2BatchQueryRawLastValue-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.SeriesV2Api()
+var api = new ArduinoIotClient.SeriesV2Api()
 var batchLastValueRequestsMediaV1 = ; // {BatchLastValueRequestsMediaV1} 
 api.seriesV2BatchQueryRawLastValue(batchLastValueRequestsMediaV1).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -7684,14 +7684,14 @@ $(document).ready(function() {
                           </div>
 
                             <div class="tab-pane" id="examples-ThingsV2-thingsV2Create-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.ThingsV2Api()
+var api = new ArduinoIotClient.ThingsV2Api()
 var createThingsV2Payload = ; // {CreateThingsV2Payload} 
 var opts = {
   'force': true // {Boolean} If true, detach device from the other thing, and attach to this thing
@@ -8053,14 +8053,14 @@ If true, detach device from the other thing, and attach to this thing
                           </div>
 
                             <div class="tab-pane" id="examples-ThingsV2-thingsV2CreateSketch-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.ThingsV2Api()
+var api = new ArduinoIotClient.ThingsV2Api()
 var id = id_example; // {String} The id of the thing
 var thingSketch = ; // {ThingSketch} 
 api.thingsV2CreateSketch(id, thingSketch).then(function(data) {
@@ -8423,14 +8423,14 @@ $(document).ready(function() {
                           </div>
 
                             <div class="tab-pane" id="examples-ThingsV2-thingsV2Delete-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.ThingsV2Api()
+var api = new ArduinoIotClient.ThingsV2Api()
 var id = id_example; // {String} The id of the thing
 var opts = {
   'force': true // {Boolean} If true, hard delete the thing
@@ -8634,14 +8634,14 @@ If true, hard delete the thing
                           </div>
 
                             <div class="tab-pane" id="examples-ThingsV2-thingsV2DeleteSketch-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.ThingsV2Api()
+var api = new ArduinoIotClient.ThingsV2Api()
 var id = id_example; // {String} The id of the thing
 api.thingsV2DeleteSketch(id).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -8854,14 +8854,14 @@ The id of the thing
                           </div>
 
                             <div class="tab-pane" id="examples-ThingsV2-thingsV2List-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.ThingsV2Api()
+var api = new ArduinoIotClient.ThingsV2Api()
 var opts = {
   'acrossUserIds': true, // {Boolean} If true, returns all the things
   'deviceId': deviceId_example, // {String} The id of the device you want to filter
@@ -9095,14 +9095,14 @@ If true, shows the soft deleted things
                           </div>
 
                             <div class="tab-pane" id="examples-ThingsV2-thingsV2Show-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.ThingsV2Api()
+var api = new ArduinoIotClient.ThingsV2Api()
 var id = id_example; // {String} The id of the thing
 var opts = {
   'showDeleted': true // {Boolean} If true, shows the soft deleted thing
@@ -9461,14 +9461,14 @@ If true, shows the soft deleted thing
                           </div>
 
                             <div class="tab-pane" id="examples-ThingsV2-thingsV2Update-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.ThingsV2Api()
+var api = new ArduinoIotClient.ThingsV2Api()
 var id = id_example; // {String} The id of the thing
 var thing = ; // {Thing} 
 var opts = {
@@ -9884,14 +9884,14 @@ If true, detach device from the other thing, and attach to this thing
                           </div>
 
                             <div class="tab-pane" id="examples-ThingsV2-thingsV2UpdateSketch-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var IotApi = require('iot_api');
-var defaultClient = IotApi.ApiClient.instance;
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new IotApi.ThingsV2Api()
+var api = new ArduinoIotClient.ThingsV2Api()
 var id = id_example; // {String} The id of the thing
 var sketchId = sketchId_example; // {String} The id of the sketch
 api.thingsV2UpdateSketch(id, sketchId).then(function(data) {
