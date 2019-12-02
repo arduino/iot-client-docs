@@ -834,47 +834,56 @@ ul.nav-tabs {
     "created_at" : {
       "type" : "string",
       "description" : "Creation date of the device",
-      "format" : "date-time"
+      "format" : "date-time",
+      "example" : "1994-09-07T13:31:11Z"
+    },
+    "events" : {
+      "$ref" : "#/components/schemas/ArduinoDevicev2SimplePropertiesCollection"
+    },
+    "fqbn" : {
+      "type" : "string",
+      "description" : "The fully qualified board name",
+      "example" : "Voluptatum omnis."
     },
     "href" : {
       "type" : "string",
       "description" : "The api reference of this device",
-      "example" : "Nam soluta libero rem aut sed facere."
+      "example" : "Quia quidem velit inventore similique quas voluptatibus."
     },
     "id" : {
       "type" : "string",
       "description" : "The arn of the device",
       "format" : "uuid",
-      "example" : "b3001b29-0226-4d92-9fb0-dd0ce69dda7b"
+      "example" : "3477dc72-fc86-442d-893e-072ea05422db"
     },
     "metadata" : {
       "type" : "object",
       "additionalProperties" : true,
       "description" : "The metadata of the device",
       "example" : {
-        "Quo voluptatum omnis quae quia quidem velit." : false
+        "Ut praesentium." : 0.2598311063724628
       }
     },
     "name" : {
       "type" : "string",
       "description" : "The friendly name of the device",
-      "example" : "Voluptatibus fugiat ratione ut praesentium cumque autem."
+      "example" : "Aperiam qui et cumque magnam dolorem."
     },
     "serial" : {
       "type" : "string",
       "description" : "The serial uuid of the device",
-      "example" : "Aperiam qui et cumque magnam dolorem."
+      "example" : "Voluptatem repellat et explicabo."
     },
     "type" : {
       "type" : "string",
       "description" : "The type of the device",
-      "example" : "Voluptatem repellat et explicabo."
+      "example" : "Corrupti ut quaerat est omnis aliquam adipisci."
     },
     "user_id" : {
       "type" : "string",
       "description" : "The id of the user",
       "format" : "uuid",
-      "example" : "b79ea5b2-930f-4d1b-9761-38f8e83a3ae6"
+      "example" : "fbb9fe9b-0c8c-42cf-a21f-751ac6d0fdf4"
     },
     "webhooks" : {
       "$ref" : "#/components/schemas/ArduinoDevicev2WebhookCollection"
@@ -882,29 +891,92 @@ ul.nav-tabs {
   },
   "description" : "ArduinoDevicev2 media type (default view)",
   "example" : {
-    "created_at" : "1994-09-07 13:31:11",
-    "href" : "Nam soluta libero rem aut sed facere.",
-    "id" : "b3001b29-0226-4d92-9fb0-dd0ce69dda7b",
+    "created_at" : "1994-09-07T13:31:11Z",
+    "events" : [ {
+      "name" : "Soluta libero rem aut sed.",
+      "updated_at" : "2005-07-23T23:40:59Z",
+      "value" : 0.384123732053378
+    } ],
+    "fqbn" : "Voluptatum omnis.",
+    "href" : "Quia quidem velit inventore similique quas voluptatibus.",
+    "id" : "3477dc72-fc86-442d-893e-072ea05422db",
     "metadata" : {
-      "Quo voluptatum omnis quae quia quidem velit." : false
+      "Ut praesentium." : 0.2598311063724628
     },
-    "name" : "Voluptatibus fugiat ratione ut praesentium cumque autem.",
-    "serial" : "Aperiam qui et cumque magnam dolorem.",
-    "type" : "Voluptatem repellat et explicabo.",
-    "user_id" : "b79ea5b2-930f-4d1b-9761-38f8e83a3ae6",
+    "name" : "Aperiam qui et cumque magnam dolorem.",
+    "serial" : "Voluptatem repellat et explicabo.",
+    "type" : "Corrupti ut quaerat est omnis aliquam adipisci.",
+    "user_id" : "fbb9fe9b-0c8c-42cf-a21f-751ac6d0fdf4",
     "webhooks" : [ {
       "active" : true,
-      "id" : "95bbb69f-0724-4664-848c-cc106b9880d1",
-      "uri" : "http://beckereichmann.name/reina"
+      "id" : "9ab7c1cb-546b-4b3e-b01f-509562b4b6bd",
+      "uri" : "http://langworth.org/kobe.treutel"
     }, {
       "active" : true,
-      "id" : "95bbb69f-0724-4664-848c-cc106b9880d1",
-      "uri" : "http://beckereichmann.name/reina"
+      "id" : "9ab7c1cb-546b-4b3e-b01f-509562b4b6bd",
+      "uri" : "http://langworth.org/kobe.treutel"
     }, {
       "active" : true,
-      "id" : "95bbb69f-0724-4664-848c-cc106b9880d1",
-      "uri" : "http://beckereichmann.name/reina"
+      "id" : "9ab7c1cb-546b-4b3e-b01f-509562b4b6bd",
+      "uri" : "http://langworth.org/kobe.treutel"
     } ]
+  }
+};
+    defs["ArduinoDevicev2EventProperties"] = {
+  "title" : "Mediatype identifier: application/vnd.arduino.devicev2.event.properties+json; view=default",
+  "required" : [ "events", "id" ],
+  "type" : "object",
+  "properties" : {
+    "events" : {
+      "$ref" : "#/components/schemas/ArduinoDevicev2SimplePropertiesCollection"
+    },
+    "id" : {
+      "type" : "string",
+      "description" : "The device of the property",
+      "format" : "uuid",
+      "example" : "c95e4957-bd67-448a-8172-a5a222d7b99d"
+    }
+  },
+  "description" : "ArduinoDevicev2EventProperties media type (default view)",
+  "example" : {
+    "events" : [ {
+      "name" : "Soluta libero rem aut sed.",
+      "updated_at" : "2005-07-23T23:40:59Z",
+      "value" : 0.384123732053378
+    }, {
+      "name" : "Soluta libero rem aut sed.",
+      "updated_at" : "2005-07-23T23:40:59Z",
+      "value" : 0.384123732053378
+    } ],
+    "id" : "c95e4957-bd67-448a-8172-a5a222d7b99d"
+  }
+};
+    defs["ArduinoDevicev2SimpleProperties"] = {
+  "title" : "Mediatype identifier: application/vnd.arduino.devicev2.simple.properties+json; view=default",
+  "required" : [ "name", "updated_at", "value" ],
+  "type" : "object",
+  "properties" : {
+    "name" : {
+      "type" : "string",
+      "description" : "The name of the property",
+      "example" : "Soluta libero rem aut sed."
+    },
+    "updated_at" : {
+      "type" : "string",
+      "description" : "Update date of the property",
+      "format" : "date-time",
+      "example" : "2005-07-23T23:40:59Z"
+    },
+    "value" : {
+      "description" : "Value of the property",
+      "example" : 0.384123732053378
+    }
+  },
+  "description" : "ArduinoDevicev2SimpleProperties media type (default view)",
+  "example" : {
+    "name" : "Soluta libero rem aut sed.",
+    "updated_at" : "2005-07-23T23:40:59Z",
+    "value" : 0.384123732053378
   }
 };
     defs["ArduinoDevicev2Webhook"] = {
@@ -922,20 +994,20 @@ ul.nav-tabs {
       "type" : "string",
       "description" : "The uuid of the webhook",
       "format" : "uuid",
-      "example" : "95bbb69f-0724-4664-848c-cc106b9880d1"
+      "example" : "9ab7c1cb-546b-4b3e-b01f-509562b4b6bd"
     },
     "uri" : {
       "type" : "string",
       "description" : "The uri of the webhook",
       "format" : "uri",
-      "example" : "http://beckereichmann.name/reina"
+      "example" : "http://langworth.org/kobe.treutel"
     }
   },
   "description" : "DeviceWebhookV2 describes a webhook associated to the device (default view)",
   "example" : {
     "active" : true,
-    "id" : "95bbb69f-0724-4664-848c-cc106b9880d1",
-    "uri" : "http://beckereichmann.name/reina"
+    "id" : "9ab7c1cb-546b-4b3e-b01f-509562b4b6bd",
+    "uri" : "http://langworth.org/kobe.treutel"
   }
 };
     defs["ArduinoDevicev2properties"] = {
@@ -947,13 +1019,13 @@ ul.nav-tabs {
       "type" : "number",
       "description" : "How many days the data will be kept",
       "format" : "double",
-      "example" : 0.8510933658457186
+      "example" : 0.01387822382519107
     },
     "deviceId" : {
       "type" : "string",
       "description" : "The device of the property",
       "format" : "uuid",
-      "example" : "93af603b-726b-4b0a-9a12-77d1343f9218"
+      "example" : "738e29fe-5ec0-4fa6-845c-8b0e8ee56c83"
     },
     "properties" : {
       "$ref" : "#/components/schemas/ArduinoPropertyCollection"
@@ -962,33 +1034,33 @@ ul.nav-tabs {
       "type" : "string",
       "description" : "The user id of the owner",
       "format" : "uuid",
-      "example" : "982cfcfc-ed11-419c-876a-753c6629d12a"
+      "example" : "a219b194-38ee-4123-95d7-d769666b488e"
     }
   },
   "description" : "ArduinoDevicev2properties media type (default view)",
   "example" : {
-    "data_retention_days" : 0.8510933658457186,
-    "deviceId" : "93af603b-726b-4b0a-9a12-77d1343f9218",
+    "data_retention_days" : 0.01387822382519107,
+    "deviceId" : "738e29fe-5ec0-4fa6-845c-8b0e8ee56c83",
     "properties" : [ {
-      "created_at" : "1989-02-10 21:50:38",
-      "deleted_at" : "1986-10-07 08:22:10",
-      "href" : "Molestiae veritatis maiores fugiat consequatur error vitae.",
-      "id" : "f107703c-b170-47fa-a504-ece3412cc5be",
-      "last_value" : 7384484011810122000,
-      "max_value" : 0.934796755829885,
-      "min_value" : 0.22797089832637085,
-      "name" : "Veritatis voluptatem molestias repudiandae quia non et.",
-      "permission" : "Eius blanditiis voluptatibus.",
+      "created_at" : "2005-05-05T07:41:55Z",
+      "deleted_at" : "1992-07-09T18:56:55Z",
+      "href" : "Dolores earum sint quam provident magnam.",
+      "id" : "41494e65-f6f0-4dc8-8e45-b8972f5473ee",
+      "last_value" : 0.9108133227344599,
+      "max_value" : 0.2389125350729462,
+      "min_value" : 0.3421639821449562,
+      "name" : "Amet culpa.",
+      "permission" : "Nihil ut assumenda sed fugit.",
       "persist" : true,
-      "thing_id" : "dca063c5-4f38-46a6-b02a-a52a9dc77eb9",
-      "type" : "Sint quam provident magnam ex.",
-      "update_parameter" : 0.9108133227344599,
-      "update_strategy" : "Odit rerum.",
-      "updated_at" : "1976-06-15 02:13:21",
-      "value_updated_at" : "1975-12-11 02:29:59",
-      "variable_name" : "Nihil ut assumenda sed fugit."
+      "thing_id" : "d16ad1df-6f98-4539-a8d8-cfa7a616064a",
+      "type" : "Blanditiis et accusantium ipsum rerum.",
+      "update_parameter" : 0.8043314347782232,
+      "update_strategy" : "Nesciunt id vitae dolore.",
+      "updated_at" : "1970-02-20T11:10:04Z",
+      "value_updated_at" : "1986-04-19T17:24:01Z",
+      "variable_name" : "Ut minus corrupti et fugiat aut."
     } ],
-    "user_id" : "982cfcfc-ed11-419c-876a-753c6629d12a"
+    "user_id" : "a219b194-38ee-4123-95d7-d769666b488e"
   }
 };
     defs["ArduinoDevicev2propertyvalue"] = {
@@ -997,7 +1069,8 @@ ul.nav-tabs {
   "properties" : {
     "created_at" : {
       "type" : "string",
-      "format" : "date-time"
+      "format" : "date-time",
+      "example" : "1996-04-21T09:56:14Z"
     },
     "value" : {
       "$ref" : "#/components/schemas/ArduinoDevicev2propertyvalue_value"
@@ -1005,21 +1078,21 @@ ul.nav-tabs {
   },
   "description" : "ArduinoDevicev2propertyvalue media type (default view)",
   "example" : {
-    "created_at" : "1971-04-18 03:22:50",
+    "created_at" : "1996-04-21T09:56:14Z",
     "value" : {
-      "payload" : "Blanditiis et accusantium ipsum rerum.",
-      "seqno" : 7418648063896745000,
+      "payload" : "Quaerat veniam ea.",
+      "seqno" : 8097424536545027000,
       "statistics" : {
-        "adr" : 0.13561737572509147,
-        "channel" : 0.3902353259273426,
-        "duplicate" : 0.5028846468947827,
-        "freq" : 0.7126670896862375,
-        "modBW" : 0.863865814062173,
-        "rssi" : 0.5253658020227948,
-        "seqno" : 0.13888126585007018,
-        "sf" : 0.763900217608657,
-        "snr" : 0.035072020695238175,
-        "time" : 0.8941566755879066
+        "adr" : 0.4145609595332545,
+        "channel" : 0.8732446440967926,
+        "duplicate" : 0.20486051473898498,
+        "freq" : 0.017158929834861936,
+        "modBW" : 0.39820384219980687,
+        "rssi" : 0.6386414831859629,
+        "seqno" : 0.4774764983016417,
+        "sf" : 0.09467471217217566,
+        "snr" : 0.7192401321692375,
+        "time" : 0.03172387469401416
       }
     }
   }
@@ -1028,73 +1101,73 @@ ul.nav-tabs {
   "properties" : {
     "payload" : {
       "type" : "string",
-      "example" : "Blanditiis et accusantium ipsum rerum."
+      "example" : "Quaerat veniam ea."
     },
     "seqno" : {
       "type" : "integer",
       "format" : "int64",
-      "example" : 7418648063896745000
+      "example" : 8097424536545027000
     },
     "statistics" : {
       "$ref" : "#/components/schemas/ArduinoDevicev2propertyvalue_value_statistics"
     }
   },
-  "example" : "{\"payload\":\"Blanditiis et accusantium ipsum rerum.\",\"seqno\":7418648063896745000,\"statistics\":{\"adr\":0.13561737572509147,\"channel\":0.3902353259273426,\"duplicate\":0.5028846468947827,\"freq\":0.7126670896862375,\"modBW\":0.863865814062173,\"rssi\":0.5253658020227948,\"seqno\":0.13888126585007018,\"sf\":0.763900217608657,\"snr\":0.035072020695238175,\"time\":0.8941566755879066}}"
+  "example" : "{\"payload\":\"Quaerat veniam ea.\",\"seqno\":8097424536545027000,\"statistics\":{\"adr\":0.4145609595332545,\"channel\":0.8732446440967926,\"duplicate\":0.20486051473898498,\"freq\":0.017158929834861936,\"modBW\":0.39820384219980687,\"rssi\":0.6386414831859629,\"seqno\":0.4774764983016417,\"sf\":0.09467471217217566,\"snr\":0.7192401321692375,\"time\":0.03172387469401416}}"
 };
     defs["ArduinoDevicev2propertyvalue_value_statistics"] = {
   "properties" : {
     "adr" : {
       "type" : "number",
       "format" : "double",
-      "example" : 0.13561737572509147
+      "example" : 0.4145609595332545
     },
     "channel" : {
       "type" : "number",
       "format" : "double",
-      "example" : 0.3902353259273426
+      "example" : 0.8732446440967926
     },
     "duplicate" : {
       "type" : "number",
       "format" : "double",
-      "example" : 0.5028846468947827
+      "example" : 0.20486051473898498
     },
     "freq" : {
       "type" : "number",
       "format" : "double",
-      "example" : 0.7126670896862375
+      "example" : 0.017158929834861936
     },
     "modBW" : {
       "type" : "number",
       "format" : "double",
-      "example" : 0.863865814062173
+      "example" : 0.39820384219980687
     },
     "rssi" : {
       "type" : "number",
       "format" : "double",
-      "example" : 0.5253658020227948
+      "example" : 0.6386414831859629
     },
     "seqno" : {
       "type" : "number",
       "format" : "double",
-      "example" : 0.13888126585007018
+      "example" : 0.4774764983016417
     },
     "sf" : {
       "type" : "number",
       "format" : "double",
-      "example" : 0.763900217608657
+      "example" : 0.09467471217217566
     },
     "snr" : {
       "type" : "number",
       "format" : "double",
-      "example" : 0.035072020695238175
+      "example" : 0.7192401321692375
     },
     "time" : {
       "type" : "number",
       "format" : "double",
-      "example" : 0.8941566755879066
+      "example" : 0.03172387469401416
     }
   },
-  "example" : "{\"adr\":0.13561737572509147,\"channel\":0.3902353259273426,\"duplicate\":0.5028846468947827,\"freq\":0.7126670896862375,\"modBW\":0.863865814062173,\"rssi\":0.5253658020227948,\"seqno\":0.13888126585007018,\"sf\":0.763900217608657,\"snr\":0.035072020695238175,\"time\":0.8941566755879066}"
+  "example" : "{\"adr\":0.4145609595332545,\"channel\":0.8732446440967926,\"duplicate\":0.20486051473898498,\"freq\":0.017158929834861936,\"modBW\":0.39820384219980687,\"rssi\":0.6386414831859629,\"seqno\":0.4774764983016417,\"sf\":0.09467471217217566,\"snr\":0.7192401321692375,\"time\":0.03172387469401416}"
 };
     defs["ArduinoDevicev2propertyvalues"] = {
   "title" : "Mediatype identifier: application/vnd.arduino.devicev2propertyvalues+json; view=default",
@@ -1103,14 +1176,14 @@ ul.nav-tabs {
   "properties" : {
     "id" : {
       "type" : "string",
-      "example" : "Fugiat aut."
+      "example" : "Rerum deserunt sit qui autem dolorem aut."
     },
     "last_evaluated_key" : {
       "$ref" : "#/components/schemas/ArduinoDevicev2propertyvalues_last_evaluated_key"
     },
     "name" : {
       "type" : "string",
-      "example" : "Est voluptas velit debitis."
+      "example" : "Itaque suscipit ut aut consectetur."
     },
     "values" : {
       "$ref" : "#/components/schemas/ArduinoDevicev2propertyvalueCollection"
@@ -1118,47 +1191,47 @@ ul.nav-tabs {
   },
   "description" : "ArduinoDevicev2propertyvalues media type (default view)",
   "example" : {
-    "id" : "Fugiat aut.",
+    "id" : "Rerum deserunt sit qui autem dolorem aut.",
     "last_evaluated_key" : {
-      "created_at" : "1996-04-21 09:56:14",
-      "id" : "Quaerat veniam ea.",
-      "name" : "Itaque sit facilis doloremque dicta magnam."
+      "created_at" : "2001-04-01T16:40:02Z",
+      "id" : "Quia numquam consequuntur aliquid.",
+      "name" : "Quo tempora quasi quisquam delectus commodi voluptatem."
     },
-    "name" : "Est voluptas velit debitis.",
+    "name" : "Itaque suscipit ut aut consectetur.",
     "values" : [ {
-      "created_at" : "1971-04-18 03:22:50",
+      "created_at" : "1996-04-21T09:56:14Z",
       "value" : {
-        "payload" : "Blanditiis et accusantium ipsum rerum.",
-        "seqno" : 7418648063896745000,
+        "payload" : "Quaerat veniam ea.",
+        "seqno" : 8097424536545027000,
         "statistics" : {
-          "adr" : 0.13561737572509147,
-          "channel" : 0.3902353259273426,
-          "duplicate" : 0.5028846468947827,
-          "freq" : 0.7126670896862375,
-          "modBW" : 0.863865814062173,
-          "rssi" : 0.5253658020227948,
-          "seqno" : 0.13888126585007018,
-          "sf" : 0.763900217608657,
-          "snr" : 0.035072020695238175,
-          "time" : 0.8941566755879066
+          "adr" : 0.4145609595332545,
+          "channel" : 0.8732446440967926,
+          "duplicate" : 0.20486051473898498,
+          "freq" : 0.017158929834861936,
+          "modBW" : 0.39820384219980687,
+          "rssi" : 0.6386414831859629,
+          "seqno" : 0.4774764983016417,
+          "sf" : 0.09467471217217566,
+          "snr" : 0.7192401321692375,
+          "time" : 0.03172387469401416
         }
       }
     }, {
-      "created_at" : "1971-04-18 03:22:50",
+      "created_at" : "1996-04-21T09:56:14Z",
       "value" : {
-        "payload" : "Blanditiis et accusantium ipsum rerum.",
-        "seqno" : 7418648063896745000,
+        "payload" : "Quaerat veniam ea.",
+        "seqno" : 8097424536545027000,
         "statistics" : {
-          "adr" : 0.13561737572509147,
-          "channel" : 0.3902353259273426,
-          "duplicate" : 0.5028846468947827,
-          "freq" : 0.7126670896862375,
-          "modBW" : 0.863865814062173,
-          "rssi" : 0.5253658020227948,
-          "seqno" : 0.13888126585007018,
-          "sf" : 0.763900217608657,
-          "snr" : 0.035072020695238175,
-          "time" : 0.8941566755879066
+          "adr" : 0.4145609595332545,
+          "channel" : 0.8732446440967926,
+          "duplicate" : 0.20486051473898498,
+          "freq" : 0.017158929834861936,
+          "modBW" : 0.39820384219980687,
+          "rssi" : 0.6386414831859629,
+          "seqno" : 0.4774764983016417,
+          "sf" : 0.09467471217217566,
+          "snr" : 0.7192401321692375,
+          "time" : 0.03172387469401416
         }
       }
     } ]
@@ -1168,18 +1241,19 @@ ul.nav-tabs {
   "properties" : {
     "created_at" : {
       "type" : "string",
-      "format" : "date-time"
+      "format" : "date-time",
+      "example" : "2001-04-01T16:40:02Z"
     },
     "id" : {
       "type" : "string",
-      "example" : "Quaerat veniam ea."
+      "example" : "Quia numquam consequuntur aliquid."
     },
     "name" : {
       "type" : "string",
-      "example" : "Itaque sit facilis doloremque dicta magnam."
+      "example" : "Quo tempora quasi quisquam delectus commodi voluptatem."
     }
   },
-  "example" : "{\"created_at\":\"1996-04-21 09:56:14\",\"id\":\"Quaerat veniam ea.\",\"name\":\"Itaque sit facilis doloremque dicta magnam.\"}"
+  "example" : "{\"created_at\":\"2001-04-01T16:40:02Z\",\"id\":\"Quia numquam consequuntur aliquid.\",\"name\":\"Quo tempora quasi quisquam delectus commodi voluptatem.\"}"
 };
     defs["ArduinoProperty"] = {
   "title" : "Mediatype identifier: application/vnd.arduino.property+json; view=default",
@@ -1189,49 +1263,51 @@ ul.nav-tabs {
     "created_at" : {
       "type" : "string",
       "description" : "Creation date of the property",
-      "format" : "date-time"
+      "format" : "date-time",
+      "example" : "2005-05-05T07:41:55Z"
     },
     "deleted_at" : {
       "type" : "string",
       "description" : "Delete date of the property",
-      "format" : "date-time"
+      "format" : "date-time",
+      "example" : "1992-07-09T18:56:55Z"
     },
     "href" : {
       "type" : "string",
       "description" : "The api reference of this property",
-      "example" : "Molestiae veritatis maiores fugiat consequatur error vitae."
+      "example" : "Dolores earum sint quam provident magnam."
     },
     "id" : {
       "type" : "string",
       "description" : "The id of the property",
       "format" : "uuid",
-      "example" : "f107703c-b170-47fa-a504-ece3412cc5be"
+      "example" : "41494e65-f6f0-4dc8-8e45-b8972f5473ee"
     },
     "last_value" : {
       "description" : "Last value of this property",
-      "example" : 7384484011810122000
+      "example" : 0.9108133227344599
     },
     "max_value" : {
       "type" : "number",
       "description" : "Maximum value of this property",
       "format" : "double",
-      "example" : 0.934796755829885
+      "example" : 0.2389125350729462
     },
     "min_value" : {
       "type" : "number",
       "description" : "Minimum value of this property",
       "format" : "double",
-      "example" : 0.22797089832637085
+      "example" : 0.3421639821449562
     },
     "name" : {
       "type" : "string",
       "description" : "The friendly name of the property",
-      "example" : "Veritatis voluptatem molestias repudiandae quia non et."
+      "example" : "Amet culpa."
     },
     "permission" : {
       "type" : "string",
       "description" : "The permission of the property",
-      "example" : "Eius blanditiis voluptatibus."
+      "example" : "Nihil ut assumenda sed fugit."
     },
     "persist" : {
       "type" : "boolean",
@@ -1242,59 +1318,61 @@ ul.nav-tabs {
       "type" : "string",
       "description" : "The id of the thing",
       "format" : "uuid",
-      "example" : "dca063c5-4f38-46a6-b02a-a52a9dc77eb9"
+      "example" : "d16ad1df-6f98-4539-a8d8-cfa7a616064a"
     },
     "type" : {
       "type" : "string",
       "description" : "The type of the property",
-      "example" : "Sint quam provident magnam ex."
+      "example" : "Blanditiis et accusantium ipsum rerum."
     },
     "update_parameter" : {
       "type" : "number",
       "description" : "The update frequency in seconds, or the amount of the property has to change in order to trigger an update",
       "format" : "double",
-      "example" : 0.9108133227344599
+      "example" : 0.8043314347782232
     },
     "update_strategy" : {
       "type" : "string",
       "description" : "The update strategy for the property value",
-      "example" : "Odit rerum."
+      "example" : "Nesciunt id vitae dolore."
     },
     "updated_at" : {
       "type" : "string",
       "description" : "Update date of the property",
-      "format" : "date-time"
+      "format" : "date-time",
+      "example" : "1970-02-20T11:10:04Z"
     },
     "value_updated_at" : {
       "type" : "string",
       "description" : "Last update timestamp of this property",
-      "format" : "date-time"
+      "format" : "date-time",
+      "example" : "1986-04-19T17:24:01Z"
     },
     "variable_name" : {
       "type" : "string",
       "description" : "The sketch variable name of the property",
-      "example" : "Nihil ut assumenda sed fugit."
+      "example" : "Ut minus corrupti et fugiat aut."
     }
   },
   "description" : "ArduinoProperty media type (default view)",
   "example" : {
-    "created_at" : "1989-02-10 21:50:38",
-    "deleted_at" : "1986-10-07 08:22:10",
-    "href" : "Molestiae veritatis maiores fugiat consequatur error vitae.",
-    "id" : "f107703c-b170-47fa-a504-ece3412cc5be",
-    "last_value" : 7384484011810122000,
-    "max_value" : 0.934796755829885,
-    "min_value" : 0.22797089832637085,
-    "name" : "Veritatis voluptatem molestias repudiandae quia non et.",
-    "permission" : "Eius blanditiis voluptatibus.",
+    "created_at" : "2005-05-05T07:41:55Z",
+    "deleted_at" : "1992-07-09T18:56:55Z",
+    "href" : "Dolores earum sint quam provident magnam.",
+    "id" : "41494e65-f6f0-4dc8-8e45-b8972f5473ee",
+    "last_value" : 0.9108133227344599,
+    "max_value" : 0.2389125350729462,
+    "min_value" : 0.3421639821449562,
+    "name" : "Amet culpa.",
+    "permission" : "Nihil ut assumenda sed fugit.",
     "persist" : true,
-    "thing_id" : "dca063c5-4f38-46a6-b02a-a52a9dc77eb9",
-    "type" : "Sint quam provident magnam ex.",
-    "update_parameter" : 0.9108133227344599,
-    "update_strategy" : "Odit rerum.",
-    "updated_at" : "1976-06-15 02:13:21",
-    "value_updated_at" : "1975-12-11 02:29:59",
-    "variable_name" : "Nihil ut assumenda sed fugit."
+    "thing_id" : "d16ad1df-6f98-4539-a8d8-cfa7a616064a",
+    "type" : "Blanditiis et accusantium ipsum rerum.",
+    "update_parameter" : 0.8043314347782232,
+    "update_strategy" : "Nesciunt id vitae dolore.",
+    "updated_at" : "1970-02-20T11:10:04Z",
+    "value_updated_at" : "1986-04-19T17:24:01Z",
+    "variable_name" : "Ut minus corrupti et fugiat aut."
   }
 };
     defs["ArduinoSeriesBatch"] = {
@@ -1306,23 +1384,47 @@ ul.nav-tabs {
       "type" : "integer",
       "description" : "Response version",
       "format" : "int64",
-      "example" : 5613636511543308000
+      "example" : 2840052326992267300
     },
     "responses" : {
       "type" : "array",
       "description" : "Responses of the request",
       "example" : [ {
-        "count_values" : 851851550549702700,
-        "from_date" : "1999-09-13 13:37:37",
-        "interval" : 1619240658769318100,
-        "message" : "Sunt tenetur soluta omnis aliquam eos delectus.",
-        "query" : "Doloribus voluptate ut maxime in corrupti optio.",
-        "resp_version" : 5675835107047086000,
-        "series_limit" : 7822583224165287000,
-        "status" : "Eius quis et aliquam qui dolorum quam.",
-        "times" : [ "1970-06-26 14:03:25", "1970-06-26 14:03:25", "1970-06-26 14:03:25" ],
-        "to_date" : "1980-10-04 17:34:46",
-        "values" : [ 0.7096323467348542, 0.7096323467348542 ]
+        "count_values" : 2894348422787751400,
+        "from_date" : "1977-08-12T00:40:19Z",
+        "interval" : 6035192454525897000,
+        "message" : "Quidem quisquam alias accusamus et.",
+        "query" : "Est eos.",
+        "resp_version" : 1940895138135727000,
+        "series_limit" : 7362795657866156000,
+        "status" : "Ducimus est itaque id.",
+        "times" : [ "1971-12-21T10:27:35Z", "1971-12-21T10:27:35Z", "1971-12-21T10:27:35Z" ],
+        "to_date" : "1999-04-29T12:58:08Z",
+        "values" : [ 0.7861973685703203, 0.7861973685703203 ]
+      }, {
+        "count_values" : 2894348422787751400,
+        "from_date" : "1977-08-12T00:40:19Z",
+        "interval" : 6035192454525897000,
+        "message" : "Quidem quisquam alias accusamus et.",
+        "query" : "Est eos.",
+        "resp_version" : 1940895138135727000,
+        "series_limit" : 7362795657866156000,
+        "status" : "Ducimus est itaque id.",
+        "times" : [ "1971-12-21T10:27:35Z", "1971-12-21T10:27:35Z", "1971-12-21T10:27:35Z" ],
+        "to_date" : "1999-04-29T12:58:08Z",
+        "values" : [ 0.7861973685703203, 0.7861973685703203 ]
+      }, {
+        "count_values" : 2894348422787751400,
+        "from_date" : "1977-08-12T00:40:19Z",
+        "interval" : 6035192454525897000,
+        "message" : "Quidem quisquam alias accusamus et.",
+        "query" : "Est eos.",
+        "resp_version" : 1940895138135727000,
+        "series_limit" : 7362795657866156000,
+        "status" : "Ducimus est itaque id.",
+        "times" : [ "1971-12-21T10:27:35Z", "1971-12-21T10:27:35Z", "1971-12-21T10:27:35Z" ],
+        "to_date" : "1999-04-29T12:58:08Z",
+        "values" : [ 0.7861973685703203, 0.7861973685703203 ]
       } ],
       "items" : {
         "$ref" : "#/components/schemas/ArduinoSeriesResponse"
@@ -1331,19 +1433,43 @@ ul.nav-tabs {
   },
   "description" : "ArduinoSeriesBatch media type (default view)",
   "example" : {
-    "resp_version" : 5613636511543308000,
+    "resp_version" : 2840052326992267300,
     "responses" : [ {
-      "count_values" : 851851550549702700,
-      "from_date" : "1999-09-13 13:37:37",
-      "interval" : 1619240658769318100,
-      "message" : "Sunt tenetur soluta omnis aliquam eos delectus.",
-      "query" : "Doloribus voluptate ut maxime in corrupti optio.",
-      "resp_version" : 5675835107047086000,
-      "series_limit" : 7822583224165287000,
-      "status" : "Eius quis et aliquam qui dolorum quam.",
-      "times" : [ "1970-06-26 14:03:25", "1970-06-26 14:03:25", "1970-06-26 14:03:25" ],
-      "to_date" : "1980-10-04 17:34:46",
-      "values" : [ 0.7096323467348542, 0.7096323467348542 ]
+      "count_values" : 2894348422787751400,
+      "from_date" : "1977-08-12T00:40:19Z",
+      "interval" : 6035192454525897000,
+      "message" : "Quidem quisquam alias accusamus et.",
+      "query" : "Est eos.",
+      "resp_version" : 1940895138135727000,
+      "series_limit" : 7362795657866156000,
+      "status" : "Ducimus est itaque id.",
+      "times" : [ "1971-12-21T10:27:35Z", "1971-12-21T10:27:35Z", "1971-12-21T10:27:35Z" ],
+      "to_date" : "1999-04-29T12:58:08Z",
+      "values" : [ 0.7861973685703203, 0.7861973685703203 ]
+    }, {
+      "count_values" : 2894348422787751400,
+      "from_date" : "1977-08-12T00:40:19Z",
+      "interval" : 6035192454525897000,
+      "message" : "Quidem quisquam alias accusamus et.",
+      "query" : "Est eos.",
+      "resp_version" : 1940895138135727000,
+      "series_limit" : 7362795657866156000,
+      "status" : "Ducimus est itaque id.",
+      "times" : [ "1971-12-21T10:27:35Z", "1971-12-21T10:27:35Z", "1971-12-21T10:27:35Z" ],
+      "to_date" : "1999-04-29T12:58:08Z",
+      "values" : [ 0.7861973685703203, 0.7861973685703203 ]
+    }, {
+      "count_values" : 2894348422787751400,
+      "from_date" : "1977-08-12T00:40:19Z",
+      "interval" : 6035192454525897000,
+      "message" : "Quidem quisquam alias accusamus et.",
+      "query" : "Est eos.",
+      "resp_version" : 1940895138135727000,
+      "series_limit" : 7362795657866156000,
+      "status" : "Ducimus est itaque id.",
+      "times" : [ "1971-12-21T10:27:35Z", "1971-12-21T10:27:35Z", "1971-12-21T10:27:35Z" ],
+      "to_date" : "1999-04-29T12:58:08Z",
+      "values" : [ 0.7861973685703203, 0.7861973685703203 ]
     } ]
   }
 };
@@ -1356,26 +1482,41 @@ ul.nav-tabs {
       "type" : "integer",
       "description" : "Response version",
       "format" : "int64",
-      "example" : 2868069847177909000
+      "example" : 6576762972741717000
     },
     "responses" : {
       "type" : "array",
       "description" : "Responses of the request",
       "example" : [ {
-        "count_values" : 3226417121431339000,
-        "from_date" : "1988-11-09 05:13:38",
-        "message" : "Minus voluptatum occaecati.",
-        "query" : "Blanditiis enim eum quaerat fugit.",
-        "resp_version" : 8883929672170843000,
+        "count_values" : 1804250661487300000,
+        "from_date" : "1996-08-11T20:05:24Z",
+        "message" : "Quod esse commodi laborum temporibus.",
+        "query" : "Voluptates quia sint enim.",
+        "resp_version" : 1750789890261877200,
         "series" : {
-          "metric" : "Eius ut vero animi odit est."
+          "metric" : "Recusandae in dolores sit impedit."
         },
-        "series_limit" : 8233079230249179000,
-        "sort" : "ASC",
-        "status" : "Qui impedit ipsam est iure laborum distinctio.",
-        "times" : [ "1982-11-25 17:42:45" ],
-        "to_date" : "1986-01-28 11:49:00",
-        "values" : [ false, false, false ]
+        "series_limit" : 737405451965059200,
+        "sort" : "DESC",
+        "status" : "Earum blanditiis.",
+        "times" : [ "1994-06-27T17:22:26Z" ],
+        "to_date" : "1973-06-28T23:49:20Z",
+        "values" : [ "0d8c0df9-ecf3-4ba6-9fb5-71548a876f8e", "0d8c0df9-ecf3-4ba6-9fb5-71548a876f8e", "0d8c0df9-ecf3-4ba6-9fb5-71548a876f8e" ]
+      }, {
+        "count_values" : 1804250661487300000,
+        "from_date" : "1996-08-11T20:05:24Z",
+        "message" : "Quod esse commodi laborum temporibus.",
+        "query" : "Voluptates quia sint enim.",
+        "resp_version" : 1750789890261877200,
+        "series" : {
+          "metric" : "Recusandae in dolores sit impedit."
+        },
+        "series_limit" : 737405451965059200,
+        "sort" : "DESC",
+        "status" : "Earum blanditiis.",
+        "times" : [ "1994-06-27T17:22:26Z" ],
+        "to_date" : "1973-06-28T23:49:20Z",
+        "values" : [ "0d8c0df9-ecf3-4ba6-9fb5-71548a876f8e", "0d8c0df9-ecf3-4ba6-9fb5-71548a876f8e", "0d8c0df9-ecf3-4ba6-9fb5-71548a876f8e" ]
       } ],
       "items" : {
         "$ref" : "#/components/schemas/ArduinoSeriesRawResponse"
@@ -1384,22 +1525,37 @@ ul.nav-tabs {
   },
   "description" : "ArduinoSeriesRawBatch media type (default view)",
   "example" : {
-    "resp_version" : 2868069847177909000,
+    "resp_version" : 6576762972741717000,
     "responses" : [ {
-      "count_values" : 3226417121431339000,
-      "from_date" : "1988-11-09 05:13:38",
-      "message" : "Minus voluptatum occaecati.",
-      "query" : "Blanditiis enim eum quaerat fugit.",
-      "resp_version" : 8883929672170843000,
+      "count_values" : 1804250661487300000,
+      "from_date" : "1996-08-11T20:05:24Z",
+      "message" : "Quod esse commodi laborum temporibus.",
+      "query" : "Voluptates quia sint enim.",
+      "resp_version" : 1750789890261877200,
       "series" : {
-        "metric" : "Eius ut vero animi odit est."
+        "metric" : "Recusandae in dolores sit impedit."
       },
-      "series_limit" : 8233079230249179000,
-      "sort" : "ASC",
-      "status" : "Qui impedit ipsam est iure laborum distinctio.",
-      "times" : [ "1982-11-25 17:42:45" ],
-      "to_date" : "1986-01-28 11:49:00",
-      "values" : [ false, false, false ]
+      "series_limit" : 737405451965059200,
+      "sort" : "DESC",
+      "status" : "Earum blanditiis.",
+      "times" : [ "1994-06-27T17:22:26Z" ],
+      "to_date" : "1973-06-28T23:49:20Z",
+      "values" : [ "0d8c0df9-ecf3-4ba6-9fb5-71548a876f8e", "0d8c0df9-ecf3-4ba6-9fb5-71548a876f8e", "0d8c0df9-ecf3-4ba6-9fb5-71548a876f8e" ]
+    }, {
+      "count_values" : 1804250661487300000,
+      "from_date" : "1996-08-11T20:05:24Z",
+      "message" : "Quod esse commodi laborum temporibus.",
+      "query" : "Voluptates quia sint enim.",
+      "resp_version" : 1750789890261877200,
+      "series" : {
+        "metric" : "Recusandae in dolores sit impedit."
+      },
+      "series_limit" : 737405451965059200,
+      "sort" : "DESC",
+      "status" : "Earum blanditiis.",
+      "times" : [ "1994-06-27T17:22:26Z" ],
+      "to_date" : "1973-06-28T23:49:20Z",
+      "values" : [ "0d8c0df9-ecf3-4ba6-9fb5-71548a876f8e", "0d8c0df9-ecf3-4ba6-9fb5-71548a876f8e", "0d8c0df9-ecf3-4ba6-9fb5-71548a876f8e" ]
     } ]
   }
 };
@@ -1412,23 +1568,23 @@ ul.nav-tabs {
       "type" : "array",
       "description" : "Responses of the request",
       "example" : [ {
-        "count_values" : 3446443929356168000,
-        "property_id" : "2be022d2-0d74-4d3c-b801-0cf04d7acbaa",
-        "thing_id" : "4af8d410-257d-4c3e-861b-fee43c560926",
-        "times" : [ "1989-12-20 02:26:23" ],
-        "values" : [ "b297f707-638a-47b3-85cc-8f9d8eba0a1f" ]
+        "count_values" : 5303634463817998000,
+        "property_id" : "7689d8f3-fe25-4c47-8523-1894afd591e7",
+        "thing_id" : "4d4e569b-53d7-4da7-bb99-82f453e175fd",
+        "times" : [ "2009-08-08T21:46:13Z", "2009-08-08T21:46:13Z" ],
+        "values" : [ false ]
       }, {
-        "count_values" : 3446443929356168000,
-        "property_id" : "2be022d2-0d74-4d3c-b801-0cf04d7acbaa",
-        "thing_id" : "4af8d410-257d-4c3e-861b-fee43c560926",
-        "times" : [ "1989-12-20 02:26:23" ],
-        "values" : [ "b297f707-638a-47b3-85cc-8f9d8eba0a1f" ]
+        "count_values" : 5303634463817998000,
+        "property_id" : "7689d8f3-fe25-4c47-8523-1894afd591e7",
+        "thing_id" : "4d4e569b-53d7-4da7-bb99-82f453e175fd",
+        "times" : [ "2009-08-08T21:46:13Z", "2009-08-08T21:46:13Z" ],
+        "values" : [ false ]
       }, {
-        "count_values" : 3446443929356168000,
-        "property_id" : "2be022d2-0d74-4d3c-b801-0cf04d7acbaa",
-        "thing_id" : "4af8d410-257d-4c3e-861b-fee43c560926",
-        "times" : [ "1989-12-20 02:26:23" ],
-        "values" : [ "b297f707-638a-47b3-85cc-8f9d8eba0a1f" ]
+        "count_values" : 5303634463817998000,
+        "property_id" : "7689d8f3-fe25-4c47-8523-1894afd591e7",
+        "thing_id" : "4d4e569b-53d7-4da7-bb99-82f453e175fd",
+        "times" : [ "2009-08-08T21:46:13Z", "2009-08-08T21:46:13Z" ],
+        "values" : [ false ]
       } ],
       "items" : {
         "$ref" : "#/components/schemas/ArduinoSeriesRawLastValueResponse"
@@ -1437,31 +1593,31 @@ ul.nav-tabs {
     "status" : {
       "type" : "string",
       "description" : "Status of the response",
-      "example" : "Minus adipisci sed."
+      "example" : "Modi harum reiciendis amet consequuntur id deserunt."
     }
   },
   "description" : "ArduinoSeriesRawBatchLastvalue media type (default view)",
   "example" : {
     "responses" : [ {
-      "count_values" : 3446443929356168000,
-      "property_id" : "2be022d2-0d74-4d3c-b801-0cf04d7acbaa",
-      "thing_id" : "4af8d410-257d-4c3e-861b-fee43c560926",
-      "times" : [ "1989-12-20 02:26:23" ],
-      "values" : [ "b297f707-638a-47b3-85cc-8f9d8eba0a1f" ]
+      "count_values" : 5303634463817998000,
+      "property_id" : "7689d8f3-fe25-4c47-8523-1894afd591e7",
+      "thing_id" : "4d4e569b-53d7-4da7-bb99-82f453e175fd",
+      "times" : [ "2009-08-08T21:46:13Z", "2009-08-08T21:46:13Z" ],
+      "values" : [ false ]
     }, {
-      "count_values" : 3446443929356168000,
-      "property_id" : "2be022d2-0d74-4d3c-b801-0cf04d7acbaa",
-      "thing_id" : "4af8d410-257d-4c3e-861b-fee43c560926",
-      "times" : [ "1989-12-20 02:26:23" ],
-      "values" : [ "b297f707-638a-47b3-85cc-8f9d8eba0a1f" ]
+      "count_values" : 5303634463817998000,
+      "property_id" : "7689d8f3-fe25-4c47-8523-1894afd591e7",
+      "thing_id" : "4d4e569b-53d7-4da7-bb99-82f453e175fd",
+      "times" : [ "2009-08-08T21:46:13Z", "2009-08-08T21:46:13Z" ],
+      "values" : [ false ]
     }, {
-      "count_values" : 3446443929356168000,
-      "property_id" : "2be022d2-0d74-4d3c-b801-0cf04d7acbaa",
-      "thing_id" : "4af8d410-257d-4c3e-861b-fee43c560926",
-      "times" : [ "1989-12-20 02:26:23" ],
-      "values" : [ "b297f707-638a-47b3-85cc-8f9d8eba0a1f" ]
+      "count_values" : 5303634463817998000,
+      "property_id" : "7689d8f3-fe25-4c47-8523-1894afd591e7",
+      "thing_id" : "4d4e569b-53d7-4da7-bb99-82f453e175fd",
+      "times" : [ "2009-08-08T21:46:13Z", "2009-08-08T21:46:13Z" ],
+      "values" : [ false ]
     } ],
-    "status" : "Minus adipisci sed."
+    "status" : "Modi harum reiciendis amet consequuntur id deserunt."
   }
 };
     defs["ArduinoSeriesRawLastValueResponse"] = {
@@ -1473,45 +1629,46 @@ ul.nav-tabs {
       "type" : "integer",
       "description" : "Total number of values in the array 'values'",
       "format" : "int64",
-      "example" : 3446443929356168000
+      "example" : 5303634463817998000
     },
     "property_id" : {
       "type" : "string",
       "description" : "Property id",
       "format" : "uuid",
-      "example" : "2be022d2-0d74-4d3c-b801-0cf04d7acbaa"
+      "example" : "7689d8f3-fe25-4c47-8523-1894afd591e7"
     },
     "thing_id" : {
       "type" : "string",
       "description" : "Thing id",
       "format" : "uuid",
-      "example" : "4af8d410-257d-4c3e-861b-fee43c560926"
+      "example" : "4d4e569b-53d7-4da7-bb99-82f453e175fd"
     },
     "times" : {
       "type" : "array",
       "description" : "Timestamp in RFC3339",
-      "example" : [ "1989-12-20 02:26:23" ],
+      "example" : [ "2009-08-08T21:46:13Z", "2009-08-08T21:46:13Z" ],
       "items" : {
         "type" : "string",
-        "format" : "date-time"
+        "format" : "date-time",
+        "example" : "2009-08-08T21:46:13Z"
       }
     },
     "values" : {
       "type" : "array",
       "description" : "Values can be in Float, String, Bool, Object",
-      "example" : [ "b297f707-638a-47b3-85cc-8f9d8eba0a1f" ],
+      "example" : [ false ],
       "items" : {
-        "example" : "b297f707-638a-47b3-85cc-8f9d8eba0a1f"
+        "example" : false
       }
     }
   },
   "description" : "ArduinoSeriesRawLastValueResponse media type (default view)",
   "example" : {
-    "count_values" : 3446443929356168000,
-    "property_id" : "2be022d2-0d74-4d3c-b801-0cf04d7acbaa",
-    "thing_id" : "4af8d410-257d-4c3e-861b-fee43c560926",
-    "times" : [ "1989-12-20 02:26:23" ],
-    "values" : [ "b297f707-638a-47b3-85cc-8f9d8eba0a1f" ]
+    "count_values" : 5303634463817998000,
+    "property_id" : "7689d8f3-fe25-4c47-8523-1894afd591e7",
+    "thing_id" : "4d4e569b-53d7-4da7-bb99-82f453e175fd",
+    "times" : [ "2009-08-08T21:46:13Z", "2009-08-08T21:46:13Z" ],
+    "values" : [ false ]
   }
 };
     defs["ArduinoSeriesRawResponse"] = {
@@ -1523,29 +1680,30 @@ ul.nav-tabs {
       "type" : "integer",
       "description" : "Total number of values in the array 'values'",
       "format" : "int64",
-      "example" : 3226417121431339000
+      "example" : 1804250661487300000
     },
     "from_date" : {
       "type" : "string",
       "description" : "From date",
-      "format" : "date-time"
+      "format" : "date-time",
+      "example" : "1996-08-11T20:05:24Z"
     },
     "message" : {
       "type" : "string",
       "description" : "If the response is different than 'ok'",
-      "example" : "Minus voluptatum occaecati.",
+      "example" : "Quod esse commodi laborum temporibus.",
       "default" : ""
     },
     "query" : {
       "type" : "string",
       "description" : "Query of for the data",
-      "example" : "Blanditiis enim eum quaerat fugit."
+      "example" : "Voluptates quia sint enim."
     },
     "resp_version" : {
       "type" : "integer",
       "description" : "Response version",
       "format" : "int64",
-      "example" : 8883929672170843000
+      "example" : 1750789890261877200
     },
     "series" : {
       "$ref" : "#/components/schemas/BatchQueryRawResponseSeriesMediaV1"
@@ -1554,58 +1712,60 @@ ul.nav-tabs {
       "type" : "integer",
       "description" : "Max of values",
       "format" : "int64",
-      "example" : 8233079230249179000
+      "example" : 737405451965059200
     },
     "sort" : {
       "type" : "string",
       "description" : "Sorting",
-      "example" : "ASC",
+      "example" : "DESC",
       "enum" : [ "ASC", "DESC" ]
     },
     "status" : {
       "type" : "string",
       "description" : "Status of the response",
-      "example" : "Qui impedit ipsam est iure laborum distinctio."
+      "example" : "Earum blanditiis."
     },
     "times" : {
       "type" : "array",
       "description" : "Timestamp in RFC3339",
-      "example" : [ "1982-11-25 17:42:45" ],
+      "example" : [ "1994-06-27T17:22:26Z" ],
       "items" : {
         "type" : "string",
-        "format" : "date-time"
+        "format" : "date-time",
+        "example" : "1994-06-27T17:22:26Z"
       }
     },
     "to_date" : {
       "type" : "string",
       "description" : "To date",
-      "format" : "date-time"
+      "format" : "date-time",
+      "example" : "1973-06-28T23:49:20Z"
     },
     "values" : {
       "type" : "array",
       "description" : "Values can be in Float, String, Bool, Object",
-      "example" : [ false, false, false ],
+      "example" : [ "0d8c0df9-ecf3-4ba6-9fb5-71548a876f8e", "0d8c0df9-ecf3-4ba6-9fb5-71548a876f8e", "0d8c0df9-ecf3-4ba6-9fb5-71548a876f8e" ],
       "items" : {
-        "example" : false
+        "example" : "0d8c0df9-ecf3-4ba6-9fb5-71548a876f8e"
       }
     }
   },
   "description" : "ArduinoSeriesRawResponse media type (default view)",
   "example" : {
-    "count_values" : 3226417121431339000,
-    "from_date" : "1988-11-09 05:13:38",
-    "message" : "Minus voluptatum occaecati.",
-    "query" : "Blanditiis enim eum quaerat fugit.",
-    "resp_version" : 8883929672170843000,
+    "count_values" : 1804250661487300000,
+    "from_date" : "1996-08-11T20:05:24Z",
+    "message" : "Quod esse commodi laborum temporibus.",
+    "query" : "Voluptates quia sint enim.",
+    "resp_version" : 1750789890261877200,
     "series" : {
-      "metric" : "Eius ut vero animi odit est."
+      "metric" : "Recusandae in dolores sit impedit."
     },
-    "series_limit" : 8233079230249179000,
-    "sort" : "ASC",
-    "status" : "Qui impedit ipsam est iure laborum distinctio.",
-    "times" : [ "1982-11-25 17:42:45" ],
-    "to_date" : "1986-01-28 11:49:00",
-    "values" : [ false, false, false ]
+    "series_limit" : 737405451965059200,
+    "sort" : "DESC",
+    "status" : "Earum blanditiis.",
+    "times" : [ "1994-06-27T17:22:26Z" ],
+    "to_date" : "1973-06-28T23:49:20Z",
+    "values" : [ "0d8c0df9-ecf3-4ba6-9fb5-71548a876f8e", "0d8c0df9-ecf3-4ba6-9fb5-71548a876f8e", "0d8c0df9-ecf3-4ba6-9fb5-71548a876f8e" ]
   }
 };
     defs["ArduinoSeriesResponse"] = {
@@ -1617,85 +1777,88 @@ ul.nav-tabs {
       "type" : "integer",
       "description" : "Total number of values in the array 'values'",
       "format" : "int64",
-      "example" : 851851550549702700
+      "example" : 2894348422787751400
     },
     "from_date" : {
       "type" : "string",
       "description" : "From date",
-      "format" : "date-time"
+      "format" : "date-time",
+      "example" : "1977-08-12T00:40:19Z"
     },
     "interval" : {
       "type" : "integer",
       "description" : "Resolution in seconds",
       "format" : "int64",
-      "example" : 1619240658769318100
+      "example" : 6035192454525897000
     },
     "message" : {
       "type" : "string",
       "description" : "If the response is different than 'ok'",
-      "example" : "Sunt tenetur soluta omnis aliquam eos delectus.",
+      "example" : "Quidem quisquam alias accusamus et.",
       "default" : ""
     },
     "query" : {
       "type" : "string",
       "description" : "Query of for the data",
-      "example" : "Doloribus voluptate ut maxime in corrupti optio."
+      "example" : "Est eos."
     },
     "resp_version" : {
       "type" : "integer",
       "description" : "Response version",
       "format" : "int64",
-      "example" : 5675835107047086000
+      "example" : 1940895138135727000
     },
     "series_limit" : {
       "type" : "integer",
       "description" : "Max of values",
       "format" : "int64",
-      "example" : 7822583224165287000
+      "example" : 7362795657866156000
     },
     "status" : {
       "type" : "string",
       "description" : "Status of the response",
-      "example" : "Eius quis et aliquam qui dolorum quam."
+      "example" : "Ducimus est itaque id."
     },
     "times" : {
       "type" : "array",
       "description" : "Timestamp in RFC3339",
-      "example" : [ "1970-06-26 14:03:25", "1970-06-26 14:03:25", "1970-06-26 14:03:25" ],
+      "example" : [ "1971-12-21T10:27:35Z", "1971-12-21T10:27:35Z", "1971-12-21T10:27:35Z" ],
       "items" : {
         "type" : "string",
-        "format" : "date-time"
+        "format" : "date-time",
+        "example" : "1971-12-21T10:27:35Z"
       }
     },
     "to_date" : {
       "type" : "string",
       "description" : "To date",
-      "format" : "date-time"
+      "format" : "date-time",
+      "example" : "1999-04-29T12:58:08Z"
     },
     "values" : {
       "type" : "array",
       "description" : "Values in Float",
-      "example" : [ 0.7096323467348542, 0.7096323467348542 ],
+      "example" : [ 0.7861973685703203, 0.7861973685703203 ],
       "items" : {
         "type" : "number",
         "format" : "double",
-        "example" : 0.7096323467348542
+        "example" : 0.7861973685703203
       }
     }
   },
   "description" : "ArduinoSeriesResponse media type (default view)",
   "example" : {
-    "count_values" : 851851550549702700,
-    "from_date" : "1999-09-13 13:37:37",
-    "interval" : 1619240658769318100,
-    "message" : "Sunt tenetur soluta omnis aliquam eos delectus.",
-    "query" : "Doloribus voluptate ut maxime in corrupti optio.",
-    "resp_version" : 5675835107047086000,
-    "series_limit" : 7822583224165287000,
-    "status" : "Eius quis et aliquam qui dolorum quam.",
-    "times" : [ "1970-06-26 14:03:25", "1970-06-26 14:03:25", "1970-06-26 14:03:25" ],
-    "to_date" : "1980-10-04 17:34:46",
-    "values" : [ 0.7096323467348542, 0.7096323467348542 ]
+    "count_values" : 2894348422787751400,
+    "from_date" : "1977-08-12T00:40:19Z",
+    "interval" : 6035192454525897000,
+    "message" : "Quidem quisquam alias accusamus et.",
+    "query" : "Est eos.",
+    "resp_version" : 1940895138135727000,
+    "series_limit" : 7362795657866156000,
+    "status" : "Ducimus est itaque id.",
+    "times" : [ "1971-12-21T10:27:35Z", "1971-12-21T10:27:35Z", "1971-12-21T10:27:35Z" ],
+    "to_date" : "1999-04-29T12:58:08Z",
+    "values" : [ 0.7861973685703203, 0.7861973685703203 ]
   }
 };
     defs["ArduinoThing"] = {
@@ -1706,141 +1869,144 @@ ul.nav-tabs {
     "created_at" : {
       "type" : "string",
       "description" : "Creation date of the thing",
-      "format" : "date-time"
+      "format" : "date-time",
+      "example" : "1972-10-14T15:39:26Z"
     },
     "deleted_at" : {
       "type" : "string",
       "description" : "Delete date of the thing",
-      "format" : "date-time"
+      "format" : "date-time",
+      "example" : "2007-10-31T12:17:14Z"
     },
     "device_id" : {
       "type" : "string",
       "description" : "The arn of the device",
       "format" : "uuid",
-      "example" : "1ca0e199-407c-4f5f-914d-ee6cd6b8c580"
+      "example" : "a67e24fc-074b-483a-8b2a-5fc5c492ee16"
     },
     "href" : {
       "type" : "string",
       "description" : "The api reference of this thing",
-      "example" : "Enim perspiciatis."
+      "example" : "Tenetur quo voluptatibus."
     },
     "id" : {
       "type" : "string",
       "description" : "The id of the thing",
       "format" : "uuid",
-      "example" : "84f2478b-00de-436e-b01e-b600b2a69d21"
+      "example" : "d687e24c-b227-471a-977d-26fcaf348bb7"
     },
     "name" : {
       "type" : "string",
       "description" : "The friendly name of the thing",
-      "example" : "Recusandae in dolores sit impedit."
+      "example" : "Hic ducimus esse minus delectus."
     },
     "properties" : {
       "$ref" : "#/components/schemas/ArduinoPropertyCollection"
     },
     "properties_count" : {
-      "type" : "number",
+      "type" : "integer",
       "description" : "The number of properties of the thing",
-      "format" : "double",
-      "example" : 0.5358556143241109
+      "format" : "int64",
+      "example" : 5200800113432373000
     },
     "sketch_id" : {
       "type" : "string",
       "description" : "The id of the attached sketch",
       "format" : "uuid",
-      "example" : "384d49c6-d7b2-4ddb-836a-d426906300a7"
+      "example" : "f71a7cd1-cfff-42bf-9ce7-5f63a0d517d6"
     },
     "updated_at" : {
       "type" : "string",
       "description" : "Update date of the thing",
-      "format" : "date-time"
+      "format" : "date-time",
+      "example" : "1994-11-24T16:39:40Z"
     },
     "user_id" : {
       "type" : "string",
       "description" : "The user id of the owner",
       "format" : "uuid",
-      "example" : "849fa638-b404-439f-9d25-20fa59d9050a"
+      "example" : "e8330122-72cb-4bbb-8c62-2d31cb421130"
     },
     "webhook_active" : {
       "type" : "boolean",
       "description" : "Webhook uri",
-      "example" : false
+      "example" : true
     },
     "webhook_uri" : {
       "type" : "string",
       "description" : "Webhook uri",
-      "example" : "Sint vel incidunt sunt."
+      "example" : "Voluptas optio sit possimus quas nemo quia."
     }
   },
   "description" : "ArduinoThing media type (default view)",
   "example" : {
-    "created_at" : "1996-08-08 19:57:38",
-    "deleted_at" : "1990-10-20 07:21:28",
-    "device_id" : "1ca0e199-407c-4f5f-914d-ee6cd6b8c580",
-    "href" : "Enim perspiciatis.",
-    "id" : "84f2478b-00de-436e-b01e-b600b2a69d21",
-    "name" : "Recusandae in dolores sit impedit.",
+    "created_at" : "1972-10-14T15:39:26Z",
+    "deleted_at" : "2007-10-31T12:17:14Z",
+    "device_id" : "a67e24fc-074b-483a-8b2a-5fc5c492ee16",
+    "href" : "Tenetur quo voluptatibus.",
+    "id" : "d687e24c-b227-471a-977d-26fcaf348bb7",
+    "name" : "Hic ducimus esse minus delectus.",
     "properties" : [ {
-      "created_at" : "1989-02-10 21:50:38",
-      "deleted_at" : "1986-10-07 08:22:10",
-      "href" : "Molestiae veritatis maiores fugiat consequatur error vitae.",
-      "id" : "f107703c-b170-47fa-a504-ece3412cc5be",
-      "last_value" : 7384484011810122000,
-      "max_value" : 0.934796755829885,
-      "min_value" : 0.22797089832637085,
-      "name" : "Veritatis voluptatem molestias repudiandae quia non et.",
-      "permission" : "Eius blanditiis voluptatibus.",
+      "created_at" : "2005-05-05T07:41:55Z",
+      "deleted_at" : "1992-07-09T18:56:55Z",
+      "href" : "Dolores earum sint quam provident magnam.",
+      "id" : "41494e65-f6f0-4dc8-8e45-b8972f5473ee",
+      "last_value" : 0.9108133227344599,
+      "max_value" : 0.2389125350729462,
+      "min_value" : 0.3421639821449562,
+      "name" : "Amet culpa.",
+      "permission" : "Nihil ut assumenda sed fugit.",
       "persist" : true,
-      "thing_id" : "dca063c5-4f38-46a6-b02a-a52a9dc77eb9",
-      "type" : "Sint quam provident magnam ex.",
-      "update_parameter" : 0.9108133227344599,
-      "update_strategy" : "Odit rerum.",
-      "updated_at" : "1976-06-15 02:13:21",
-      "value_updated_at" : "1975-12-11 02:29:59",
-      "variable_name" : "Nihil ut assumenda sed fugit."
+      "thing_id" : "d16ad1df-6f98-4539-a8d8-cfa7a616064a",
+      "type" : "Blanditiis et accusantium ipsum rerum.",
+      "update_parameter" : 0.8043314347782232,
+      "update_strategy" : "Nesciunt id vitae dolore.",
+      "updated_at" : "1970-02-20T11:10:04Z",
+      "value_updated_at" : "1986-04-19T17:24:01Z",
+      "variable_name" : "Ut minus corrupti et fugiat aut."
     }, {
-      "created_at" : "1989-02-10 21:50:38",
-      "deleted_at" : "1986-10-07 08:22:10",
-      "href" : "Molestiae veritatis maiores fugiat consequatur error vitae.",
-      "id" : "f107703c-b170-47fa-a504-ece3412cc5be",
-      "last_value" : 7384484011810122000,
-      "max_value" : 0.934796755829885,
-      "min_value" : 0.22797089832637085,
-      "name" : "Veritatis voluptatem molestias repudiandae quia non et.",
-      "permission" : "Eius blanditiis voluptatibus.",
+      "created_at" : "2005-05-05T07:41:55Z",
+      "deleted_at" : "1992-07-09T18:56:55Z",
+      "href" : "Dolores earum sint quam provident magnam.",
+      "id" : "41494e65-f6f0-4dc8-8e45-b8972f5473ee",
+      "last_value" : 0.9108133227344599,
+      "max_value" : 0.2389125350729462,
+      "min_value" : 0.3421639821449562,
+      "name" : "Amet culpa.",
+      "permission" : "Nihil ut assumenda sed fugit.",
       "persist" : true,
-      "thing_id" : "dca063c5-4f38-46a6-b02a-a52a9dc77eb9",
-      "type" : "Sint quam provident magnam ex.",
-      "update_parameter" : 0.9108133227344599,
-      "update_strategy" : "Odit rerum.",
-      "updated_at" : "1976-06-15 02:13:21",
-      "value_updated_at" : "1975-12-11 02:29:59",
-      "variable_name" : "Nihil ut assumenda sed fugit."
+      "thing_id" : "d16ad1df-6f98-4539-a8d8-cfa7a616064a",
+      "type" : "Blanditiis et accusantium ipsum rerum.",
+      "update_parameter" : 0.8043314347782232,
+      "update_strategy" : "Nesciunt id vitae dolore.",
+      "updated_at" : "1970-02-20T11:10:04Z",
+      "value_updated_at" : "1986-04-19T17:24:01Z",
+      "variable_name" : "Ut minus corrupti et fugiat aut."
     }, {
-      "created_at" : "1989-02-10 21:50:38",
-      "deleted_at" : "1986-10-07 08:22:10",
-      "href" : "Molestiae veritatis maiores fugiat consequatur error vitae.",
-      "id" : "f107703c-b170-47fa-a504-ece3412cc5be",
-      "last_value" : 7384484011810122000,
-      "max_value" : 0.934796755829885,
-      "min_value" : 0.22797089832637085,
-      "name" : "Veritatis voluptatem molestias repudiandae quia non et.",
-      "permission" : "Eius blanditiis voluptatibus.",
+      "created_at" : "2005-05-05T07:41:55Z",
+      "deleted_at" : "1992-07-09T18:56:55Z",
+      "href" : "Dolores earum sint quam provident magnam.",
+      "id" : "41494e65-f6f0-4dc8-8e45-b8972f5473ee",
+      "last_value" : 0.9108133227344599,
+      "max_value" : 0.2389125350729462,
+      "min_value" : 0.3421639821449562,
+      "name" : "Amet culpa.",
+      "permission" : "Nihil ut assumenda sed fugit.",
       "persist" : true,
-      "thing_id" : "dca063c5-4f38-46a6-b02a-a52a9dc77eb9",
-      "type" : "Sint quam provident magnam ex.",
-      "update_parameter" : 0.9108133227344599,
-      "update_strategy" : "Odit rerum.",
-      "updated_at" : "1976-06-15 02:13:21",
-      "value_updated_at" : "1975-12-11 02:29:59",
-      "variable_name" : "Nihil ut assumenda sed fugit."
+      "thing_id" : "d16ad1df-6f98-4539-a8d8-cfa7a616064a",
+      "type" : "Blanditiis et accusantium ipsum rerum.",
+      "update_parameter" : 0.8043314347782232,
+      "update_strategy" : "Nesciunt id vitae dolore.",
+      "updated_at" : "1970-02-20T11:10:04Z",
+      "value_updated_at" : "1986-04-19T17:24:01Z",
+      "variable_name" : "Ut minus corrupti et fugiat aut."
     } ],
-    "properties_count" : 0.5358556143241109,
-    "sketch_id" : "384d49c6-d7b2-4ddb-836a-d426906300a7",
-    "updated_at" : "1971-06-05 01:14:12",
-    "user_id" : "849fa638-b404-439f-9d25-20fa59d9050a",
-    "webhook_active" : false,
-    "webhook_uri" : "Sint vel incidunt sunt."
+    "properties_count" : 5200800113432373000,
+    "sketch_id" : "f71a7cd1-cfff-42bf-9ce7-5f63a0d517d6",
+    "updated_at" : "1994-11-24T16:39:40Z",
+    "user_id" : "e8330122-72cb-4bbb-8c62-2d31cb421130",
+    "webhook_active" : true,
+    "webhook_uri" : "Voluptas optio sit possimus quas nemo quia."
   }
 };
     defs["BatchLastValueRequestsMediaV1"] = {
@@ -1852,8 +2018,8 @@ ul.nav-tabs {
       "type" : "array",
       "description" : "Requests",
       "example" : [ {
-        "property_id" : "63715088-d2b5-4b91-b06f-3bfb1b813555",
-        "thing_id" : "afcf2f51-5a24-479e-9a3c-e8bbe3d1fa13"
+        "property_id" : "f9b2c42b-204a-4b8e-9a13-ce5f5467d185",
+        "thing_id" : "3db5deb2-02d2-41eb-9f02-aa41531a4848"
       } ],
       "items" : {
         "$ref" : "#/components/schemas/BatchQueryRawLastValueRequestMediaV1"
@@ -1862,8 +2028,8 @@ ul.nav-tabs {
   },
   "example" : {
     "requests" : [ {
-      "property_id" : "63715088-d2b5-4b91-b06f-3bfb1b813555",
-      "thing_id" : "afcf2f51-5a24-479e-9a3c-e8bbe3d1fa13"
+      "property_id" : "f9b2c42b-204a-4b8e-9a13-ce5f5467d185",
+      "thing_id" : "3db5deb2-02d2-41eb-9f02-aa41531a4848"
     } ]
   }
 };
@@ -1876,18 +2042,18 @@ ul.nav-tabs {
       "type" : "string",
       "description" : "Property id",
       "format" : "uuid",
-      "example" : "63715088-d2b5-4b91-b06f-3bfb1b813555"
+      "example" : "f9b2c42b-204a-4b8e-9a13-ce5f5467d185"
     },
     "thing_id" : {
       "type" : "string",
       "description" : "Thing id",
       "format" : "uuid",
-      "example" : "afcf2f51-5a24-479e-9a3c-e8bbe3d1fa13"
+      "example" : "3db5deb2-02d2-41eb-9f02-aa41531a4848"
     }
   },
   "example" : {
-    "property_id" : "63715088-d2b5-4b91-b06f-3bfb1b813555",
-    "thing_id" : "afcf2f51-5a24-479e-9a3c-e8bbe3d1fa13"
+    "property_id" : "f9b2c42b-204a-4b8e-9a13-ce5f5467d185",
+    "thing_id" : "3db5deb2-02d2-41eb-9f02-aa41531a4848"
   }
 };
     defs["BatchQueryRawRequestMediaV1"] = {
@@ -1898,38 +2064,40 @@ ul.nav-tabs {
     "from" : {
       "type" : "string",
       "description" : "From timestamp",
-      "format" : "date-time"
+      "format" : "date-time",
+      "example" : "2001-02-12T01:49:43Z"
     },
     "q" : {
       "type" : "string",
       "description" : "Query",
-      "example" : "Doloremque quibusdam doloribus."
+      "example" : "In autem dicta corporis maiores."
     },
     "series_limit" : {
       "type" : "integer",
       "description" : "Max of values",
       "format" : "int64",
-      "example" : 785550034178255100
+      "example" : 3134592750163641000
     },
     "sort" : {
       "type" : "string",
       "description" : "Sorting",
-      "example" : "ASC",
+      "example" : "DESC",
       "enum" : [ "ASC", "DESC" ],
       "default" : "DESC"
     },
     "to" : {
       "type" : "string",
       "description" : "To timestamp",
-      "format" : "date-time"
+      "format" : "date-time",
+      "example" : "1973-09-15T00:45:48Z"
     }
   },
   "example" : {
-    "from" : "1992-07-30 22:02:50",
-    "q" : "Doloremque quibusdam doloribus.",
-    "series_limit" : 785550034178255100,
-    "sort" : "ASC",
-    "to" : "1987-01-01 02:00:22"
+    "from" : "2001-02-12T01:49:43Z",
+    "q" : "In autem dicta corporis maiores.",
+    "series_limit" : 3134592750163641000,
+    "sort" : "DESC",
+    "to" : "1973-09-15T00:45:48Z"
   }
 };
     defs["BatchQueryRawRequestsMediaV1"] = {
@@ -1941,17 +2109,17 @@ ul.nav-tabs {
       "type" : "array",
       "description" : "Requests",
       "example" : [ {
-        "from" : "1992-07-30 22:02:50",
-        "q" : "Doloremque quibusdam doloribus.",
-        "series_limit" : 785550034178255100,
-        "sort" : "ASC",
-        "to" : "1987-01-01 02:00:22"
+        "from" : "2001-02-12T01:49:43Z",
+        "q" : "In autem dicta corporis maiores.",
+        "series_limit" : 3134592750163641000,
+        "sort" : "DESC",
+        "to" : "1973-09-15T00:45:48Z"
       }, {
-        "from" : "1992-07-30 22:02:50",
-        "q" : "Doloremque quibusdam doloribus.",
-        "series_limit" : 785550034178255100,
-        "sort" : "ASC",
-        "to" : "1987-01-01 02:00:22"
+        "from" : "2001-02-12T01:49:43Z",
+        "q" : "In autem dicta corporis maiores.",
+        "series_limit" : 3134592750163641000,
+        "sort" : "DESC",
+        "to" : "1973-09-15T00:45:48Z"
       } ],
       "items" : {
         "$ref" : "#/components/schemas/BatchQueryRawRequestMediaV1"
@@ -1961,24 +2129,24 @@ ul.nav-tabs {
       "type" : "integer",
       "description" : "Response version",
       "format" : "int64",
-      "example" : 689977076942724500
+      "example" : 2159744257240957000
     }
   },
   "example" : {
     "requests" : [ {
-      "from" : "1992-07-30 22:02:50",
-      "q" : "Doloremque quibusdam doloribus.",
-      "series_limit" : 785550034178255100,
-      "sort" : "ASC",
-      "to" : "1987-01-01 02:00:22"
+      "from" : "2001-02-12T01:49:43Z",
+      "q" : "In autem dicta corporis maiores.",
+      "series_limit" : 3134592750163641000,
+      "sort" : "DESC",
+      "to" : "1973-09-15T00:45:48Z"
     }, {
-      "from" : "1992-07-30 22:02:50",
-      "q" : "Doloremque quibusdam doloribus.",
-      "series_limit" : 785550034178255100,
-      "sort" : "ASC",
-      "to" : "1987-01-01 02:00:22"
+      "from" : "2001-02-12T01:49:43Z",
+      "q" : "In autem dicta corporis maiores.",
+      "series_limit" : 3134592750163641000,
+      "sort" : "DESC",
+      "to" : "1973-09-15T00:45:48Z"
     } ],
-    "resp_version" : 689977076942724500
+    "resp_version" : 2159744257240957000
   }
 };
     defs["BatchQueryRawResponseSeriesMediaV1"] = {
@@ -1989,11 +2157,11 @@ ul.nav-tabs {
     "metric" : {
       "type" : "string",
       "description" : "Metric name",
-      "example" : "Eius ut vero animi odit est."
+      "example" : "Recusandae in dolores sit impedit."
     }
   },
   "example" : {
-    "metric" : "Eius ut vero animi odit est."
+    "metric" : "Recusandae in dolores sit impedit."
   }
 };
     defs["BatchQueryRequestMediaV1"] = {
@@ -2004,37 +2172,39 @@ ul.nav-tabs {
     "from" : {
       "type" : "string",
       "description" : "From timestamp",
-      "format" : "date-time"
+      "format" : "date-time",
+      "example" : "1990-07-07T22:42:09Z"
     },
     "interval" : {
       "type" : "integer",
       "description" : "Resolution in seconds",
       "format" : "int64",
-      "example" : 5612543483505391000
+      "example" : 632280687699579000
     },
     "q" : {
       "type" : "string",
       "description" : "Query",
-      "example" : "Ut nihil."
+      "example" : "Voluptatem error cum optio dicta itaque."
     },
     "series_limit" : {
       "type" : "integer",
       "description" : "Max of values",
       "format" : "int64",
-      "example" : 6393854859798431000
+      "example" : 7662125735332216000
     },
     "to" : {
       "type" : "string",
       "description" : "To timestamp",
-      "format" : "date-time"
+      "format" : "date-time",
+      "example" : "1977-10-14T07:46:53Z"
     }
   },
   "example" : {
-    "from" : "2002-10-01 18:48:54",
-    "interval" : 5612543483505391000,
-    "q" : "Ut nihil.",
-    "series_limit" : 6393854859798431000,
-    "to" : "2003-11-19 16:29:01"
+    "from" : "1990-07-07T22:42:09Z",
+    "interval" : 632280687699579000,
+    "q" : "Voluptatem error cum optio dicta itaque.",
+    "series_limit" : 7662125735332216000,
+    "to" : "1977-10-14T07:46:53Z"
   }
 };
     defs["BatchQueryRequestsMediaV1"] = {
@@ -2046,23 +2216,11 @@ ul.nav-tabs {
       "type" : "array",
       "description" : "Requests",
       "example" : [ {
-        "from" : "2002-10-01 18:48:54",
-        "interval" : 5612543483505391000,
-        "q" : "Ut nihil.",
-        "series_limit" : 6393854859798431000,
-        "to" : "2003-11-19 16:29:01"
-      }, {
-        "from" : "2002-10-01 18:48:54",
-        "interval" : 5612543483505391000,
-        "q" : "Ut nihil.",
-        "series_limit" : 6393854859798431000,
-        "to" : "2003-11-19 16:29:01"
-      }, {
-        "from" : "2002-10-01 18:48:54",
-        "interval" : 5612543483505391000,
-        "q" : "Ut nihil.",
-        "series_limit" : 6393854859798431000,
-        "to" : "2003-11-19 16:29:01"
+        "from" : "1990-07-07T22:42:09Z",
+        "interval" : 632280687699579000,
+        "q" : "Voluptatem error cum optio dicta itaque.",
+        "series_limit" : 7662125735332216000,
+        "to" : "1977-10-14T07:46:53Z"
       } ],
       "items" : {
         "$ref" : "#/components/schemas/BatchQueryRequestMediaV1"
@@ -2072,30 +2230,18 @@ ul.nav-tabs {
       "type" : "integer",
       "description" : "Response version",
       "format" : "int64",
-      "example" : 6095309048300083000
+      "example" : 3437513660020167700
     }
   },
   "example" : {
     "requests" : [ {
-      "from" : "2002-10-01 18:48:54",
-      "interval" : 5612543483505391000,
-      "q" : "Ut nihil.",
-      "series_limit" : 6393854859798431000,
-      "to" : "2003-11-19 16:29:01"
-    }, {
-      "from" : "2002-10-01 18:48:54",
-      "interval" : 5612543483505391000,
-      "q" : "Ut nihil.",
-      "series_limit" : 6393854859798431000,
-      "to" : "2003-11-19 16:29:01"
-    }, {
-      "from" : "2002-10-01 18:48:54",
-      "interval" : 5612543483505391000,
-      "q" : "Ut nihil.",
-      "series_limit" : 6393854859798431000,
-      "to" : "2003-11-19 16:29:01"
+      "from" : "1990-07-07T22:42:09Z",
+      "interval" : 632280687699579000,
+      "q" : "Voluptatem error cum optio dicta itaque.",
+      "series_limit" : 7662125735332216000,
+      "to" : "1977-10-14T07:46:53Z"
     } ],
-    "resp_version" : 6095309048300083000
+    "resp_version" : 3437513660020167700
   }
 };
     defs["CreateDevicesV2Payload"] = {
@@ -2103,47 +2249,52 @@ ul.nav-tabs {
   "required" : [ "type" ],
   "type" : "object",
   "properties" : {
+    "fqbn" : {
+      "type" : "string",
+      "description" : "The fully qualified board name",
+      "example" : "Eveniet minima aut fugiat est est."
+    },
     "id" : {
       "type" : "string",
       "description" : "The UUID of the device",
       "format" : "uuid",
-      "example" : "31f07f13-7477-404e-9f88-bcd93a23dbb0"
+      "example" : "2b26876e-4cf5-48ca-9e72-80739169697f"
     },
     "name" : {
       "maxLength" : 64,
       "pattern" : "[a-zA-Z0-9_.@-]+",
       "type" : "string",
       "description" : "The friendly name of the device",
-      "example" : "9cejjzz3hn"
+      "example" : "21ombq2fwx"
     },
     "serial" : {
       "maxLength" : 64,
       "pattern" : "[a-zA-Z0-9_.@-]+",
       "type" : "string",
       "description" : "The serial uuid of the device",
-      "example" : "b068uq00ks"
+      "example" : "jw4b19l1tg"
     },
     "type" : {
-      "maxLength" : 64,
-      "pattern" : "[a-zA-Z0-9_.@-]+",
       "type" : "string",
       "description" : "The type of the device",
-      "example" : "w0rbkookyt"
+      "example" : "mkr1000",
+      "enum" : [ "mkrwifi1010", "mkr1000", "nano_33_iot", "mkrgsm1400", "mkrwan1310", "mkrwan1300", "mkrnb1500", "lora-device", "login_and_secretkey_wifi" ]
     },
     "user_id" : {
       "type" : "string",
       "description" : "The user_id associated to the device. If absent it will be inferred from the authentication header",
       "format" : "uuid",
-      "example" : "b2bf3423-1448-41e6-85f3-025ff8718f58"
+      "example" : "88803e1f-574e-47d1-bb7a-49860c98bd12"
     }
   },
   "description" : "DeviceV2 describes a device.",
   "example" : {
-    "id" : "31f07f13-7477-404e-9f88-bcd93a23dbb0",
-    "name" : "9cejjzz3hn",
-    "serial" : "b068uq00ks",
-    "type" : "w0rbkookyt",
-    "user_id" : "b2bf3423-1448-41e6-85f3-025ff8718f58"
+    "fqbn" : "Eveniet minima aut fugiat est est.",
+    "id" : "2b26876e-4cf5-48ca-9e72-80739169697f",
+    "name" : "21ombq2fwx",
+    "serial" : "jw4b19l1tg",
+    "type" : "mkr1000",
+    "user_id" : "88803e1f-574e-47d1-bb7a-49860c98bd12"
   }
 };
     defs["CreateThingsV2Payload"] = {
@@ -2155,87 +2306,92 @@ ul.nav-tabs {
       "type" : "string",
       "description" : "The arn of the associated device",
       "format" : "uuid",
-      "example" : "e7a873b5-f0ac-4bbd-9e67-165ae7992ee6"
+      "example" : "420002f5-ecdc-45c0-a0e9-20a9d7bb841a"
     },
     "id" : {
       "type" : "string",
       "description" : "The id of the thing",
       "format" : "uuid",
-      "example" : "2b38ffaf-db9c-4b8e-a6ba-72a98ad2b859"
+      "example" : "d5a20f16-7bb4-443a-aac8-1ceb2d69fdb1"
     },
     "name" : {
       "maxLength" : 64,
       "pattern" : "[a-zA-Z0-9_.@-]+",
       "type" : "string",
       "description" : "The friendly name of the thing",
-      "example" : "fje4vlfwmz"
+      "example" : "cme18api4e"
     },
     "webhook_active" : {
       "type" : "boolean",
       "description" : "Webhook uri",
-      "example" : true
+      "example" : false
     },
     "webhook_uri" : {
       "type" : "string",
       "description" : "Webhook uri",
       "format" : "uri",
-      "example" : "http://west.net/neil.wuckert"
+      "example" : "http://kreiger.info/dameon"
     }
   },
   "description" : "ThingPayload describes a thing",
   "example" : {
-    "device_id" : "e7a873b5-f0ac-4bbd-9e67-165ae7992ee6",
-    "id" : "2b38ffaf-db9c-4b8e-a6ba-72a98ad2b859",
-    "name" : "fje4vlfwmz",
-    "webhook_active" : true,
-    "webhook_uri" : "http://west.net/neil.wuckert"
+    "device_id" : "420002f5-ecdc-45c0-a0e9-20a9d7bb841a",
+    "id" : "d5a20f16-7bb4-443a-aac8-1ceb2d69fdb1",
+    "name" : "cme18api4e",
+    "webhook_active" : false,
+    "webhook_uri" : "http://kreiger.info/dameon"
   }
 };
     defs["devicev2"] = {
   "title" : "devicev2",
   "type" : "object",
   "properties" : {
+    "fqbn" : {
+      "type" : "string",
+      "description" : "The fully qualified board name",
+      "example" : "Eveniet minima aut fugiat est est."
+    },
     "id" : {
       "type" : "string",
       "description" : "The UUID of the device",
       "format" : "uuid",
-      "example" : "31f07f13-7477-404e-9f88-bcd93a23dbb0"
+      "example" : "2b26876e-4cf5-48ca-9e72-80739169697f"
     },
     "name" : {
       "maxLength" : 64,
       "pattern" : "[a-zA-Z0-9_.@-]+",
       "type" : "string",
       "description" : "The friendly name of the device",
-      "example" : "9cejjzz3hn"
+      "example" : "21ombq2fwx"
     },
     "serial" : {
       "maxLength" : 64,
       "pattern" : "[a-zA-Z0-9_.@-]+",
       "type" : "string",
       "description" : "The serial uuid of the device",
-      "example" : "b068uq00ks"
+      "example" : "jw4b19l1tg"
     },
     "type" : {
-      "maxLength" : 64,
-      "pattern" : "[a-zA-Z0-9_.@-]+",
       "type" : "string",
       "description" : "The type of the device",
-      "example" : "w0rbkookyt"
+      "example" : "mkr1000",
+      "enum" : [ "mkrwifi1010", "mkr1000", "nano_33_iot", "mkrgsm1400", "mkrwan1310", "mkrwan1300", "mkrnb1500", "lora-device", "login_and_secretkey_wifi" ]
     },
     "user_id" : {
       "type" : "string",
       "description" : "The user_id associated to the device. If absent it will be inferred from the authentication header",
       "format" : "uuid",
-      "example" : "b2bf3423-1448-41e6-85f3-025ff8718f58"
+      "example" : "88803e1f-574e-47d1-bb7a-49860c98bd12"
     }
   },
   "description" : "DeviceV2 describes a device.",
   "example" : {
-    "id" : "31f07f13-7477-404e-9f88-bcd93a23dbb0",
-    "name" : "9cejjzz3hn",
-    "serial" : "b068uq00ks",
-    "type" : "w0rbkookyt",
-    "user_id" : "b2bf3423-1448-41e6-85f3-025ff8718f58"
+    "fqbn" : "Eveniet minima aut fugiat est est.",
+    "id" : "2b26876e-4cf5-48ca-9e72-80739169697f",
+    "name" : "21ombq2fwx",
+    "serial" : "jw4b19l1tg",
+    "type" : "mkr1000",
+    "user_id" : "88803e1f-574e-47d1-bb7a-49860c98bd12"
   }
 };
     defs["error"] = {
@@ -2291,7 +2447,7 @@ ul.nav-tabs {
     "name" : {
       "type" : "string",
       "description" : "The name of the property",
-      "example" : "Qui dicta qui in dolore soluta reiciendis."
+      "example" : "Vel provident saepe."
     },
     "type" : {
       "type" : "string",
@@ -2302,13 +2458,13 @@ ul.nav-tabs {
     },
     "value" : {
       "description" : "The last value of the property",
-      "example" : 0.17477107288756727
+      "example" : true
     }
   },
   "example" : {
-    "name" : "Qui dicta qui in dolore soluta reiciendis.",
+    "name" : "Vel provident saepe.",
     "type" : "json",
-    "value" : 0.17477107288756727
+    "value" : true
   }
 };
     defs["propertiesValues"] = {
@@ -2319,17 +2475,17 @@ ul.nav-tabs {
     "properties" : {
       "type" : "array",
       "example" : [ {
-        "name" : "Qui dicta qui in dolore soluta reiciendis.",
+        "name" : "Vel provident saepe.",
         "type" : "json",
-        "value" : 0.17477107288756727
+        "value" : true
       }, {
-        "name" : "Qui dicta qui in dolore soluta reiciendis.",
+        "name" : "Vel provident saepe.",
         "type" : "json",
-        "value" : 0.17477107288756727
+        "value" : true
       }, {
-        "name" : "Qui dicta qui in dolore soluta reiciendis.",
+        "name" : "Vel provident saepe.",
         "type" : "json",
-        "value" : 0.17477107288756727
+        "value" : true
       } ],
       "items" : {
         "$ref" : "#/components/schemas/propertiesValue"
@@ -2338,17 +2494,17 @@ ul.nav-tabs {
   },
   "example" : {
     "properties" : [ {
-      "name" : "Qui dicta qui in dolore soluta reiciendis.",
+      "name" : "Vel provident saepe.",
       "type" : "json",
-      "value" : 0.17477107288756727
+      "value" : true
     }, {
-      "name" : "Qui dicta qui in dolore soluta reiciendis.",
+      "name" : "Vel provident saepe.",
       "type" : "json",
-      "value" : 0.17477107288756727
+      "value" : true
     }, {
-      "name" : "Qui dicta qui in dolore soluta reiciendis.",
+      "name" : "Vel provident saepe.",
       "type" : "json",
-      "value" : 0.17477107288756727
+      "value" : true
     } ]
   }
 };
@@ -2361,18 +2517,18 @@ ul.nav-tabs {
       "type" : "number",
       "description" : "Maximum value of this property",
       "format" : "double",
-      "example" : 0.47757927788576215
+      "example" : 0.9217871741128449
     },
     "min_value" : {
       "type" : "number",
       "description" : "Minimum value of this property",
       "format" : "double",
-      "example" : 0.1926071192979542
+      "example" : 0.5095645175822372
     },
     "name" : {
       "type" : "string",
       "description" : "The friendly name of the property",
-      "example" : "Magnam quo consequatur."
+      "example" : "Voluptates pariatur voluptas tempore reiciendis unde aut."
     },
     "permission" : {
       "type" : "string",
@@ -2389,14 +2545,14 @@ ul.nav-tabs {
     "type" : {
       "type" : "string",
       "description" : "The type of the property",
-      "example" : "GENERIC_COMPLEX_PROPERTY",
-      "enum" : [ "ANALOG", "CHARSTRING", "FLOAT", "INT", "LENGHT_C", "LENGHT_I", "LENGHT_M", "PERCENTAGE", "STATUS", "TEMPERATURE_C", "TEMPERATURE_F", "METER", "KILOGRAM", "GRAM", "SECOND", "AMPERE", "KELVIN", "CANDELA", "MOLE", "HERTZ", "RADIAN", "STERADIAN", "NEWTON", "PASCAL", "JOULE", "WATT", "COULOMB", "VOLT", "FARAD", "OHM", "SIEMENS", "WEBER", "TESLA", "HENRY", "DEGREES_CELSIUS", "LUMEN", "LUX", "BECQUEREL", "GRAY", "SIEVERT", "KATAL", "SQUARE_METER", "CUBIC_METER", "LITER", "METER_PER_SECOND", "METER_PER_SQUARE_SECOND", "CUBIC_METER_PER_SECOND", "LITER_PER_SECOND", "WATT_PER_SQUARE_METER", "CANDELA_PER_SQUARE_METER", "BIT", "BIT_PER_SECOND", "DEGREES_LATITUDE", "DEGREES_LONGITUDE", "PH_VALUE", "DECIBEL", "DECIBEL_1W", "BEL", "COUNT", "RATIO_DIV", "RATIO_MOD", "PERCENTAGE_RELATIVE_HUMIDITY", "PERCENTAGE_BATTERY_LEVEL", "SECONDS_BATTERY_LEVEL", "EVENT_RATE_SECOND", "EVENT_RATE_MINUTE", "HEART_RATE", "HEART_BEATS", "SIEMENS_PER_METER", "LOCATION", "COLOR_HSB", "COLOR_RGB", "GENERIC_COMPLEX_PROPERTY", "HOME_COLORED_LIGHT", "HOME_DIMMERED_LIGHT", "HOME_LIGHT", "HOME_CONTACT_SENSOR", "HOME_MOTION_SENSOR", "HOME_SMART_PLUG", "HOME_TEMPERATURE", "HOME_SWITCH" ]
+      "example" : "TEMPERATURE_C",
+      "enum" : [ "ANALOG", "CHARSTRING", "FLOAT", "INT", "LENGHT_C", "LENGHT_I", "LENGHT_M", "PERCENTAGE", "STATUS", "TEMPERATURE_C", "TEMPERATURE_F", "METER", "KILOGRAM", "GRAM", "SECOND", "AMPERE", "KELVIN", "CANDELA", "MOLE", "HERTZ", "RADIAN", "STERADIAN", "NEWTON", "PASCAL", "JOULE", "WATT", "COULOMB", "VOLT", "FARAD", "OHM", "SIEMENS", "WEBER", "TESLA", "HENRY", "DEGREES_CELSIUS", "LUMEN", "LUX", "BECQUEREL", "GRAY", "SIEVERT", "KATAL", "SQUARE_METER", "CUBIC_METER", "LITER", "METER_PER_SECOND", "METER_PER_SQUARE_SECOND", "CUBIC_METER_PER_SECOND", "LITER_PER_SECOND", "WATT_PER_SQUARE_METER", "CANDELA_PER_SQUARE_METER", "BIT", "BIT_PER_SECOND", "DEGREES_LATITUDE", "DEGREES_LONGITUDE", "PH_VALUE", "DECIBEL", "DECIBEL_1W", "BEL", "COUNT", "RATIO_DIV", "RATIO_MOD", "PERCENTAGE_RELATIVE_HUMIDITY", "PERCENTAGE_BATTERY_LEVEL", "SECONDS_BATTERY_LEVEL", "EVENT_RATE_SECOND", "EVENT_RATE_MINUTE", "HEART_RATE", "HEART_BEATS", "SIEMENS_PER_METER", "LOCATION", "COLOR_HSB", "COLOR_RGB", "GENERIC_COMPLEX_PROPERTY", "HOME_COLORED_LIGHT", "HOME_DIMMED_LIGHT", "HOME_LIGHT", "HOME_CONTACT_SENSOR", "HOME_MOTION_SENSOR", "HOME_SMART_PLUG", "HOME_TEMPERATURE", "HOME_TEMPERATURE_C", "HOME_TEMPERATURE_F", "HOME_SWITCH", "HOME_TELEVISION" ]
     },
     "update_parameter" : {
       "type" : "number",
       "description" : "The update frequency in seconds, or the amount of the property has to change in order to trigger an update",
       "format" : "double",
-      "example" : 0.3069002277200649
+      "example" : 0.5139028663309236
     },
     "update_strategy" : {
       "type" : "string",
@@ -2409,20 +2565,20 @@ ul.nav-tabs {
       "pattern" : "^[a-zA-Z_][a-zA-Z0-9_]*$",
       "type" : "string",
       "description" : "The  sketch variable name of the property",
-      "example" : "0ajvuowy6s"
+      "example" : "f8gzqq6r49"
     }
   },
   "description" : "PropertyPayload describes a property of a thing. No field is mandatory",
   "example" : {
-    "max_value" : 0.47757927788576215,
-    "min_value" : 0.1926071192979542,
-    "name" : "Magnam quo consequatur.",
+    "max_value" : 0.9217871741128449,
+    "min_value" : 0.5095645175822372,
+    "name" : "Voluptates pariatur voluptas tempore reiciendis unde aut.",
     "permission" : "READ_WRITE",
     "persist" : true,
-    "type" : "GENERIC_COMPLEX_PROPERTY",
-    "update_parameter" : 0.3069002277200649,
+    "type" : "TEMPERATURE_C",
+    "update_parameter" : 0.5139028663309236,
     "update_strategy" : "ON_CHANGE",
-    "variable_name" : "0ajvuowy6s"
+    "variable_name" : "f8gzqq6r49"
   }
 };
     defs["propertyValue"] = {
@@ -2434,17 +2590,17 @@ ul.nav-tabs {
       "type" : "string",
       "description" : "The device who send the property",
       "format" : "uuid",
-      "example" : "091242ad-6bda-4a77-bde6-c9b43d3488c3"
+      "example" : "5a11c990-97bb-4673-ba82-1da5457dea8a"
     },
     "value" : {
       "description" : "The property value",
-      "example" : 0.30138217417885704
+      "example" : "2005-05-22T21:25:18Z"
     }
   },
   "description" : "PropertyValuePayload describes a property value",
   "example" : {
-    "device_id" : "091242ad-6bda-4a77-bde6-c9b43d3488c3",
-    "value" : 0.30138217417885704
+    "device_id" : "5a11c990-97bb-4673-ba82-1da5457dea8a",
+    "value" : "2005-05-22T21:25:18Z"
   }
 };
     defs["thing"] = {
@@ -2455,40 +2611,40 @@ ul.nav-tabs {
       "type" : "string",
       "description" : "The arn of the associated device",
       "format" : "uuid",
-      "example" : "e7a873b5-f0ac-4bbd-9e67-165ae7992ee6"
+      "example" : "420002f5-ecdc-45c0-a0e9-20a9d7bb841a"
     },
     "id" : {
       "type" : "string",
       "description" : "The id of the thing",
       "format" : "uuid",
-      "example" : "2b38ffaf-db9c-4b8e-a6ba-72a98ad2b859"
+      "example" : "d5a20f16-7bb4-443a-aac8-1ceb2d69fdb1"
     },
     "name" : {
       "maxLength" : 64,
       "pattern" : "[a-zA-Z0-9_.@-]+",
       "type" : "string",
       "description" : "The friendly name of the thing",
-      "example" : "fje4vlfwmz"
+      "example" : "cme18api4e"
     },
     "webhook_active" : {
       "type" : "boolean",
       "description" : "Webhook uri",
-      "example" : true
+      "example" : false
     },
     "webhook_uri" : {
       "type" : "string",
       "description" : "Webhook uri",
       "format" : "uri",
-      "example" : "http://west.net/neil.wuckert"
+      "example" : "http://kreiger.info/dameon"
     }
   },
   "description" : "ThingPayload describes a thing",
   "example" : {
-    "device_id" : "e7a873b5-f0ac-4bbd-9e67-165ae7992ee6",
-    "id" : "2b38ffaf-db9c-4b8e-a6ba-72a98ad2b859",
-    "name" : "fje4vlfwmz",
-    "webhook_active" : true,
-    "webhook_uri" : "http://west.net/neil.wuckert"
+    "device_id" : "420002f5-ecdc-45c0-a0e9-20a9d7bb841a",
+    "id" : "d5a20f16-7bb4-443a-aac8-1ceb2d69fdb1",
+    "name" : "cme18api4e",
+    "webhook_active" : false,
+    "webhook_uri" : "http://kreiger.info/dameon"
   }
 };
     defs["thingSketch"] = {
@@ -2498,18 +2654,40 @@ ul.nav-tabs {
     "pass" : {
       "type" : "string",
       "description" : "The wifi password",
-      "example" : "Omnis occaecati aut iure."
+      "example" : "Dolores aut totam."
+    },
+    "sketch_version" : {
+      "type" : "string",
+      "description" : "The autogenerated sketch version",
+      "example" : "v2",
+      "enum" : [ "v1", "v2" ]
     },
     "ssid" : {
       "type" : "string",
       "description" : "The wifi ssid to connect",
-      "example" : "Dolore excepturi rem."
+      "example" : "Ipsam assumenda dicta perferendis."
     }
   },
   "description" : "ThingSketchPayload describes a sketch of a thing",
   "example" : {
-    "pass" : "Omnis occaecati aut iure.",
-    "ssid" : "Dolore excepturi rem."
+    "pass" : "Dolores aut totam.",
+    "sketch_version" : "v2",
+    "ssid" : "Ipsam assumenda dicta perferendis."
+  }
+};
+    defs["updateSketch"] = {
+  "title" : "updateSketch",
+  "type" : "object",
+  "properties" : {
+    "sketch_version" : {
+      "type" : "string",
+      "description" : "The autogenerated sketch version",
+      "example" : "v2",
+      "enum" : [ "v1", "v2" ]
+    }
+  },
+  "example" : {
+    "sketch_version" : "v2"
   }
 };
 
@@ -2536,6 +2714,9 @@ ul.nav-tabs {
                     </li>
                     <li data-group="DevicesV2" data-name="devicesV2Delete" class="">
                       <a href="#api-DevicesV2-devicesV2Delete">devicesV2Delete</a>
+                    </li>
+                    <li data-group="DevicesV2" data-name="devicesV2GetEvents" class="">
+                      <a href="#api-DevicesV2-devicesV2GetEvents">devicesV2GetEvents</a>
                     </li>
                     <li data-group="DevicesV2" data-name="devicesV2GetProperties" class="">
                       <a href="#api-DevicesV2-devicesV2GetProperties">devicesV2GetProperties</a>
@@ -2783,12 +2964,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Created",
   "content" : {
-    "application/vnd.arduino.devicev2+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ArduinoDevicev2"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/ArduinoDevicev2"
       }
@@ -2849,12 +3025,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Precondition Failed",
   "content" : {
-    "application/vnd.arduino.devicev2+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -3021,6 +3192,318 @@ The id of the device
                         </article>
                       </div>
                       <hr>
+                    <div id="api-DevicesV2-devicesV2GetEvents">
+                      <article id="api-DevicesV2-devicesV2GetEvents-0" data-group="User" data-name="devicesV2GetEvents" data-version="0">
+                        <div class="pull-left">
+                          <h1>devicesV2GetEvents</h1>
+                          <p>getEvents devices_v2</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">GET device events</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/v2/devices/{id}/events</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-DevicesV2-devicesV2GetEvents-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-DevicesV2-devicesV2GetEvents-0-javascript">JavaScript</a></li>
+                          <li class=""><a href="#examples-DevicesV2-devicesV2GetEvents-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-DevicesV2-devicesV2GetEvents-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://api2.arduino.cc/iot/v2/devices/{id}/events?limit=&start="</code></pre>
+                          </div>
+
+                            <div class="tab-pane" id="examples-DevicesV2-devicesV2GetEvents-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = "YOUR ACCESS TOKEN"
+
+var api = new ArduinoIotClient.DevicesV2Api()
+var id = id_example; // {String} The id of the device
+var opts = {
+  'limit': 56, // {Integer} The number of events to select
+  'start': start_example // {String} The time at which to start selecting events
+};
+api.devicesV2GetEvents(id, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DevicesV2-devicesV2GetEvents-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth2
+openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
+# create an instance of the API class
+api_instance = openapi_client.DevicesV2Api()
+id = id_example # String | The id of the device (default to null)
+limit = 56 # Integer | The number of events to select (optional) (default to null)
+start = start_example # String | The time at which to start selecting events (optional) (default to null)
+
+try: 
+    # getEvents devices_v2
+    api_response = api_instance.devices_v2_get_events(id, limit=limit, start=start)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DevicesV2Api->devicesV2GetEvents: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">id*</td>
+<td>
+
+
+    <div id="d2e199_devicesV2GetEvents_id">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+The id of the device
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">limit</td>
+<td>
+
+
+    <div id="d2e199_devicesV2GetEvents_limit">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+
+                    <div class="inner description marked">
+The number of events to select
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">start</td>
+<td>
+
+
+    <div id="d2e199_devicesV2GetEvents_start">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+The time at which to start selecting events
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-DevicesV2-devicesV2GetEvents-title-200"></h3>
+                            <p id="examples-DevicesV2-devicesV2GetEvents-description-200" class="marked"></p>
+                            <script>
+                              var responseDevicesV2200_description = `OK`;
+                              var responseDevicesV2200_description_break = responseDevicesV2200_description.indexOf('\n');
+                              if (responseDevicesV2200_description_break == -1) {
+                                $("#examples-DevicesV2-devicesV2GetEvents-title-200").text("Status: 200 - " + responseDevicesV2200_description);
+                              } else {
+                                $("#examples-DevicesV2-devicesV2GetEvents-title-200").text("Status: 200 - " + responseDevicesV2200_description.substring(0, responseDevicesV2200_description_break));
+                                $("#examples-DevicesV2-devicesV2GetEvents-description-200").html(responseDevicesV2200_description.substring(responseDevicesV2200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2-devicesV2GetEvents-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-DevicesV2-devicesV2GetEvents-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2-devicesV2GetEvents-200-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-DevicesV2-devicesV2GetEvents-200-schema">
+                                  <div id="responses-DevicesV2-devicesV2GetEvents-schema-200" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "OK",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ArduinoDevicev2EventProperties"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-DevicesV2-devicesV2GetEvents-200-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-DevicesV2-devicesV2GetEvents-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-DevicesV2-devicesV2GetEvents-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-DevicesV2-devicesV2GetEvents-title-401"></h3>
+                            <p id="examples-DevicesV2-devicesV2GetEvents-description-401" class="marked"></p>
+                            <script>
+                              var responseDevicesV2401_description = `Unauthorized`;
+                              var responseDevicesV2401_description_break = responseDevicesV2401_description.indexOf('\n');
+                              if (responseDevicesV2401_description_break == -1) {
+                                $("#examples-DevicesV2-devicesV2GetEvents-title-401").text("Status: 401 - " + responseDevicesV2401_description);
+                              } else {
+                                $("#examples-DevicesV2-devicesV2GetEvents-title-401").text("Status: 401 - " + responseDevicesV2401_description.substring(0, responseDevicesV2401_description_break));
+                                $("#examples-DevicesV2-devicesV2GetEvents-description-401").html(responseDevicesV2401_description.substring(responseDevicesV2401_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2-devicesV2GetEvents-401" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2-devicesV2GetEvents-401-wrapper" style='margin-bottom: 10px;'>
+                            </div>
+                            <h3 id="examples-DevicesV2-devicesV2GetEvents-title-503"></h3>
+                            <p id="examples-DevicesV2-devicesV2GetEvents-description-503" class="marked"></p>
+                            <script>
+                              var responseDevicesV2503_description = `Service Unavailable`;
+                              var responseDevicesV2503_description_break = responseDevicesV2503_description.indexOf('\n');
+                              if (responseDevicesV2503_description_break == -1) {
+                                $("#examples-DevicesV2-devicesV2GetEvents-title-503").text("Status: 503 - " + responseDevicesV2503_description);
+                              } else {
+                                $("#examples-DevicesV2-devicesV2GetEvents-title-503").text("Status: 503 - " + responseDevicesV2503_description.substring(0, responseDevicesV2503_description_break));
+                                $("#examples-DevicesV2-devicesV2GetEvents-description-503").html(responseDevicesV2503_description.substring(responseDevicesV2503_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2-devicesV2GetEvents-503" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-DevicesV2-devicesV2GetEvents-503-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2-devicesV2GetEvents-503-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-DevicesV2-devicesV2GetEvents-503-schema">
+                                  <div id="responses-DevicesV2-devicesV2GetEvents-schema-503" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Service Unavailable",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/error"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-DevicesV2-devicesV2GetEvents-503-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-DevicesV2-devicesV2GetEvents-schema-503');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-DevicesV2-devicesV2GetEvents-503-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
                     <div id="api-DevicesV2-devicesV2GetProperties">
                       <article id="api-DevicesV2-devicesV2GetProperties-0" data-group="User" data-name="devicesV2GetProperties" data-version="0">
                         <div class="pull-left">
@@ -3083,7 +3566,7 @@ openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 # create an instance of the API class
 api_instance = openapi_client.DevicesV2Api()
 id = id_example # String | The id of the device (default to null)
-showDeleted = true # Boolean | If true, shows the soft deleted properties (optional) (default to false)
+showDeleted = true # Boolean | If true, shows the soft deleted properties (optional) (default to null)
 
 try: 
     # getProperties devices_v2
@@ -3197,7 +3680,7 @@ If true, shows the soft deleted properties
                                         var schemaWrapper = {
   "description" : "OK",
   "content" : {
-    "application/vnd.arduino.devicev2properties+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/ArduinoDevicev2properties"
       }
@@ -3310,7 +3793,7 @@ openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
 api_instance = openapi_client.DevicesV2Api()
-acrossUserIds = true # Boolean | If true, returns all the devices (optional) (default to false)
+acrossUserIds = true # Boolean | If true, returns all the devices (optional) (default to null)
 
 try: 
     # list devices_v2
@@ -3394,7 +3877,7 @@ If true, returns all the devices
                                         var schemaWrapper = {
   "description" : "OK",
   "content" : {
-    "application/vnd.arduino.devicev2+json; type=collection" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/ArduinoDevicev2Collection"
       }
@@ -3570,7 +4053,7 @@ The id of the device
                                         var schemaWrapper = {
   "description" : "OK",
   "content" : {
-    "application/vnd.arduino.devicev2+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/ArduinoDevicev2"
       }
@@ -3824,7 +4307,7 @@ The time at which to start selecting properties
                                         var schemaWrapper = {
   "description" : "OK",
   "content" : {
-    "application/vnd.arduino.devicev2propertyvalues+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/ArduinoDevicev2propertyvalues"
       }
@@ -4057,12 +4540,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "OK",
   "content" : {
-    "application/vnd.arduino.devicev2+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ArduinoDevicev2"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/ArduinoDevicev2"
       }
@@ -4123,12 +4601,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Bad Request",
   "content" : {
-    "application/vnd.arduino.devicev2+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -4189,12 +4662,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Precondition Failed",
   "content" : {
-    "application/vnd.arduino.devicev2+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -4601,12 +5069,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Created",
   "content" : {
-    "application/vnd.arduino.property+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ArduinoProperty"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/ArduinoProperty"
       }
@@ -4667,12 +5130,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Bad Request",
   "content" : {
-    "application/vnd.arduino.property+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -4733,12 +5191,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Unauthorized",
   "content" : {
-    "application/vnd.arduino.property+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -4855,7 +5308,7 @@ openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 api_instance = openapi_client.PropertiesV2Api()
 id = id_example # String | The id of the thing (default to null)
 pid = pid_example # String | The id of the property (default to null)
-force = true # Boolean | If true, hard delete the property (optional) (default to false)
+force = true # Boolean | If true, hard delete the property (optional) (default to null)
 
 try: 
     # delete properties_v2
@@ -5013,12 +5466,7 @@ If true, hard delete the property
                                         var schemaWrapper = {
   "description" : "Unauthorized",
   "content" : {
-    "application/vnd.goa.error+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "text/plain" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -5133,7 +5581,7 @@ openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 # create an instance of the API class
 api_instance = openapi_client.PropertiesV2Api()
 id = id_example # String | The id of the thing (default to null)
-showDeleted = true # Boolean | If true, shows the soft deleted properties (optional) (default to false)
+showDeleted = true # Boolean | If true, shows the soft deleted properties (optional) (default to null)
 
 try: 
     # list properties_v2
@@ -5247,12 +5695,7 @@ If true, shows the soft deleted properties
                                         var schemaWrapper = {
   "description" : "OK",
   "content" : {
-    "application/vnd.arduino.property+json; type=collection" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ArduinoPropertyCollection"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/ArduinoPropertyCollection"
       }
@@ -5313,12 +5756,7 @@ If true, shows the soft deleted properties
                                         var schemaWrapper = {
   "description" : "Unauthorized",
   "content" : {
-    "application/vnd.arduino.property+json; type=collection" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -5379,12 +5817,7 @@ If true, shows the soft deleted properties
                                         var schemaWrapper = {
   "description" : "Not Found",
   "content" : {
-    "application/vnd.arduino.property+json; type=collection" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -5641,12 +6074,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Bad Request",
   "content" : {
-    "application/vnd.goa.error+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "text/plain" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -5707,12 +6135,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Unauthorized",
   "content" : {
-    "application/vnd.goa.error+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "text/plain" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -5829,7 +6252,7 @@ openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 api_instance = openapi_client.PropertiesV2Api()
 id = id_example # String | The id of the thing (default to null)
 pid = pid_example # String | The id of the property (default to null)
-showDeleted = true # Boolean | If true, shows the soft deleted properties (optional) (default to false)
+showDeleted = true # Boolean | If true, shows the soft deleted properties (optional) (default to null)
 
 try: 
     # show properties_v2
@@ -5966,12 +6389,7 @@ If true, shows the soft deleted properties
                                         var schemaWrapper = {
   "description" : "OK",
   "content" : {
-    "application/vnd.arduino.property+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ArduinoProperty"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/ArduinoProperty"
       }
@@ -6032,12 +6450,7 @@ If true, shows the soft deleted properties
                                         var schemaWrapper = {
   "description" : "Unauthorized",
   "content" : {
-    "application/vnd.arduino.property+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -6098,12 +6511,7 @@ If true, shows the soft deleted properties
                                         var schemaWrapper = {
   "description" : "Not Found",
   "content" : {
-    "application/vnd.arduino.property+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -6339,12 +6747,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "OK",
   "content" : {
-    "application/vnd.arduino.property+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ArduinoProperty"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/ArduinoProperty"
       }
@@ -6405,12 +6808,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Bad Request",
   "content" : {
-    "application/vnd.arduino.property+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -6471,12 +6869,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Unauthorized",
   "content" : {
-    "application/vnd.arduino.property+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -6537,12 +6930,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Not Found",
   "content" : {
-    "application/vnd.arduino.property+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -6724,12 +7112,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "OK",
   "content" : {
-    "application/vnd.arduino.series.batch+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ArduinoSeriesBatch"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/ArduinoSeriesBatch"
       }
@@ -6790,12 +7173,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Unauthorized",
   "content" : {
-    "application/vnd.arduino.series.batch+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -6900,12 +7278,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Service Unavailable",
   "content" : {
-    "application/vnd.arduino.series.batch+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -7084,12 +7457,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "OK",
   "content" : {
-    "application/vnd.arduino.series.raw.batch+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ArduinoSeriesRawBatch"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/ArduinoSeriesRawBatch"
       }
@@ -7150,12 +7518,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Unauthorized",
   "content" : {
-    "application/vnd.arduino.series.raw.batch+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -7260,12 +7623,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Service Unavailable",
   "content" : {
-    "application/vnd.arduino.series.raw.batch+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -7444,12 +7802,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "OK",
   "content" : {
-    "application/vnd.arduino.series.raw.batch.lastvalue+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ArduinoSeriesRawBatchLastvalue"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/ArduinoSeriesRawBatchLastvalue"
       }
@@ -7510,12 +7863,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Unauthorized",
   "content" : {
-    "application/vnd.arduino.series.raw.batch.lastvalue+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -7620,12 +7968,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Service Unavailable",
   "content" : {
-    "application/vnd.arduino.series.raw.batch.lastvalue+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -7721,7 +8064,7 @@ openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 # create an instance of the API class
 api_instance = openapi_client.ThingsV2Api()
 createThingsV2Payload =  # CreateThingsV2Payload | 
-force = true # Boolean | If true, detach device from the other thing, and attach to this thing (optional) (default to false)
+force = true # Boolean | If true, detach device from the other thing, and attach to this thing (optional) (default to null)
 
 try: 
     # create things_v2
@@ -7838,12 +8181,7 @@ If true, detach device from the other thing, and attach to this thing
                                         var schemaWrapper = {
   "description" : "Created",
   "content" : {
-    "application/vnd.arduino.thing+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ArduinoThing"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/ArduinoThing"
       }
@@ -7926,12 +8264,7 @@ If true, detach device from the other thing, and attach to this thing
                                         var schemaWrapper = {
   "description" : "Conflict",
   "content" : {
-    "application/vnd.arduino.thing+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -7992,12 +8325,7 @@ If true, detach device from the other thing, and attach to this thing
                                         var schemaWrapper = {
   "description" : "Precondition Failed",
   "content" : {
-    "application/vnd.arduino.thing+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -8208,12 +8536,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Created",
   "content" : {
-    "application/vnd.arduino.thing+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ArduinoThing"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/ArduinoThing"
       }
@@ -8274,12 +8597,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Bad Request",
   "content" : {
-    "application/vnd.arduino.thing+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -8362,12 +8680,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Precondition Failed",
   "content" : {
-    "application/vnd.arduino.thing+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -8460,7 +8773,7 @@ openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 # create an instance of the API class
 api_instance = openapi_client.ThingsV2Api()
 id = id_example # String | The id of the thing (default to null)
-force = true # Boolean | If true, hard delete the thing (optional) (default to false)
+force = true # Boolean | If true, hard delete the thing (optional) (default to null)
 
 try: 
     # delete things_v2
@@ -8754,7 +9067,7 @@ The id of the thing
                                         var schemaWrapper = {
   "description" : "OK",
   "content" : {
-    "application/vnd.arduino.thing+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/ArduinoThing"
       }
@@ -8853,7 +9166,7 @@ The id of the thing
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-ThingsV2-thingsV2List-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://api2.arduino.cc/iot/v2/things?across_user_ids=&device_id=&show_deleted="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://api2.arduino.cc/iot/v2/things?across_user_ids=&device_id=&ids=&show_deleted=&show_properties="</code></pre>
                           </div>
 
                             <div class="tab-pane" id="examples-ThingsV2-thingsV2List-0-javascript">
@@ -8868,7 +9181,9 @@ var api = new ArduinoIotClient.ThingsV2Api()
 var opts = {
   'acrossUserIds': true, // {Boolean} If true, returns all the things
   'deviceId': deviceId_example, // {String} The id of the device you want to filter
-  'showDeleted': true // {Boolean} If true, shows the soft deleted things
+  'ids': , // {array[String]} Filter only the desired things
+  'showDeleted': true, // {Boolean} If true, shows the soft deleted things
+  'showProperties': true // {Boolean} If true, returns things with their properties, and last values
 };
 api.thingsV2List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -8891,13 +9206,15 @@ openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
 api_instance = openapi_client.ThingsV2Api()
-acrossUserIds = true # Boolean | If true, returns all the things (optional) (default to false)
+acrossUserIds = true # Boolean | If true, returns all the things (optional) (default to null)
 deviceId = deviceId_example # String | The id of the device you want to filter (optional) (default to null)
-showDeleted = true # Boolean | If true, shows the soft deleted things (optional) (default to false)
+ids =  # array[String] | Filter only the desired things (optional) (default to null)
+showDeleted = true # Boolean | If true, shows the soft deleted things (optional) (default to null)
+showProperties = true # Boolean | If true, returns things with their properties, and last values (optional) (default to null)
 
 try: 
     # list things_v2
-    api_response = api_instance.things_v2_list(acrossUserIds=acrossUserIds, deviceId=deviceId, showDeleted=showDeleted)
+    api_response = api_instance.things_v2_list(acrossUserIds=acrossUserIds, deviceId=deviceId, ids=ids, showDeleted=showDeleted, showProperties=showProperties)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ThingsV2Api->thingsV2List: %s\n" % e)</code></pre>
@@ -8961,6 +9278,26 @@ The id of the device you want to filter
 </td>
 </tr>
 
+                                <tr><td style="width:150px;">ids</td>
+<td>
+
+
+    <div id="d2e199_thingsV2List_ids">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    array[String]
+                </span>
+
+                    <div class="inner description marked">
+Filter only the desired things
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
                                 <tr><td style="width:150px;">show_deleted</td>
 <td>
 
@@ -8974,6 +9311,26 @@ The id of the device you want to filter
 
                     <div class="inner description marked">
 If true, shows the soft deleted things
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">show_properties</td>
+<td>
+
+
+    <div id="d2e199_thingsV2List_showProperties">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Boolean
+                </span>
+
+                    <div class="inner description marked">
+If true, returns things with their properties, and last values
                     </div>
             </div>
         </div>
@@ -9017,7 +9374,7 @@ If true, shows the soft deleted things
                                         var schemaWrapper = {
   "description" : "OK",
   "content" : {
-    "application/vnd.arduino.thing+json; type=collection" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/ArduinoThingCollection"
       }
@@ -9132,7 +9489,7 @@ openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 # create an instance of the API class
 api_instance = openapi_client.ThingsV2Api()
 id = id_example # String | The id of the thing (default to null)
-showDeleted = true # Boolean | If true, shows the soft deleted thing (optional) (default to false)
+showDeleted = true # Boolean | If true, shows the soft deleted thing (optional) (default to null)
 
 try: 
     # show things_v2
@@ -9246,12 +9603,7 @@ If true, shows the soft deleted thing
                                         var schemaWrapper = {
   "description" : "OK",
   "content" : {
-    "application/vnd.arduino.thing+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ArduinoThing"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/ArduinoThing"
       }
@@ -9312,12 +9664,7 @@ If true, shows the soft deleted thing
                                         var schemaWrapper = {
   "description" : "Unauthorized",
   "content" : {
-    "application/vnd.arduino.thing+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -9400,12 +9747,7 @@ If true, shows the soft deleted thing
                                         var schemaWrapper = {
   "description" : "Internal Server Error",
   "content" : {
-    "application/vnd.arduino.thing+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -9500,7 +9842,7 @@ openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 api_instance = openapi_client.ThingsV2Api()
 id = id_example # String | The id of the thing (default to null)
 thing =  # Thing | 
-force = true # Boolean | If true, detach device from the other thing, and attach to this thing (optional) (default to false)
+force = true # Boolean | If true, detach device from the other thing, and attach to this thing (optional) (default to null)
 
 try: 
     # update things_v2
@@ -9647,12 +9989,7 @@ If true, detach device from the other thing, and attach to this thing
                                         var schemaWrapper = {
   "description" : "OK",
   "content" : {
-    "application/vnd.arduino.thing+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ArduinoThing"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/ArduinoThing"
       }
@@ -9713,12 +10050,7 @@ If true, detach device from the other thing, and attach to this thing
                                         var schemaWrapper = {
   "description" : "Bad Request",
   "content" : {
-    "application/vnd.arduino.thing+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -9823,12 +10155,7 @@ If true, detach device from the other thing, and attach to this thing
                                         var schemaWrapper = {
   "description" : "Precondition Failed",
   "content" : {
-    "application/vnd.arduino.thing+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
@@ -9897,7 +10224,10 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 var api = new ArduinoIotClient.ThingsV2Api()
 var id = id_example; // {String} The id of the thing
 var sketchId = sketchId_example; // {String} The id of the sketch
-api.thingsV2UpdateSketch(id, sketchId).then(function(data) {
+var opts = {
+  'updateSketch':  // {UpdateSketch} 
+};
+api.thingsV2UpdateSketch(id, sketchId, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -9920,10 +10250,11 @@ openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 api_instance = openapi_client.ThingsV2Api()
 id = id_example # String | The id of the thing (default to null)
 sketchId = sketchId_example # String | The id of the sketch (default to null)
+updateSketch =  # UpdateSketch |  (optional)
 
 try: 
     # updateSketch things_v2
-    api_response = api_instance.things_v2_update_sketch(id, sketchId)
+    api_response = api_instance.things_v2_update_sketch(id, sketchId, updateSketch=updateSketch)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ThingsV2Api->thingsV2UpdateSketch: %s\n" % e)</code></pre>
@@ -9992,6 +10323,39 @@ The id of the sketch
                             </table>
 
 
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">updateSketch </td>
+<td>
+<p class="marked"></p>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = ;
+  var schema = schemaWrapper.schema;
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_thingsV2UpdateSketch_updateSketch');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_thingsV2UpdateSketch_updateSketch"></div>
+</td>
+</tr>
+
+                            </table>
 
 
 
@@ -10029,12 +10393,7 @@ The id of the sketch
                                         var schemaWrapper = {
   "description" : "OK",
   "content" : {
-    "application/vnd.arduino.thing+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ArduinoThing"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/ArduinoThing"
       }
@@ -10117,12 +10476,7 @@ The id of the sketch
                                         var schemaWrapper = {
   "description" : "Precondition Failed",
   "content" : {
-    "application/vnd.arduino.thing+json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/error"
-      }
-    },
-    "application/vnd.goa.error+json" : {
+    "application/json" : {
       "schema" : {
         "$ref" : "#/components/schemas/error"
       }
