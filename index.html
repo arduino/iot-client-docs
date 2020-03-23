@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Iot API</title>
+  <title>Devices</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta charset="UTF-8" />
@@ -155,6 +155,32 @@ h={};g()}};typeof define==="function"&&define.amd&&define("google-code-prettify"
       //Convert elements with "marked" class to markdown
       processMarked();
     });
+
+
+    function findNode(id, currentNode) {
+        return (Object.keys(currentNode)[0] === id) ? currentNode : findNodeInChildren(id, currentNode);
+    }
+
+    function findNodeInChildren(id, currentNode) {
+        for (let prop in currentNode) {
+            if (currentNode.hasOwnProperty(prop)) {
+                let currentChild = currentNode[prop];
+                if (id === prop) {
+                    return currentChild;
+                } else {
+                    // Search in the current child
+                    if (typeof (currentChild) === 'object') {
+                        let result = findNode(id, currentChild);
+                        if (result !== false) {
+                            return result;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
   </script>
   <style type="text/css">
     @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
@@ -2082,8 +2108,8 @@ ul.nav-tabs {
       "type" : "string",
       "description" : "Sorting",
       "example" : "DESC",
-      "enum" : [ "ASC", "DESC" ],
-      "default" : "DESC"
+      "default" : "DESC",
+      "enum" : [ "ASC", "DESC" ]
     },
     "to" : {
       "type" : "string",
@@ -2453,8 +2479,8 @@ ul.nav-tabs {
       "type" : "string",
       "description" : "The type of the property",
       "example" : "json",
-      "enum" : [ "infer", "base64", "hex", "json" ],
-      "default" : "infer"
+      "default" : "infer",
+      "enum" : [ "infer", "base64", "hex", "json" ]
     },
     "value" : {
       "description" : "The last value of the property",
@@ -2803,10 +2829,10 @@ ul.nav-tabs {
         <div id="header">
           <div id="api-_">
             <h2 id="welcome-to-apidoc">API and SDK Documentation</h2>
-              <div class="app-desc">Version: 2.0</div>
+              <div class="app-desc">Version: 1.0.0</div>
             <hr>
             <div id="app-description" class="app-desc">
-                <ul>Collection of all public API endpoints.<br/><br/>
+                <ul>iot devices and things associated to arduino users<br/><br/>
                 <li><a href="https://www.npmjs.com/package/@arduino/arduino-iot-client">Javascript NPM package</a></li>
                 <li><a href="https://pypi.org/project/arduino-iot-client/">Python PYPI package</a></li>
                 <li><a href="https://github.com/arduino/iot-client-go">Golang module</a></li>
@@ -2834,56 +2860,13 @@ ul.nav-tabs {
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-DevicesV2-devicesV2Create-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-DevicesV2-devicesV2Create-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-DevicesV2-devicesV2Create-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-DevicesV2-devicesV2Create-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "http://api2.arduino.cc/iot/v2/devices"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "http://localhost:8000/iot/v2/devices"</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-DevicesV2-devicesV2Create-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.DevicesV2Api()
-var createDevicesV2Payload = ; // {CreateDevicesV2Payload} 
-api.devicesV2Create(createDevicesV2Payload).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-DevicesV2-devicesV2Create-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.DevicesV2Api()
-createDevicesV2Payload =  # CreateDevicesV2Payload | 
-
-try: 
-    # create devices_v2
-    api_response = api_instance.devices_v2_create(createDevicesV2Payload)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DevicesV2Api->devicesV2Create: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -2905,8 +2888,21 @@ except ApiException as e:
 <p class="marked">DeviceV2 describes a device.</p>
 <script>
 $(document).ready(function() {
-  var schemaWrapper = ;
-  var schema = schemaWrapper.schema;
+  var schemaWrapper = {
+  "description" : "DeviceV2 describes a device.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/CreateDevicesV2Payload"
+      }
+    }
+  },
+  "required" : true
+};
+  var schema = findNode('schema', schemaWrapper).schema;
+  if (!schema) {
+      schema = schemaWrapper.schema;
+  }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
   } else {
@@ -2971,7 +2967,10 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -3032,7 +3031,10 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -3074,55 +3076,13 @@ $(document).ready(function() {
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-DevicesV2-devicesV2Delete-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-DevicesV2-devicesV2Delete-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-DevicesV2-devicesV2Delete-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-DevicesV2-devicesV2Delete-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X DELETE "http://api2.arduino.cc/iot/v2/devices/{id}"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X DELETE "http://localhost:8000/iot/v2/devices/{id}"</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-DevicesV2-devicesV2Delete-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.DevicesV2Api()
-var id = id_example; // {String} The id of the device
-api.devicesV2Delete(id).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-DevicesV2-devicesV2Delete-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.DevicesV2Api()
-id = id_example # String | The id of the device (default to null)
-
-try: 
-    # delete devices_v2
-    api_instance.devices_v2_delete(id)
-except ApiException as e:
-    print("Exception when calling DevicesV2Api->devicesV2Delete: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -3210,62 +3170,13 @@ The id of the device
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-DevicesV2-devicesV2GetEvents-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-DevicesV2-devicesV2GetEvents-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-DevicesV2-devicesV2GetEvents-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-DevicesV2-devicesV2GetEvents-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://api2.arduino.cc/iot/v2/devices/{id}/events?limit=&start="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://localhost:8000/iot/v2/devices/{id}/events?limit=&start="</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-DevicesV2-devicesV2GetEvents-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.DevicesV2Api()
-var id = id_example; // {String} The id of the device
-var opts = {
-  'limit': 56, // {Integer} The number of events to select
-  'start': start_example // {String} The time at which to start selecting events
-};
-api.devicesV2GetEvents(id, opts).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-DevicesV2-devicesV2GetEvents-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.DevicesV2Api()
-id = id_example # String | The id of the device (default to null)
-limit = 56 # Integer | The number of events to select (optional) (default to null)
-start = start_example # String | The time at which to start selecting events (optional) (default to null)
-
-try: 
-    # getEvents devices_v2
-    api_response = api_instance.devices_v2_get_events(id, limit=limit, start=start)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DevicesV2Api->devicesV2GetEvents: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -3397,7 +3308,11 @@ The time at which to start selecting events
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -3480,7 +3395,10 @@ The time at which to start selecting events
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -3522,60 +3440,13 @@ The time at which to start selecting events
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-DevicesV2-devicesV2GetProperties-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-DevicesV2-devicesV2GetProperties-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-DevicesV2-devicesV2GetProperties-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-DevicesV2-devicesV2GetProperties-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://api2.arduino.cc/iot/v2/devices/{id}/properties?show_deleted="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://localhost:8000/iot/v2/devices/{id}/properties?show_deleted="</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-DevicesV2-devicesV2GetProperties-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.DevicesV2Api()
-var id = id_example; // {String} The id of the device
-var opts = {
-  'showDeleted': true // {Boolean} If true, shows the soft deleted properties
-};
-api.devicesV2GetProperties(id, opts).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-DevicesV2-devicesV2GetProperties-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.DevicesV2Api()
-id = id_example # String | The id of the device (default to null)
-showDeleted = true # Boolean | If true, shows the soft deleted properties (optional) (default to null)
-
-try: 
-    # getProperties devices_v2
-    api_response = api_instance.devices_v2_get_properties(id, showDeleted=showDeleted)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DevicesV2Api->devicesV2GetProperties: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -3687,7 +3558,11 @@ If true, shows the soft deleted properties
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -3751,58 +3626,13 @@ If true, shows the soft deleted properties
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-DevicesV2-devicesV2List-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-DevicesV2-devicesV2List-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-DevicesV2-devicesV2List-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-DevicesV2-devicesV2List-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://api2.arduino.cc/iot/v2/devices?across_user_ids="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://localhost:8000/iot/v2/devices?across_user_ids="</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-DevicesV2-devicesV2List-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.DevicesV2Api()
-var opts = {
-  'acrossUserIds': true // {Boolean} If true, returns all the devices
-};
-api.devicesV2List(opts).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-DevicesV2-devicesV2List-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.DevicesV2Api()
-acrossUserIds = true # Boolean | If true, returns all the devices (optional) (default to null)
-
-try: 
-    # list devices_v2
-    api_response = api_instance.devices_v2_list(acrossUserIds=acrossUserIds)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DevicesV2Api->devicesV2List: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -3884,7 +3714,11 @@ If true, returns all the devices
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -3926,56 +3760,13 @@ If true, returns all the devices
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-DevicesV2-devicesV2Show-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-DevicesV2-devicesV2Show-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-DevicesV2-devicesV2Show-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-DevicesV2-devicesV2Show-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://api2.arduino.cc/iot/v2/devices/{id}"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://localhost:8000/iot/v2/devices/{id}"</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-DevicesV2-devicesV2Show-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.DevicesV2Api()
-var id = id_example; // {String} The id of the device
-api.devicesV2Show(id).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-DevicesV2-devicesV2Show-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.DevicesV2Api()
-id = id_example # String | The id of the device (default to null)
-
-try: 
-    # show devices_v2
-    api_response = api_instance.devices_v2_show(id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DevicesV2Api->devicesV2Show: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -4060,7 +3851,11 @@ The id of the device
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -4102,64 +3897,13 @@ The id of the device
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-DevicesV2-devicesV2Timeseries-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-DevicesV2-devicesV2Timeseries-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-DevicesV2-devicesV2Timeseries-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-DevicesV2-devicesV2Timeseries-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://api2.arduino.cc/iot/v2/devices/{id}/properties/{pid}?limit=&start="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://localhost:8000/iot/v2/devices/{id}/properties/{pid}?limit=&start="</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-DevicesV2-devicesV2Timeseries-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.DevicesV2Api()
-var id = id_example; // {String} The id of the device
-var pid = pid_example; // {String} The id of the property
-var opts = {
-  'limit': 56, // {Integer} The number of properties to select
-  'start': start_example // {String} The time at which to start selecting properties
-};
-api.devicesV2Timeseries(id, pid, opts).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-DevicesV2-devicesV2Timeseries-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.DevicesV2Api()
-id = id_example # String | The id of the device (default to null)
-pid = pid_example # String | The id of the property (default to null)
-limit = 56 # Integer | The number of properties to select (optional) (default to null)
-start = start_example # String | The time at which to start selecting properties (optional) (default to null)
-
-try: 
-    # timeseries devices_v2
-    api_response = api_instance.devices_v2_timeseries(id, pid, limit=limit, start=start)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DevicesV2Api->devicesV2Timeseries: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -4314,7 +4058,11 @@ The time at which to start selecting properties
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -4378,58 +4126,13 @@ The time at which to start selecting properties
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-DevicesV2-devicesV2Update-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-DevicesV2-devicesV2Update-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-DevicesV2-devicesV2Update-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-DevicesV2-devicesV2Update-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "http://api2.arduino.cc/iot/v2/devices/{id}"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "http://localhost:8000/iot/v2/devices/{id}"</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-DevicesV2-devicesV2Update-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.DevicesV2Api()
-var id = id_example; // {String} The id of the device
-var devicev2 = ; // {Devicev2} 
-api.devicesV2Update(id, devicev2).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-DevicesV2-devicesV2Update-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.DevicesV2Api()
-id = id_example # String | The id of the device (default to null)
-devicev2 =  # Devicev2 | 
-
-try: 
-    # update devices_v2
-    api_response = api_instance.devices_v2_update(id, devicev2)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DevicesV2Api->devicesV2Update: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -4481,8 +4184,21 @@ The id of the device
 <p class="marked">DeviceV2 describes a device.</p>
 <script>
 $(document).ready(function() {
-  var schemaWrapper = ;
-  var schema = schemaWrapper.schema;
+  var schemaWrapper = {
+  "description" : "DeviceV2 describes a device.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/devicev2"
+      }
+    }
+  },
+  "required" : true
+};
+  var schema = findNode('schema', schemaWrapper).schema;
+  if (!schema) {
+      schema = schemaWrapper.schema;
+  }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
   } else {
@@ -4547,7 +4263,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -4608,7 +4328,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -4669,7 +4393,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -4711,57 +4439,13 @@ $(document).ready(function() {
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-DevicesV2-devicesV2UpdateProperties-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-DevicesV2-devicesV2UpdateProperties-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-DevicesV2-devicesV2UpdateProperties-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-DevicesV2-devicesV2UpdateProperties-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "http://api2.arduino.cc/iot/v2/devices/{id}/properties"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "http://localhost:8000/iot/v2/devices/{id}/properties"</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-DevicesV2-devicesV2UpdateProperties-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.DevicesV2Api()
-var id = id_example; // {String} The id of the device
-var propertiesValues = ; // {PropertiesValues} 
-api.devicesV2UpdateProperties(id, propertiesValues).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-DevicesV2-devicesV2UpdateProperties-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.DevicesV2Api()
-id = id_example # String | The id of the device (default to null)
-propertiesValues =  # PropertiesValues | 
-
-try: 
-    # updateProperties devices_v2
-    api_instance.devices_v2_update_properties(id, propertiesValues)
-except ApiException as e:
-    print("Exception when calling DevicesV2Api->devicesV2UpdateProperties: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -4813,8 +4497,20 @@ The id of the device
 <p class="marked"></p>
 <script>
 $(document).ready(function() {
-  var schemaWrapper = ;
-  var schema = schemaWrapper.schema;
+  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/propertiesValues"
+      }
+    }
+  },
+  "required" : true
+};
+  var schema = findNode('schema', schemaWrapper).schema;
+  if (!schema) {
+      schema = schemaWrapper.schema;
+  }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
   } else {
@@ -4907,58 +4603,13 @@ $(document).ready(function() {
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-PropertiesV2-propertiesV2Create-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-PropertiesV2-propertiesV2Create-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-PropertiesV2-propertiesV2Create-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-PropertiesV2-propertiesV2Create-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "http://api2.arduino.cc/iot/v2/things/{id}/properties"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "http://localhost:8000/iot/v2/things/{id}/properties"</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-PropertiesV2-propertiesV2Create-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.PropertiesV2Api()
-var id = id_example; // {String} The id of the thing
-var property = ; // {Property} 
-api.propertiesV2Create(id, property).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-PropertiesV2-propertiesV2Create-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.PropertiesV2Api()
-id = id_example # String | The id of the thing (default to null)
-property =  # Property | 
-
-try: 
-    # create properties_v2
-    api_response = api_instance.properties_v2_create(id, property)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling PropertiesV2Api->propertiesV2Create: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -5010,8 +4661,21 @@ The id of the thing
 <p class="marked">PropertyPayload describes a property of a thing. No field is mandatory</p>
 <script>
 $(document).ready(function() {
-  var schemaWrapper = ;
-  var schema = schemaWrapper.schema;
+  var schemaWrapper = {
+  "description" : "PropertyPayload describes a property of a thing. No field is mandatory",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/property"
+      }
+    }
+  },
+  "required" : true
+};
+  var schema = findNode('schema', schemaWrapper).schema;
+  if (!schema) {
+      schema = schemaWrapper.schema;
+  }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
   } else {
@@ -5076,7 +4740,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -5137,7 +4805,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -5198,7 +4870,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -5262,61 +4938,13 @@ $(document).ready(function() {
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-PropertiesV2-propertiesV2Delete-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-PropertiesV2-propertiesV2Delete-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-PropertiesV2-propertiesV2Delete-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-PropertiesV2-propertiesV2Delete-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X DELETE "http://api2.arduino.cc/iot/v2/things/{id}/properties/{pid}?force="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X DELETE "http://localhost:8000/iot/v2/things/{id}/properties/{pid}?force="</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-PropertiesV2-propertiesV2Delete-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.PropertiesV2Api()
-var id = id_example; // {String} The id of the thing
-var pid = pid_example; // {String} The id of the property
-var opts = {
-  'force': true // {Boolean} If true, hard delete the property
-};
-api.propertiesV2Delete(id, pid, opts).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-PropertiesV2-propertiesV2Delete-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.PropertiesV2Api()
-id = id_example # String | The id of the thing (default to null)
-pid = pid_example # String | The id of the property (default to null)
-force = true # Boolean | If true, hard delete the property (optional) (default to null)
-
-try: 
-    # delete properties_v2
-    api_instance.properties_v2_delete(id, pid, force=force)
-except ApiException as e:
-    print("Exception when calling PropertiesV2Api->propertiesV2Delete: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -5473,7 +5101,11 @@ If true, hard delete the property
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -5537,60 +5169,13 @@ If true, hard delete the property
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-PropertiesV2-propertiesV2List-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-PropertiesV2-propertiesV2List-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-PropertiesV2-propertiesV2List-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-PropertiesV2-propertiesV2List-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://api2.arduino.cc/iot/v2/things/{id}/properties?show_deleted="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://localhost:8000/iot/v2/things/{id}/properties?show_deleted="</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-PropertiesV2-propertiesV2List-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.PropertiesV2Api()
-var id = id_example; // {String} The id of the thing
-var opts = {
-  'showDeleted': true // {Boolean} If true, shows the soft deleted properties
-};
-api.propertiesV2List(id, opts).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-PropertiesV2-propertiesV2List-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.PropertiesV2Api()
-id = id_example # String | The id of the thing (default to null)
-showDeleted = true # Boolean | If true, shows the soft deleted properties (optional) (default to null)
-
-try: 
-    # list properties_v2
-    api_response = api_instance.properties_v2_list(id, showDeleted=showDeleted)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling PropertiesV2Api->propertiesV2List: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -5702,7 +5287,11 @@ If true, shows the soft deleted properties
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -5763,7 +5352,11 @@ If true, shows the soft deleted properties
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -5824,7 +5417,11 @@ If true, shows the soft deleted properties
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -5866,59 +5463,13 @@ If true, shows the soft deleted properties
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-PropertiesV2-propertiesV2Publish-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-PropertiesV2-propertiesV2Publish-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-PropertiesV2-propertiesV2Publish-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-PropertiesV2-propertiesV2Publish-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "http://api2.arduino.cc/iot/v2/things/{id}/properties/{pid}/publish"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "http://localhost:8000/iot/v2/things/{id}/properties/{pid}/publish"</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-PropertiesV2-propertiesV2Publish-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.PropertiesV2Api()
-var id = id_example; // {String} The id of the thing
-var pid = pid_example; // {String} The id of the property
-var propertyValue = ; // {PropertyValue} 
-api.propertiesV2Publish(id, pid, propertyValue).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-PropertiesV2-propertiesV2Publish-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.PropertiesV2Api()
-id = id_example # String | The id of the thing (default to null)
-pid = pid_example # String | The id of the property (default to null)
-propertyValue =  # PropertyValue | 
-
-try: 
-    # publish properties_v2
-    api_instance.properties_v2_publish(id, pid, propertyValue)
-except ApiException as e:
-    print("Exception when calling PropertiesV2Api->propertiesV2Publish: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -5993,8 +5544,21 @@ The id of the property
 <p class="marked">PropertyValuePayload describes a property value</p>
 <script>
 $(document).ready(function() {
-  var schemaWrapper = ;
-  var schema = schemaWrapper.schema;
+  var schemaWrapper = {
+  "description" : "PropertyValuePayload describes a property value",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/propertyValue"
+      }
+    }
+  },
+  "required" : true
+};
+  var schema = findNode('schema', schemaWrapper).schema;
+  if (!schema) {
+      schema = schemaWrapper.schema;
+  }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
   } else {
@@ -6081,7 +5645,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -6142,7 +5710,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -6206,62 +5778,13 @@ $(document).ready(function() {
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-PropertiesV2-propertiesV2Show-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-PropertiesV2-propertiesV2Show-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-PropertiesV2-propertiesV2Show-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-PropertiesV2-propertiesV2Show-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://api2.arduino.cc/iot/v2/things/{id}/properties/{pid}?show_deleted="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://localhost:8000/iot/v2/things/{id}/properties/{pid}?show_deleted="</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-PropertiesV2-propertiesV2Show-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.PropertiesV2Api()
-var id = id_example; // {String} The id of the thing
-var pid = pid_example; // {String} The id of the property
-var opts = {
-  'showDeleted': true // {Boolean} If true, shows the soft deleted properties
-};
-api.propertiesV2Show(id, pid, opts).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-PropertiesV2-propertiesV2Show-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.PropertiesV2Api()
-id = id_example # String | The id of the thing (default to null)
-pid = pid_example # String | The id of the property (default to null)
-showDeleted = true # Boolean | If true, shows the soft deleted properties (optional) (default to null)
-
-try: 
-    # show properties_v2
-    api_response = api_instance.properties_v2_show(id, pid, showDeleted=showDeleted)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling PropertiesV2Api->propertiesV2Show: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -6396,7 +5919,11 @@ If true, shows the soft deleted properties
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -6457,7 +5984,11 @@ If true, shows the soft deleted properties
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -6518,7 +6049,11 @@ If true, shows the soft deleted properties
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -6560,60 +6095,13 @@ If true, shows the soft deleted properties
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-PropertiesV2-propertiesV2Update-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-PropertiesV2-propertiesV2Update-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-PropertiesV2-propertiesV2Update-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-PropertiesV2-propertiesV2Update-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "http://api2.arduino.cc/iot/v2/things/{id}/properties/{pid}"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "http://localhost:8000/iot/v2/things/{id}/properties/{pid}"</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-PropertiesV2-propertiesV2Update-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.PropertiesV2Api()
-var id = id_example; // {String} The id of the thing
-var pid = pid_example; // {String} The id of the property
-var property = ; // {Property} 
-api.propertiesV2Update(id, pid, property).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-PropertiesV2-propertiesV2Update-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.PropertiesV2Api()
-id = id_example # String | The id of the thing (default to null)
-pid = pid_example # String | The id of the property (default to null)
-property =  # Property | 
-
-try: 
-    # update properties_v2
-    api_response = api_instance.properties_v2_update(id, pid, property)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling PropertiesV2Api->propertiesV2Update: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -6688,8 +6176,21 @@ The id of the property
 <p class="marked">PropertyPayload describes a property of a thing. No field is mandatory</p>
 <script>
 $(document).ready(function() {
-  var schemaWrapper = ;
-  var schema = schemaWrapper.schema;
+  var schemaWrapper = {
+  "description" : "PropertyPayload describes a property of a thing. No field is mandatory",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/property"
+      }
+    }
+  },
+  "required" : true
+};
+  var schema = findNode('schema', schemaWrapper).schema;
+  if (!schema) {
+      schema = schemaWrapper.schema;
+  }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
   } else {
@@ -6754,7 +6255,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -6815,7 +6320,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -6876,7 +6385,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -6937,7 +6450,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -6982,56 +6499,13 @@ $(document).ready(function() {
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-SeriesV2-seriesV2BatchQuery-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-SeriesV2-seriesV2BatchQuery-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-SeriesV2-seriesV2BatchQuery-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-SeriesV2-seriesV2BatchQuery-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "http://api2.arduino.cc/iot/v2/series/batch_query"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "http://localhost:8000/iot/v2/series/batch_query"</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-SeriesV2-seriesV2BatchQuery-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.SeriesV2Api()
-var batchQueryRequestsMediaV1 = ; // {BatchQueryRequestsMediaV1} 
-api.seriesV2BatchQuery(batchQueryRequestsMediaV1).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-SeriesV2-seriesV2BatchQuery-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.SeriesV2Api()
-batchQueryRequestsMediaV1 =  # BatchQueryRequestsMediaV1 | 
-
-try: 
-    # batch_query series_v2
-    api_response = api_instance.series_v2_batch_query(batchQueryRequestsMediaV1)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling SeriesV2Api->seriesV2BatchQuery: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -7053,8 +6527,20 @@ except ApiException as e:
 <p class="marked"></p>
 <script>
 $(document).ready(function() {
-  var schemaWrapper = ;
-  var schema = schemaWrapper.schema;
+  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/BatchQueryRequestsMediaV1"
+      }
+    }
+  },
+  "required" : true
+};
+  var schema = findNode('schema', schemaWrapper).schema;
+  if (!schema) {
+      schema = schemaWrapper.schema;
+  }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
   } else {
@@ -7119,7 +6605,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -7180,7 +6670,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -7285,7 +6779,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -7327,56 +6825,13 @@ $(document).ready(function() {
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-SeriesV2-seriesV2BatchQueryRaw-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-SeriesV2-seriesV2BatchQueryRaw-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-SeriesV2-seriesV2BatchQueryRaw-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-SeriesV2-seriesV2BatchQueryRaw-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "http://api2.arduino.cc/iot/v2/series/batch_query_raw"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "http://localhost:8000/iot/v2/series/batch_query_raw"</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-SeriesV2-seriesV2BatchQueryRaw-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.SeriesV2Api()
-var batchQueryRawRequestsMediaV1 = ; // {BatchQueryRawRequestsMediaV1} 
-api.seriesV2BatchQueryRaw(batchQueryRawRequestsMediaV1).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-SeriesV2-seriesV2BatchQueryRaw-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.SeriesV2Api()
-batchQueryRawRequestsMediaV1 =  # BatchQueryRawRequestsMediaV1 | 
-
-try: 
-    # batch_query_raw series_v2
-    api_response = api_instance.series_v2_batch_query_raw(batchQueryRawRequestsMediaV1)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling SeriesV2Api->seriesV2BatchQueryRaw: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -7398,8 +6853,20 @@ except ApiException as e:
 <p class="marked"></p>
 <script>
 $(document).ready(function() {
-  var schemaWrapper = ;
-  var schema = schemaWrapper.schema;
+  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/BatchQueryRawRequestsMediaV1"
+      }
+    }
+  },
+  "required" : true
+};
+  var schema = findNode('schema', schemaWrapper).schema;
+  if (!schema) {
+      schema = schemaWrapper.schema;
+  }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
   } else {
@@ -7464,7 +6931,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -7525,7 +6996,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -7630,7 +7105,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -7672,56 +7151,13 @@ $(document).ready(function() {
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-SeriesV2-seriesV2BatchQueryRawLastValue-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-SeriesV2-seriesV2BatchQueryRawLastValue-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-SeriesV2-seriesV2BatchQueryRawLastValue-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-SeriesV2-seriesV2BatchQueryRawLastValue-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "http://api2.arduino.cc/iot/v2/series/batch_query_raw/lastvalue"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "http://localhost:8000/iot/v2/series/batch_query_raw/lastvalue"</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-SeriesV2-seriesV2BatchQueryRawLastValue-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.SeriesV2Api()
-var batchLastValueRequestsMediaV1 = ; // {BatchLastValueRequestsMediaV1} 
-api.seriesV2BatchQueryRawLastValue(batchLastValueRequestsMediaV1).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-SeriesV2-seriesV2BatchQueryRawLastValue-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.SeriesV2Api()
-batchLastValueRequestsMediaV1 =  # BatchLastValueRequestsMediaV1 | 
-
-try: 
-    # batch_query_raw_last_value series_v2
-    api_response = api_instance.series_v2_batch_query_raw_last_value(batchLastValueRequestsMediaV1)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling SeriesV2Api->seriesV2BatchQueryRawLastValue: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -7743,8 +7179,20 @@ except ApiException as e:
 <p class="marked"></p>
 <script>
 $(document).ready(function() {
-  var schemaWrapper = ;
-  var schema = schemaWrapper.schema;
+  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/BatchLastValueRequestsMediaV1"
+      }
+    }
+  },
+  "required" : true
+};
+  var schema = findNode('schema', schemaWrapper).schema;
+  if (!schema) {
+      schema = schemaWrapper.schema;
+  }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
   } else {
@@ -7809,7 +7257,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -7870,7 +7322,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -7975,7 +7431,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -8020,60 +7480,13 @@ $(document).ready(function() {
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-ThingsV2-thingsV2Create-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-ThingsV2-thingsV2Create-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-ThingsV2-thingsV2Create-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-ThingsV2-thingsV2Create-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "http://api2.arduino.cc/iot/v2/things?force="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "http://localhost:8000/iot/v2/things?force="</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-ThingsV2-thingsV2Create-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.ThingsV2Api()
-var createThingsV2Payload = ; // {CreateThingsV2Payload} 
-var opts = {
-  'force': true // {Boolean} If true, detach device from the other thing, and attach to this thing
-};
-api.thingsV2Create(createThingsV2Payload, opts).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-ThingsV2-thingsV2Create-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.ThingsV2Api()
-createThingsV2Payload =  # CreateThingsV2Payload | 
-force = true # Boolean | If true, detach device from the other thing, and attach to this thing (optional) (default to null)
-
-try: 
-    # create things_v2
-    api_response = api_instance.things_v2_create(createThingsV2Payload, force=force)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThingsV2Api->thingsV2Create: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -8095,8 +7508,21 @@ except ApiException as e:
 <p class="marked">ThingPayload describes a thing</p>
 <script>
 $(document).ready(function() {
-  var schemaWrapper = ;
-  var schema = schemaWrapper.schema;
+  var schemaWrapper = {
+  "description" : "ThingPayload describes a thing",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/CreateThingsV2Payload"
+      }
+    }
+  },
+  "required" : true
+};
+  var schema = findNode('schema', schemaWrapper).schema;
+  if (!schema) {
+      schema = schemaWrapper.schema;
+  }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
   } else {
@@ -8188,7 +7614,11 @@ If true, detach device from the other thing, and attach to this thing
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -8271,7 +7701,11 @@ If true, detach device from the other thing, and attach to this thing
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -8332,7 +7766,11 @@ If true, detach device from the other thing, and attach to this thing
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -8374,58 +7812,13 @@ If true, detach device from the other thing, and attach to this thing
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-ThingsV2-thingsV2CreateSketch-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-ThingsV2-thingsV2CreateSketch-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-ThingsV2-thingsV2CreateSketch-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-ThingsV2-thingsV2CreateSketch-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "http://api2.arduino.cc/iot/v2/things/{id}/sketch"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "http://localhost:8000/iot/v2/things/{id}/sketch"</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-ThingsV2-thingsV2CreateSketch-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.ThingsV2Api()
-var id = id_example; // {String} The id of the thing
-var thingSketch = ; // {ThingSketch} 
-api.thingsV2CreateSketch(id, thingSketch).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-ThingsV2-thingsV2CreateSketch-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.ThingsV2Api()
-id = id_example # String | The id of the thing (default to null)
-thingSketch =  # ThingSketch | 
-
-try: 
-    # createSketch things_v2
-    api_response = api_instance.things_v2_create_sketch(id, thingSketch)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThingsV2Api->thingsV2CreateSketch: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -8477,8 +7870,21 @@ The id of the thing
 <p class="marked">ThingSketchPayload describes a sketch of a thing</p>
 <script>
 $(document).ready(function() {
-  var schemaWrapper = ;
-  var schema = schemaWrapper.schema;
+  var schemaWrapper = {
+  "description" : "ThingSketchPayload describes a sketch of a thing",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/thingSketch"
+      }
+    }
+  },
+  "required" : true
+};
+  var schema = findNode('schema', schemaWrapper).schema;
+  if (!schema) {
+      schema = schemaWrapper.schema;
+  }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
   } else {
@@ -8543,7 +7949,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -8604,7 +8014,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -8687,7 +8101,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -8729,59 +8147,13 @@ $(document).ready(function() {
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-ThingsV2-thingsV2Delete-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-ThingsV2-thingsV2Delete-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-ThingsV2-thingsV2Delete-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-ThingsV2-thingsV2Delete-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X DELETE "http://api2.arduino.cc/iot/v2/things/{id}?force="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X DELETE "http://localhost:8000/iot/v2/things/{id}?force="</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-ThingsV2-thingsV2Delete-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.ThingsV2Api()
-var id = id_example; // {String} The id of the thing
-var opts = {
-  'force': true // {Boolean} If true, hard delete the thing
-};
-api.thingsV2Delete(id, opts).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-ThingsV2-thingsV2Delete-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.ThingsV2Api()
-id = id_example # String | The id of the thing (default to null)
-force = true # Boolean | If true, hard delete the thing (optional) (default to null)
-
-try: 
-    # delete things_v2
-    api_instance.things_v2_delete(id, force=force)
-except ApiException as e:
-    print("Exception when calling ThingsV2Api->thingsV2Delete: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -8940,56 +8312,13 @@ If true, hard delete the thing
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-ThingsV2-thingsV2DeleteSketch-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-ThingsV2-thingsV2DeleteSketch-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-ThingsV2-thingsV2DeleteSketch-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-ThingsV2-thingsV2DeleteSketch-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X DELETE "http://api2.arduino.cc/iot/v2/things/{id}/sketch"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X DELETE "http://localhost:8000/iot/v2/things/{id}/sketch"</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-ThingsV2-thingsV2DeleteSketch-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.ThingsV2Api()
-var id = id_example; // {String} The id of the thing
-api.thingsV2DeleteSketch(id).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-ThingsV2-thingsV2DeleteSketch-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.ThingsV2Api()
-id = id_example # String | The id of the thing (default to null)
-
-try: 
-    # deleteSketch things_v2
-    api_response = api_instance.things_v2_delete_sketch(id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThingsV2Api->thingsV2DeleteSketch: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -9074,7 +8403,11 @@ The id of the thing
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -9160,66 +8493,13 @@ The id of the thing
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-ThingsV2-thingsV2List-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-ThingsV2-thingsV2List-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-ThingsV2-thingsV2List-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-ThingsV2-thingsV2List-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://api2.arduino.cc/iot/v2/things?across_user_ids=&device_id=&ids=&show_deleted=&show_properties="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://localhost:8000/iot/v2/things?across_user_ids=&device_id=&ids=&show_deleted=&show_properties="</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-ThingsV2-thingsV2List-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.ThingsV2Api()
-var opts = {
-  'acrossUserIds': true, // {Boolean} If true, returns all the things
-  'deviceId': deviceId_example, // {String} The id of the device you want to filter
-  'ids': , // {array[String]} Filter only the desired things
-  'showDeleted': true, // {Boolean} If true, shows the soft deleted things
-  'showProperties': true // {Boolean} If true, returns things with their properties, and last values
-};
-api.thingsV2List(opts).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-ThingsV2-thingsV2List-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.ThingsV2Api()
-acrossUserIds = true # Boolean | If true, returns all the things (optional) (default to null)
-deviceId = deviceId_example # String | The id of the device you want to filter (optional) (default to null)
-ids =  # array[String] | Filter only the desired things (optional) (default to null)
-showDeleted = true # Boolean | If true, shows the soft deleted things (optional) (default to null)
-showProperties = true # Boolean | If true, returns things with their properties, and last values (optional) (default to null)
-
-try: 
-    # list things_v2
-    api_response = api_instance.things_v2_list(acrossUserIds=acrossUserIds, deviceId=deviceId, ids=ids, showDeleted=showDeleted, showProperties=showProperties)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThingsV2Api->thingsV2List: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -9381,7 +8661,11 @@ If true, returns things with their properties, and last values
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -9445,60 +8729,13 @@ If true, returns things with their properties, and last values
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-ThingsV2-thingsV2Show-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-ThingsV2-thingsV2Show-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-ThingsV2-thingsV2Show-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-ThingsV2-thingsV2Show-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://api2.arduino.cc/iot/v2/things/{id}?show_deleted="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://localhost:8000/iot/v2/things/{id}?show_deleted="</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-ThingsV2-thingsV2Show-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.ThingsV2Api()
-var id = id_example; // {String} The id of the thing
-var opts = {
-  'showDeleted': true // {Boolean} If true, shows the soft deleted thing
-};
-api.thingsV2Show(id, opts).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-ThingsV2-thingsV2Show-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.ThingsV2Api()
-id = id_example # String | The id of the thing (default to null)
-showDeleted = true # Boolean | If true, shows the soft deleted thing (optional) (default to null)
-
-try: 
-    # show things_v2
-    api_response = api_instance.things_v2_show(id, showDeleted=showDeleted)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThingsV2Api->thingsV2Show: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -9610,7 +8847,11 @@ If true, shows the soft deleted thing
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -9671,7 +8912,11 @@ If true, shows the soft deleted thing
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -9754,7 +8999,11 @@ If true, shows the soft deleted thing
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -9796,62 +9045,13 @@ If true, shows the soft deleted thing
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-ThingsV2-thingsV2Update-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-ThingsV2-thingsV2Update-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-ThingsV2-thingsV2Update-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-ThingsV2-thingsV2Update-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "http://api2.arduino.cc/iot/v2/things/{id}?force="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "http://localhost:8000/iot/v2/things/{id}?force="</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-ThingsV2-thingsV2Update-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.ThingsV2Api()
-var id = id_example; // {String} The id of the thing
-var thing = ; // {Thing} 
-var opts = {
-  'force': true // {Boolean} If true, detach device from the other thing, and attach to this thing
-};
-api.thingsV2Update(id, thing, opts).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-ThingsV2-thingsV2Update-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.ThingsV2Api()
-id = id_example # String | The id of the thing (default to null)
-thing =  # Thing | 
-force = true # Boolean | If true, detach device from the other thing, and attach to this thing (optional) (default to null)
-
-try: 
-    # update things_v2
-    api_response = api_instance.things_v2_update(id, thing, force=force)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThingsV2Api->thingsV2Update: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -9903,8 +9103,21 @@ The id of the thing
 <p class="marked">ThingPayload describes a thing</p>
 <script>
 $(document).ready(function() {
-  var schemaWrapper = ;
-  var schema = schemaWrapper.schema;
+  var schemaWrapper = {
+  "description" : "ThingPayload describes a thing",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/thing"
+      }
+    }
+  },
+  "required" : true
+};
+  var schema = findNode('schema', schemaWrapper).schema;
+  if (!schema) {
+      schema = schemaWrapper.schema;
+  }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
   } else {
@@ -9996,7 +9209,11 @@ If true, detach device from the other thing, and attach to this thing
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -10057,7 +9274,11 @@ If true, detach device from the other thing, and attach to this thing
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -10162,7 +9383,11 @@ If true, detach device from the other thing, and attach to this thing
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -10204,62 +9429,13 @@ If true, detach device from the other thing, and attach to this thing
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-ThingsV2-thingsV2UpdateSketch-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-ThingsV2-thingsV2UpdateSketch-0-javascript">JavaScript</a></li>
-                          <li class=""><a href="#examples-ThingsV2-thingsV2UpdateSketch-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-ThingsV2-thingsV2UpdateSketch-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "http://api2.arduino.cc/iot/v2/things/{id}/sketch/{sketchId}"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "http://localhost:8000/iot/v2/things/{id}/sketch/{sketchId}"</code></pre>
                           </div>
-
-                            <div class="tab-pane" id="examples-ThingsV2-thingsV2UpdateSketch-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
-var defaultClient = ArduinoIotClient.ApiClient.instance;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = "YOUR ACCESS TOKEN"
-
-var api = new ArduinoIotClient.ThingsV2Api()
-var id = id_example; // {String} The id of the thing
-var sketchId = sketchId_example; // {String} The id of the sketch
-var opts = {
-  'updateSketch':  // {UpdateSketch} 
-};
-api.thingsV2UpdateSketch(id, sketchId, opts).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-ThingsV2-thingsV2UpdateSketch-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth2
-openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = openapi_client.ThingsV2Api()
-id = id_example # String | The id of the thing (default to null)
-sketchId = sketchId_example # String | The id of the sketch (default to null)
-updateSketch =  # UpdateSketch |  (optional)
-
-try: 
-    # updateSketch things_v2
-    api_response = api_instance.things_v2_update_sketch(id, sketchId, updateSketch=updateSketch)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThingsV2Api->thingsV2UpdateSketch: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
+                        </div>
 
                           <h2>Scopes</h2>
                           <table>
@@ -10334,8 +9510,19 @@ The id of the sketch
 <p class="marked"></p>
 <script>
 $(document).ready(function() {
-  var schemaWrapper = ;
-  var schema = schemaWrapper.schema;
+  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/updateSketch"
+      }
+    }
+  }
+};
+  var schema = findNode('schema', schemaWrapper).schema;
+  if (!schema) {
+      schema = schemaWrapper.schema;
+  }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
   } else {
@@ -10400,7 +9587,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -10483,7 +9674,11 @@ $(document).ready(function() {
     }
   }
 };
-                                        var schema = schemaWrapper.schema;
+                                          
+                                          var schema = findNode('schema',schemaWrapper).schema;
+                                          if (!schema) {
+                                              schema = schemaWrapper.schema;
+                                          }
                                         if (schema.$ref != null) {
                                           schema = defsParser.$refs.get(schema.$ref);
                                         } else {
@@ -12248,9 +11443,8 @@ g,0<c.length&&(c=Aa[c[0]])&&(a.c[e]=c))}a.c[e]||(c=Aa[e])&&(a.c[e]=c);for(c=0;c<
 </script>
 
   <script>
-    var schemaWrapper = {};
-    schemaWrapper.definitions = Object.assign({}, defs);
-    defsParser = new $RefParser();
+      var schemaWrapper = { "components": { "schemas" : defs}};
+      defsParser = new $RefParser();
     defsParser.dereference(schemaWrapper).catch(function(err) {
       console.log(err);
     });
