@@ -1302,6 +1302,7 @@ ul.nav-tabs {
   }
 };
     defs["ArduinoDevicev2propertyvalue_value"] = {
+  "type" : "object",
   "properties" : {
     "payload" : {
       "type" : "string",
@@ -1316,9 +1317,25 @@ ul.nav-tabs {
       "$ref" : "#/components/schemas/ArduinoDevicev2propertyvalue_value_statistics"
     }
   },
-  "example" : "{\"payload\":\"Officiis omnis animi hic magnam optio.\",\"seqno\":97046750376806740,\"statistics\":{\"adr\":0.29123958894625906,\"channel\":0.9067990865360126,\"duplicate\":0.23726501923298104,\"freq\":0.10815957932005495,\"modBW\":0.4634843366964926,\"rssi\":0.037609672803732105,\"seqno\":0.00136794523068846,\"sf\":0.9144273278077354,\"snr\":0.5495513936018442,\"time\":0.02851660548332954}}"
+  "example" : {
+    "payload" : "Officiis omnis animi hic magnam optio.",
+    "seqno" : 97046750376806740,
+    "statistics" : {
+      "adr" : 0.29123958894625906,
+      "channel" : 0.9067990865360126,
+      "duplicate" : 0.23726501923298104,
+      "freq" : 0.10815957932005495,
+      "modBW" : 0.4634843366964926,
+      "rssi" : 0.037609672803732105,
+      "seqno" : 0.00136794523068846,
+      "sf" : 0.9144273278077354,
+      "snr" : 0.5495513936018442,
+      "time" : 0.02851660548332954
+    }
+  }
 };
     defs["ArduinoDevicev2propertyvalue_value_statistics"] = {
+  "type" : "object",
   "properties" : {
     "adr" : {
       "type" : "number",
@@ -1371,7 +1388,18 @@ ul.nav-tabs {
       "example" : 0.02851660548332954
     }
   },
-  "example" : "{\"adr\":0.29123958894625906,\"channel\":0.9067990865360126,\"duplicate\":0.23726501923298104,\"freq\":0.10815957932005495,\"modBW\":0.4634843366964926,\"rssi\":0.037609672803732105,\"seqno\":0.00136794523068846,\"sf\":0.9144273278077354,\"snr\":0.5495513936018442,\"time\":0.02851660548332954}"
+  "example" : {
+    "adr" : 0.29123958894625906,
+    "channel" : 0.9067990865360126,
+    "duplicate" : 0.23726501923298104,
+    "freq" : 0.10815957932005495,
+    "modBW" : 0.4634843366964926,
+    "rssi" : 0.037609672803732105,
+    "seqno" : 0.00136794523068846,
+    "sf" : 0.9144273278077354,
+    "snr" : 0.5495513936018442,
+    "time" : 0.02851660548332954
+  }
 };
     defs["ArduinoDevicev2propertyvalues"] = {
   "title" : "Mediatype identifier: application/vnd.arduino.devicev2propertyvalues+json; view=default",
@@ -1460,6 +1488,7 @@ ul.nav-tabs {
   }
 };
     defs["ArduinoDevicev2propertyvalues_last_evaluated_key"] = {
+  "type" : "object",
   "properties" : {
     "created_at" : {
       "type" : "string",
@@ -1475,7 +1504,11 @@ ul.nav-tabs {
       "example" : "Est reiciendis quaerat necessitatibus eos nobis."
     }
   },
-  "example" : "{\"created_at\":\"1997-02-25T01:34:07Z\",\"id\":\"Consectetur natus.\",\"name\":\"Est reiciendis quaerat necessitatibus eos nobis.\"}"
+  "example" : {
+    "created_at" : "1997-02-25T01:34:07Z",
+    "id" : "Consectetur natus.",
+    "name" : "Est reiciendis quaerat necessitatibus eos nobis."
+  }
 };
     defs["ArduinoProperty"] = {
   "title" : "Mediatype identifier: application/vnd.arduino.property+json; view=default",
@@ -4313,7 +4346,7 @@ public class DevicesV2ApiExample {
         Integer limit = 56; // Integer | The number of events to select
         String start = start_example; // String | The time at which to start selecting events
         try {
-            ArduinoDevicev2EventProperties result = apiInstance.devicesV2GetEvents(id, limit, start);
+            ArduinoDevicev2EventProperties result = apiInstance.devicesV2GetEvents(idlimitstart);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2Api#devicesV2GetEvents");
@@ -4335,7 +4368,7 @@ public class DevicesV2ApiExample {
         Integer limit = 56; // Integer | The number of events to select
         String start = start_example; // String | The time at which to start selecting events
         try {
-            ArduinoDevicev2EventProperties result = apiInstance.devicesV2GetEvents(id, limit, start);
+            ArduinoDevicev2EventProperties result = apiInstance.devicesV2GetEvents(idlimitstart);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2Api#devicesV2GetEvents");
@@ -4361,9 +4394,7 @@ String *start = start_example; // The time at which to start selecting events (o
 DevicesV2Api *apiInstance = [[DevicesV2Api alloc] init];
 
 // getEvents devices_v2
-[apiInstance devicesV2GetEventsWith:id
-    limit:limit
-    start:start
+[apiInstance devicesV2GetEventsWith:id:limit:start
               completionHandler: ^(ArduinoDevicev2EventProperties output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -4386,7 +4417,7 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 var api = new ArduinoIotClient.DevicesV2Api()
 var id = id_example; // {String} The id of the device
 var opts = {
-  'limit': 56, // {Integer} The number of events to select
+  'limit': 56 // {Integer} The number of events to select
   'start': start_example // {String} The time at which to start selecting events
 };
 api.devicesV2GetEvents(id, opts).then(function(data) {
@@ -4426,7 +4457,7 @@ namespace Example
             try
             {
                 // getEvents devices_v2
-                ArduinoDevicev2EventProperties result = apiInstance.devicesV2GetEvents(id, limit, start);
+                ArduinoDevicev2EventProperties result = apiInstance.devicesV2GetEvents(idlimitstart);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -4452,7 +4483,7 @@ $limit = 56; // Integer | The number of events to select
 $start = start_example; // String | The time at which to start selecting events
 
 try {
-    $result = $api_instance->devicesV2GetEvents($id, $limit, $start);
+    $result = $api_instance->devicesV2GetEvents($id$limit$start);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DevicesV2Api->devicesV2GetEvents: ', $e->getMessage(), PHP_EOL;
@@ -4474,7 +4505,7 @@ my $limit = 56; # Integer | The number of events to select
 my $start = start_example; # String | The time at which to start selecting events
 
 eval { 
-    my $result = $api_instance->devicesV2GetEvents(id => $id, limit => $limit, start => $start);
+    my $result = $api_instance->devicesV2GetEvents(id => $idlimit => $limitstart => $start);
     print Dumper($result);
 };
 if ($@) {
@@ -4500,7 +4531,7 @@ start = start_example # String | The time at which to start selecting events (op
 
 try: 
     # getEvents devices_v2
-    api_response = api_instance.devices_v2_get_events(id, limit=limit, start=start)
+    api_response = api_instance.devices_v2_get_events(idlimit=limitstart=start)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DevicesV2Api->devicesV2GetEvents: %s\n" % e)</code></pre>
@@ -4937,7 +4968,7 @@ public class DevicesV2ApiExample {
         String id = id_example; // String | The id of the device
         Boolean showDeleted = true; // Boolean | If true, shows the soft deleted properties
         try {
-            ArduinoDevicev2properties result = apiInstance.devicesV2GetProperties(id, showDeleted);
+            ArduinoDevicev2properties result = apiInstance.devicesV2GetProperties(idshowDeleted);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2Api#devicesV2GetProperties");
@@ -4958,7 +4989,7 @@ public class DevicesV2ApiExample {
         String id = id_example; // String | The id of the device
         Boolean showDeleted = true; // Boolean | If true, shows the soft deleted properties
         try {
-            ArduinoDevicev2properties result = apiInstance.devicesV2GetProperties(id, showDeleted);
+            ArduinoDevicev2properties result = apiInstance.devicesV2GetProperties(idshowDeleted);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2Api#devicesV2GetProperties");
@@ -4983,8 +5014,7 @@ Boolean *showDeleted = true; // If true, shows the soft deleted properties (opti
 DevicesV2Api *apiInstance = [[DevicesV2Api alloc] init];
 
 // getProperties devices_v2
-[apiInstance devicesV2GetPropertiesWith:id
-    showDeleted:showDeleted
+[apiInstance devicesV2GetPropertiesWith:id:showDeleted
               completionHandler: ^(ArduinoDevicev2properties output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -5045,7 +5075,7 @@ namespace Example
             try
             {
                 // getProperties devices_v2
-                ArduinoDevicev2properties result = apiInstance.devicesV2GetProperties(id, showDeleted);
+                ArduinoDevicev2properties result = apiInstance.devicesV2GetProperties(idshowDeleted);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -5070,7 +5100,7 @@ $id = id_example; // String | The id of the device
 $showDeleted = true; // Boolean | If true, shows the soft deleted properties
 
 try {
-    $result = $api_instance->devicesV2GetProperties($id, $showDeleted);
+    $result = $api_instance->devicesV2GetProperties($id$showDeleted);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DevicesV2Api->devicesV2GetProperties: ', $e->getMessage(), PHP_EOL;
@@ -5091,7 +5121,7 @@ my $id = id_example; # String | The id of the device
 my $showDeleted = true; # Boolean | If true, shows the soft deleted properties
 
 eval { 
-    my $result = $api_instance->devicesV2GetProperties(id => $id, showDeleted => $showDeleted);
+    my $result = $api_instance->devicesV2GetProperties(id => $idshowDeleted => $showDeleted);
     print Dumper($result);
 };
 if ($@) {
@@ -5116,7 +5146,7 @@ showDeleted = true # Boolean | If true, shows the soft deleted properties (optio
 
 try: 
     # getProperties devices_v2
-    api_response = api_instance.devices_v2_get_properties(id, showDeleted=showDeleted)
+    api_response = api_instance.devices_v2_get_properties(idshowDeleted=showDeleted)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DevicesV2Api->devicesV2GetProperties: %s\n" % e)</code></pre>
@@ -6447,7 +6477,7 @@ public class DevicesV2ApiExample {
         Integer limit = 56; // Integer | The number of properties to select
         String start = start_example; // String | The time at which to start selecting properties
         try {
-            ArduinoDevicev2propertyvalues result = apiInstance.devicesV2Timeseries(id, pid, limit, start);
+            ArduinoDevicev2propertyvalues result = apiInstance.devicesV2Timeseries(idpidlimitstart);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2Api#devicesV2Timeseries");
@@ -6470,7 +6500,7 @@ public class DevicesV2ApiExample {
         Integer limit = 56; // Integer | The number of properties to select
         String start = start_example; // String | The time at which to start selecting properties
         try {
-            ArduinoDevicev2propertyvalues result = apiInstance.devicesV2Timeseries(id, pid, limit, start);
+            ArduinoDevicev2propertyvalues result = apiInstance.devicesV2Timeseries(idpidlimitstart);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2Api#devicesV2Timeseries");
@@ -6497,10 +6527,7 @@ String *start = start_example; // The time at which to start selecting propertie
 DevicesV2Api *apiInstance = [[DevicesV2Api alloc] init];
 
 // timeseries devices_v2
-[apiInstance devicesV2TimeseriesWith:id
-    pid:pid
-    limit:limit
-    start:start
+[apiInstance devicesV2TimeseriesWith:id:pid:limit:start
               completionHandler: ^(ArduinoDevicev2propertyvalues output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -6524,10 +6551,10 @@ var api = new ArduinoIotClient.DevicesV2Api()
 var id = id_example; // {String} The id of the device
 var pid = pid_example; // {String} The id of the property
 var opts = {
-  'limit': 56, // {Integer} The number of properties to select
+  'limit': 56 // {Integer} The number of properties to select
   'start': start_example // {String} The time at which to start selecting properties
 };
-api.devicesV2Timeseries(id, pid, opts).then(function(data) {
+api.devicesV2Timeseries(idpid, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -6565,7 +6592,7 @@ namespace Example
             try
             {
                 // timeseries devices_v2
-                ArduinoDevicev2propertyvalues result = apiInstance.devicesV2Timeseries(id, pid, limit, start);
+                ArduinoDevicev2propertyvalues result = apiInstance.devicesV2Timeseries(idpidlimitstart);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -6592,7 +6619,7 @@ $limit = 56; // Integer | The number of properties to select
 $start = start_example; // String | The time at which to start selecting properties
 
 try {
-    $result = $api_instance->devicesV2Timeseries($id, $pid, $limit, $start);
+    $result = $api_instance->devicesV2Timeseries($id$pid$limit$start);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DevicesV2Api->devicesV2Timeseries: ', $e->getMessage(), PHP_EOL;
@@ -6615,7 +6642,7 @@ my $limit = 56; # Integer | The number of properties to select
 my $start = start_example; # String | The time at which to start selecting properties
 
 eval { 
-    my $result = $api_instance->devicesV2Timeseries(id => $id, pid => $pid, limit => $limit, start => $start);
+    my $result = $api_instance->devicesV2Timeseries(id => $idpid => $pidlimit => $limitstart => $start);
     print Dumper($result);
 };
 if ($@) {
@@ -6642,7 +6669,7 @@ start = start_example # String | The time at which to start selecting properties
 
 try: 
     # timeseries devices_v2
-    api_response = api_instance.devices_v2_timeseries(id, pid, limit=limit, start=start)
+    api_response = api_instance.devices_v2_timeseries(idpidlimit=limitstart=start)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DevicesV2Api->devicesV2Timeseries: %s\n" % e)</code></pre>
@@ -7037,7 +7064,7 @@ public class DevicesV2ApiExample {
         String id = id_example; // String | The id of the device
         Devicev2 devicev2 = ; // Devicev2 | 
         try {
-            ArduinoDevicev2 result = apiInstance.devicesV2Update(id, devicev2);
+            ArduinoDevicev2 result = apiInstance.devicesV2Update(iddevicev2);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2Api#devicesV2Update");
@@ -7058,7 +7085,7 @@ public class DevicesV2ApiExample {
         String id = id_example; // String | The id of the device
         Devicev2 devicev2 = ; // Devicev2 | 
         try {
-            ArduinoDevicev2 result = apiInstance.devicesV2Update(id, devicev2);
+            ArduinoDevicev2 result = apiInstance.devicesV2Update(iddevicev2);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2Api#devicesV2Update");
@@ -7083,8 +7110,7 @@ Devicev2 *devicev2 = ; //
 DevicesV2Api *apiInstance = [[DevicesV2Api alloc] init];
 
 // update devices_v2
-[apiInstance devicesV2UpdateWith:id
-    devicev2:devicev2
+[apiInstance devicesV2UpdateWith:id:devicev2
               completionHandler: ^(ArduinoDevicev2 output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -7107,7 +7133,7 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 var api = new ArduinoIotClient.DevicesV2Api()
 var id = id_example; // {String} The id of the device
 var devicev2 = ; // {Devicev2} 
-api.devicesV2Update(id, devicev2).then(function(data) {
+api.devicesV2Update(iddevicev2).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -7143,7 +7169,7 @@ namespace Example
             try
             {
                 // update devices_v2
-                ArduinoDevicev2 result = apiInstance.devicesV2Update(id, devicev2);
+                ArduinoDevicev2 result = apiInstance.devicesV2Update(iddevicev2);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -7168,7 +7194,7 @@ $id = id_example; // String | The id of the device
 $devicev2 = ; // Devicev2 | 
 
 try {
-    $result = $api_instance->devicesV2Update($id, $devicev2);
+    $result = $api_instance->devicesV2Update($id$devicev2);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DevicesV2Api->devicesV2Update: ', $e->getMessage(), PHP_EOL;
@@ -7189,7 +7215,7 @@ my $id = id_example; # String | The id of the device
 my $devicev2 = WWW::OPenAPIClient::Object::Devicev2->new(); # Devicev2 | 
 
 eval { 
-    my $result = $api_instance->devicesV2Update(id => $id, devicev2 => $devicev2);
+    my $result = $api_instance->devicesV2Update(id => $iddevicev2 => $devicev2);
     print Dumper($result);
 };
 if ($@) {
@@ -7214,7 +7240,7 @@ devicev2 =  # Devicev2 |
 
 try: 
     # update devices_v2
-    api_response = api_instance.devices_v2_update(id, devicev2)
+    api_response = api_instance.devices_v2_update(iddevicev2)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DevicesV2Api->devicesV2Update: %s\n" % e)</code></pre>
@@ -7781,7 +7807,7 @@ public class DevicesV2ApiExample {
         String id = id_example; // String | The id of the device
         PropertiesValues propertiesValues = ; // PropertiesValues | 
         try {
-            apiInstance.devicesV2UpdateProperties(id, propertiesValues);
+            apiInstance.devicesV2UpdateProperties(idpropertiesValues);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2Api#devicesV2UpdateProperties");
             e.printStackTrace();
@@ -7801,7 +7827,7 @@ public class DevicesV2ApiExample {
         String id = id_example; // String | The id of the device
         PropertiesValues propertiesValues = ; // PropertiesValues | 
         try {
-            apiInstance.devicesV2UpdateProperties(id, propertiesValues);
+            apiInstance.devicesV2UpdateProperties(idpropertiesValues);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2Api#devicesV2UpdateProperties");
             e.printStackTrace();
@@ -7825,8 +7851,7 @@ PropertiesValues *propertiesValues = ; //
 DevicesV2Api *apiInstance = [[DevicesV2Api alloc] init];
 
 // updateProperties devices_v2
-[apiInstance devicesV2UpdatePropertiesWith:id
-    propertiesValues:propertiesValues
+[apiInstance devicesV2UpdatePropertiesWith:id:propertiesValues
               completionHandler: ^(NSError* error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
@@ -7846,7 +7871,7 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 var api = new ArduinoIotClient.DevicesV2Api()
 var id = id_example; // {String} The id of the device
 var propertiesValues = ; // {PropertiesValues} 
-api.devicesV2UpdateProperties(id, propertiesValues).then(function() {
+api.devicesV2UpdateProperties(idpropertiesValues).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -7882,7 +7907,7 @@ namespace Example
             try
             {
                 // updateProperties devices_v2
-                apiInstance.devicesV2UpdateProperties(id, propertiesValues);
+                apiInstance.devicesV2UpdateProperties(idpropertiesValues);
             }
             catch (Exception e)
             {
@@ -7906,7 +7931,7 @@ $id = id_example; // String | The id of the device
 $propertiesValues = ; // PropertiesValues | 
 
 try {
-    $api_instance->devicesV2UpdateProperties($id, $propertiesValues);
+    $api_instance->devicesV2UpdateProperties($id$propertiesValues);
 } catch (Exception $e) {
     echo 'Exception when calling DevicesV2Api->devicesV2UpdateProperties: ', $e->getMessage(), PHP_EOL;
 }
@@ -7926,7 +7951,7 @@ my $id = id_example; # String | The id of the device
 my $propertiesValues = WWW::OPenAPIClient::Object::PropertiesValues->new(); # PropertiesValues | 
 
 eval { 
-    $api_instance->devicesV2UpdateProperties(id => $id, propertiesValues => $propertiesValues);
+    $api_instance->devicesV2UpdateProperties(id => $idpropertiesValues => $propertiesValues);
 };
 if ($@) {
     warn "Exception when calling DevicesV2Api->devicesV2UpdateProperties: $@\n";
@@ -7950,7 +7975,7 @@ propertiesValues =  # PropertiesValues |
 
 try: 
     # updateProperties devices_v2
-    api_instance.devices_v2_update_properties(id, propertiesValues)
+    api_instance.devices_v2_update_properties(idpropertiesValues)
 except ApiException as e:
     print("Exception when calling DevicesV2Api->devicesV2UpdateProperties: %s\n" % e)</code></pre>
                             </div>
@@ -8276,7 +8301,7 @@ public class DevicesV2CertsApiExample {
         String id = id_example; // String | The id of the device
         CreateDevicesV2CertsPayload createDevicesV2CertsPayload = ; // CreateDevicesV2CertsPayload | 
         try {
-            ArduinoDevicev2Cert result = apiInstance.devicesV2CertsCreate(id, createDevicesV2CertsPayload);
+            ArduinoDevicev2Cert result = apiInstance.devicesV2CertsCreate(idcreateDevicesV2CertsPayload);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2CertsApi#devicesV2CertsCreate");
@@ -8297,7 +8322,7 @@ public class DevicesV2CertsApiExample {
         String id = id_example; // String | The id of the device
         CreateDevicesV2CertsPayload createDevicesV2CertsPayload = ; // CreateDevicesV2CertsPayload | 
         try {
-            ArduinoDevicev2Cert result = apiInstance.devicesV2CertsCreate(id, createDevicesV2CertsPayload);
+            ArduinoDevicev2Cert result = apiInstance.devicesV2CertsCreate(idcreateDevicesV2CertsPayload);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2CertsApi#devicesV2CertsCreate");
@@ -8322,8 +8347,7 @@ CreateDevicesV2CertsPayload *createDevicesV2CertsPayload = ; //
 DevicesV2CertsApi *apiInstance = [[DevicesV2CertsApi alloc] init];
 
 // create devices_v2_certs
-[apiInstance devicesV2CertsCreateWith:id
-    createDevicesV2CertsPayload:createDevicesV2CertsPayload
+[apiInstance devicesV2CertsCreateWith:id:createDevicesV2CertsPayload
               completionHandler: ^(ArduinoDevicev2Cert output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -8346,7 +8370,7 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 var api = new ArduinoIotClient.DevicesV2CertsApi()
 var id = id_example; // {String} The id of the device
 var createDevicesV2CertsPayload = ; // {CreateDevicesV2CertsPayload} 
-api.devicesV2CertsCreate(id, createDevicesV2CertsPayload).then(function(data) {
+api.devicesV2CertsCreate(idcreateDevicesV2CertsPayload).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -8382,7 +8406,7 @@ namespace Example
             try
             {
                 // create devices_v2_certs
-                ArduinoDevicev2Cert result = apiInstance.devicesV2CertsCreate(id, createDevicesV2CertsPayload);
+                ArduinoDevicev2Cert result = apiInstance.devicesV2CertsCreate(idcreateDevicesV2CertsPayload);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -8407,7 +8431,7 @@ $id = id_example; // String | The id of the device
 $createDevicesV2CertsPayload = ; // CreateDevicesV2CertsPayload | 
 
 try {
-    $result = $api_instance->devicesV2CertsCreate($id, $createDevicesV2CertsPayload);
+    $result = $api_instance->devicesV2CertsCreate($id$createDevicesV2CertsPayload);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DevicesV2CertsApi->devicesV2CertsCreate: ', $e->getMessage(), PHP_EOL;
@@ -8428,7 +8452,7 @@ my $id = id_example; # String | The id of the device
 my $createDevicesV2CertsPayload = WWW::OPenAPIClient::Object::CreateDevicesV2CertsPayload->new(); # CreateDevicesV2CertsPayload | 
 
 eval { 
-    my $result = $api_instance->devicesV2CertsCreate(id => $id, createDevicesV2CertsPayload => $createDevicesV2CertsPayload);
+    my $result = $api_instance->devicesV2CertsCreate(id => $idcreateDevicesV2CertsPayload => $createDevicesV2CertsPayload);
     print Dumper($result);
 };
 if ($@) {
@@ -8453,7 +8477,7 @@ createDevicesV2CertsPayload =  # CreateDevicesV2CertsPayload |
 
 try: 
     # create devices_v2_certs
-    api_response = api_instance.devices_v2_certs_create(id, createDevicesV2CertsPayload)
+    api_response = api_instance.devices_v2_certs_create(idcreateDevicesV2CertsPayload)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DevicesV2CertsApi->devicesV2CertsCreate: %s\n" % e)</code></pre>
@@ -8865,7 +8889,7 @@ public class DevicesV2CertsApiExample {
         String cid = cid_example; // String | The id of the cert
         String id = id_example; // String | The id of the device
         try {
-            apiInstance.devicesV2CertsDelete(cid, id);
+            apiInstance.devicesV2CertsDelete(cidid);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2CertsApi#devicesV2CertsDelete");
             e.printStackTrace();
@@ -8885,7 +8909,7 @@ public class DevicesV2CertsApiExample {
         String cid = cid_example; // String | The id of the cert
         String id = id_example; // String | The id of the device
         try {
-            apiInstance.devicesV2CertsDelete(cid, id);
+            apiInstance.devicesV2CertsDelete(cidid);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2CertsApi#devicesV2CertsDelete");
             e.printStackTrace();
@@ -8909,8 +8933,7 @@ String *id = id_example; // The id of the device (default to null)
 DevicesV2CertsApi *apiInstance = [[DevicesV2CertsApi alloc] init];
 
 // delete devices_v2_certs
-[apiInstance devicesV2CertsDeleteWith:cid
-    id:id
+[apiInstance devicesV2CertsDeleteWith:cid:id
               completionHandler: ^(NSError* error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
@@ -8930,7 +8953,7 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 var api = new ArduinoIotClient.DevicesV2CertsApi()
 var cid = cid_example; // {String} The id of the cert
 var id = id_example; // {String} The id of the device
-api.devicesV2CertsDelete(cid, id).then(function() {
+api.devicesV2CertsDelete(cidid).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -8966,7 +8989,7 @@ namespace Example
             try
             {
                 // delete devices_v2_certs
-                apiInstance.devicesV2CertsDelete(cid, id);
+                apiInstance.devicesV2CertsDelete(cidid);
             }
             catch (Exception e)
             {
@@ -8990,7 +9013,7 @@ $cid = cid_example; // String | The id of the cert
 $id = id_example; // String | The id of the device
 
 try {
-    $api_instance->devicesV2CertsDelete($cid, $id);
+    $api_instance->devicesV2CertsDelete($cid$id);
 } catch (Exception $e) {
     echo 'Exception when calling DevicesV2CertsApi->devicesV2CertsDelete: ', $e->getMessage(), PHP_EOL;
 }
@@ -9010,7 +9033,7 @@ my $cid = cid_example; # String | The id of the cert
 my $id = id_example; # String | The id of the device
 
 eval { 
-    $api_instance->devicesV2CertsDelete(cid => $cid, id => $id);
+    $api_instance->devicesV2CertsDelete(cid => $cidid => $id);
 };
 if ($@) {
     warn "Exception when calling DevicesV2CertsApi->devicesV2CertsDelete: $@\n";
@@ -9034,7 +9057,7 @@ id = id_example # String | The id of the device (default to null)
 
 try: 
     # delete devices_v2_certs
-    api_instance.devices_v2_certs_delete(cid, id)
+    api_instance.devices_v2_certs_delete(cidid)
 except ApiException as e:
     print("Exception when calling DevicesV2CertsApi->devicesV2CertsDelete: %s\n" % e)</code></pre>
                             </div>
@@ -9781,7 +9804,7 @@ public class DevicesV2CertsApiExample {
         String cid = cid_example; // String | The id of the cert
         String id = id_example; // String | The id of the device
         try {
-            ArduinoDevicev2Cert result = apiInstance.devicesV2CertsShow(cid, id);
+            ArduinoDevicev2Cert result = apiInstance.devicesV2CertsShow(cidid);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2CertsApi#devicesV2CertsShow");
@@ -9802,7 +9825,7 @@ public class DevicesV2CertsApiExample {
         String cid = cid_example; // String | The id of the cert
         String id = id_example; // String | The id of the device
         try {
-            ArduinoDevicev2Cert result = apiInstance.devicesV2CertsShow(cid, id);
+            ArduinoDevicev2Cert result = apiInstance.devicesV2CertsShow(cidid);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2CertsApi#devicesV2CertsShow");
@@ -9827,8 +9850,7 @@ String *id = id_example; // The id of the device (default to null)
 DevicesV2CertsApi *apiInstance = [[DevicesV2CertsApi alloc] init];
 
 // show devices_v2_certs
-[apiInstance devicesV2CertsShowWith:cid
-    id:id
+[apiInstance devicesV2CertsShowWith:cid:id
               completionHandler: ^(ArduinoDevicev2Cert output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -9851,7 +9873,7 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 var api = new ArduinoIotClient.DevicesV2CertsApi()
 var cid = cid_example; // {String} The id of the cert
 var id = id_example; // {String} The id of the device
-api.devicesV2CertsShow(cid, id).then(function(data) {
+api.devicesV2CertsShow(cidid).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -9887,7 +9909,7 @@ namespace Example
             try
             {
                 // show devices_v2_certs
-                ArduinoDevicev2Cert result = apiInstance.devicesV2CertsShow(cid, id);
+                ArduinoDevicev2Cert result = apiInstance.devicesV2CertsShow(cidid);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -9912,7 +9934,7 @@ $cid = cid_example; // String | The id of the cert
 $id = id_example; // String | The id of the device
 
 try {
-    $result = $api_instance->devicesV2CertsShow($cid, $id);
+    $result = $api_instance->devicesV2CertsShow($cid$id);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DevicesV2CertsApi->devicesV2CertsShow: ', $e->getMessage(), PHP_EOL;
@@ -9933,7 +9955,7 @@ my $cid = cid_example; # String | The id of the cert
 my $id = id_example; # String | The id of the device
 
 eval { 
-    my $result = $api_instance->devicesV2CertsShow(cid => $cid, id => $id);
+    my $result = $api_instance->devicesV2CertsShow(cid => $cidid => $id);
     print Dumper($result);
 };
 if ($@) {
@@ -9958,7 +9980,7 @@ id = id_example # String | The id of the device (default to null)
 
 try: 
     # show devices_v2_certs
-    api_response = api_instance.devices_v2_certs_show(cid, id)
+    api_response = api_instance.devices_v2_certs_show(cidid)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DevicesV2CertsApi->devicesV2CertsShow: %s\n" % e)</code></pre>
@@ -10283,7 +10305,7 @@ public class DevicesV2CertsApiExample {
         String id = id_example; // String | The id of the device
         Devicev2Cert devicev2Cert = ; // Devicev2Cert | 
         try {
-            ArduinoDevicev2Cert result = apiInstance.devicesV2CertsUpdate(cid, id, devicev2Cert);
+            ArduinoDevicev2Cert result = apiInstance.devicesV2CertsUpdate(cididdevicev2Cert);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2CertsApi#devicesV2CertsUpdate");
@@ -10305,7 +10327,7 @@ public class DevicesV2CertsApiExample {
         String id = id_example; // String | The id of the device
         Devicev2Cert devicev2Cert = ; // Devicev2Cert | 
         try {
-            ArduinoDevicev2Cert result = apiInstance.devicesV2CertsUpdate(cid, id, devicev2Cert);
+            ArduinoDevicev2Cert result = apiInstance.devicesV2CertsUpdate(cididdevicev2Cert);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2CertsApi#devicesV2CertsUpdate");
@@ -10331,9 +10353,7 @@ Devicev2Cert *devicev2Cert = ; //
 DevicesV2CertsApi *apiInstance = [[DevicesV2CertsApi alloc] init];
 
 // update devices_v2_certs
-[apiInstance devicesV2CertsUpdateWith:cid
-    id:id
-    devicev2Cert:devicev2Cert
+[apiInstance devicesV2CertsUpdateWith:cid:id:devicev2Cert
               completionHandler: ^(ArduinoDevicev2Cert output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -10357,7 +10377,7 @@ var api = new ArduinoIotClient.DevicesV2CertsApi()
 var cid = cid_example; // {String} The id of the cert
 var id = id_example; // {String} The id of the device
 var devicev2Cert = ; // {Devicev2Cert} 
-api.devicesV2CertsUpdate(cid, id, devicev2Cert).then(function(data) {
+api.devicesV2CertsUpdate(cididdevicev2Cert).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -10394,7 +10414,7 @@ namespace Example
             try
             {
                 // update devices_v2_certs
-                ArduinoDevicev2Cert result = apiInstance.devicesV2CertsUpdate(cid, id, devicev2Cert);
+                ArduinoDevicev2Cert result = apiInstance.devicesV2CertsUpdate(cididdevicev2Cert);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -10420,7 +10440,7 @@ $id = id_example; // String | The id of the device
 $devicev2Cert = ; // Devicev2Cert | 
 
 try {
-    $result = $api_instance->devicesV2CertsUpdate($cid, $id, $devicev2Cert);
+    $result = $api_instance->devicesV2CertsUpdate($cid$id$devicev2Cert);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DevicesV2CertsApi->devicesV2CertsUpdate: ', $e->getMessage(), PHP_EOL;
@@ -10442,7 +10462,7 @@ my $id = id_example; # String | The id of the device
 my $devicev2Cert = WWW::OPenAPIClient::Object::Devicev2Cert->new(); # Devicev2Cert | 
 
 eval { 
-    my $result = $api_instance->devicesV2CertsUpdate(cid => $cid, id => $id, devicev2Cert => $devicev2Cert);
+    my $result = $api_instance->devicesV2CertsUpdate(cid => $cidid => $iddevicev2Cert => $devicev2Cert);
     print Dumper($result);
 };
 if ($@) {
@@ -10468,7 +10488,7 @@ devicev2Cert =  # Devicev2Cert |
 
 try: 
     # update devices_v2_certs
-    api_response = api_instance.devices_v2_certs_update(cid, id, devicev2Cert)
+    api_response = api_instance.devices_v2_certs_update(cididdevicev2Cert)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DevicesV2CertsApi->devicesV2CertsUpdate: %s\n" % e)</code></pre>
@@ -10907,7 +10927,7 @@ public class DevicesV2PassApiExample {
         String id = id_example; // String | The id of the device
         CheckDevicesV2PassPayload checkDevicesV2PassPayload = ; // CheckDevicesV2PassPayload | 
         try {
-            apiInstance.devicesV2PassCheck(id, checkDevicesV2PassPayload);
+            apiInstance.devicesV2PassCheck(idcheckDevicesV2PassPayload);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2PassApi#devicesV2PassCheck");
             e.printStackTrace();
@@ -10927,7 +10947,7 @@ public class DevicesV2PassApiExample {
         String id = id_example; // String | The id of the device
         CheckDevicesV2PassPayload checkDevicesV2PassPayload = ; // CheckDevicesV2PassPayload | 
         try {
-            apiInstance.devicesV2PassCheck(id, checkDevicesV2PassPayload);
+            apiInstance.devicesV2PassCheck(idcheckDevicesV2PassPayload);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2PassApi#devicesV2PassCheck");
             e.printStackTrace();
@@ -10951,8 +10971,7 @@ CheckDevicesV2PassPayload *checkDevicesV2PassPayload = ; //
 DevicesV2PassApi *apiInstance = [[DevicesV2PassApi alloc] init];
 
 // check devices_v2_pass
-[apiInstance devicesV2PassCheckWith:id
-    checkDevicesV2PassPayload:checkDevicesV2PassPayload
+[apiInstance devicesV2PassCheckWith:id:checkDevicesV2PassPayload
               completionHandler: ^(NSError* error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
@@ -10972,7 +10991,7 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 var api = new ArduinoIotClient.DevicesV2PassApi()
 var id = id_example; // {String} The id of the device
 var checkDevicesV2PassPayload = ; // {CheckDevicesV2PassPayload} 
-api.devicesV2PassCheck(id, checkDevicesV2PassPayload).then(function() {
+api.devicesV2PassCheck(idcheckDevicesV2PassPayload).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -11008,7 +11027,7 @@ namespace Example
             try
             {
                 // check devices_v2_pass
-                apiInstance.devicesV2PassCheck(id, checkDevicesV2PassPayload);
+                apiInstance.devicesV2PassCheck(idcheckDevicesV2PassPayload);
             }
             catch (Exception e)
             {
@@ -11032,7 +11051,7 @@ $id = id_example; // String | The id of the device
 $checkDevicesV2PassPayload = ; // CheckDevicesV2PassPayload | 
 
 try {
-    $api_instance->devicesV2PassCheck($id, $checkDevicesV2PassPayload);
+    $api_instance->devicesV2PassCheck($id$checkDevicesV2PassPayload);
 } catch (Exception $e) {
     echo 'Exception when calling DevicesV2PassApi->devicesV2PassCheck: ', $e->getMessage(), PHP_EOL;
 }
@@ -11052,7 +11071,7 @@ my $id = id_example; # String | The id of the device
 my $checkDevicesV2PassPayload = WWW::OPenAPIClient::Object::CheckDevicesV2PassPayload->new(); # CheckDevicesV2PassPayload | 
 
 eval { 
-    $api_instance->devicesV2PassCheck(id => $id, checkDevicesV2PassPayload => $checkDevicesV2PassPayload);
+    $api_instance->devicesV2PassCheck(id => $idcheckDevicesV2PassPayload => $checkDevicesV2PassPayload);
 };
 if ($@) {
     warn "Exception when calling DevicesV2PassApi->devicesV2PassCheck: $@\n";
@@ -11076,7 +11095,7 @@ checkDevicesV2PassPayload =  # CheckDevicesV2PassPayload |
 
 try: 
     # check devices_v2_pass
-    api_instance.devices_v2_pass_check(id, checkDevicesV2PassPayload)
+    api_instance.devices_v2_pass_check(idcheckDevicesV2PassPayload)
 except ApiException as e:
     print("Exception when calling DevicesV2PassApi->devicesV2PassCheck: %s\n" % e)</code></pre>
                             </div>
@@ -11836,7 +11855,7 @@ public class DevicesV2PassApiExample {
         String id = id_example; // String | The id of the device
         Boolean suggestedPassword = true; // Boolean | If true, return a suggested password
         try {
-            ArduinoDevicev2Pass result = apiInstance.devicesV2PassGet(id, suggestedPassword);
+            ArduinoDevicev2Pass result = apiInstance.devicesV2PassGet(idsuggestedPassword);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2PassApi#devicesV2PassGet");
@@ -11857,7 +11876,7 @@ public class DevicesV2PassApiExample {
         String id = id_example; // String | The id of the device
         Boolean suggestedPassword = true; // Boolean | If true, return a suggested password
         try {
-            ArduinoDevicev2Pass result = apiInstance.devicesV2PassGet(id, suggestedPassword);
+            ArduinoDevicev2Pass result = apiInstance.devicesV2PassGet(idsuggestedPassword);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2PassApi#devicesV2PassGet");
@@ -11882,8 +11901,7 @@ Boolean *suggestedPassword = true; // If true, return a suggested password (opti
 DevicesV2PassApi *apiInstance = [[DevicesV2PassApi alloc] init];
 
 // get devices_v2_pass
-[apiInstance devicesV2PassGetWith:id
-    suggestedPassword:suggestedPassword
+[apiInstance devicesV2PassGetWith:id:suggestedPassword
               completionHandler: ^(ArduinoDevicev2Pass output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -11944,7 +11962,7 @@ namespace Example
             try
             {
                 // get devices_v2_pass
-                ArduinoDevicev2Pass result = apiInstance.devicesV2PassGet(id, suggestedPassword);
+                ArduinoDevicev2Pass result = apiInstance.devicesV2PassGet(idsuggestedPassword);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -11969,7 +11987,7 @@ $id = id_example; // String | The id of the device
 $suggestedPassword = true; // Boolean | If true, return a suggested password
 
 try {
-    $result = $api_instance->devicesV2PassGet($id, $suggestedPassword);
+    $result = $api_instance->devicesV2PassGet($id$suggestedPassword);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DevicesV2PassApi->devicesV2PassGet: ', $e->getMessage(), PHP_EOL;
@@ -11990,7 +12008,7 @@ my $id = id_example; # String | The id of the device
 my $suggestedPassword = true; # Boolean | If true, return a suggested password
 
 eval { 
-    my $result = $api_instance->devicesV2PassGet(id => $id, suggestedPassword => $suggestedPassword);
+    my $result = $api_instance->devicesV2PassGet(id => $idsuggestedPassword => $suggestedPassword);
     print Dumper($result);
 };
 if ($@) {
@@ -12015,7 +12033,7 @@ suggestedPassword = true # Boolean | If true, return a suggested password (optio
 
 try: 
     # get devices_v2_pass
-    api_response = api_instance.devices_v2_pass_get(id, suggestedPassword=suggestedPassword)
+    api_response = api_instance.devices_v2_pass_get(idsuggestedPassword=suggestedPassword)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DevicesV2PassApi->devicesV2PassGet: %s\n" % e)</code></pre>
@@ -12343,7 +12361,7 @@ public class DevicesV2PassApiExample {
         String id = id_example; // String | The id of the device
         Devicev2Pass devicev2Pass = ; // Devicev2Pass | 
         try {
-            ArduinoDevicev2Pass result = apiInstance.devicesV2PassSet(id, devicev2Pass);
+            ArduinoDevicev2Pass result = apiInstance.devicesV2PassSet(iddevicev2Pass);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2PassApi#devicesV2PassSet");
@@ -12364,7 +12382,7 @@ public class DevicesV2PassApiExample {
         String id = id_example; // String | The id of the device
         Devicev2Pass devicev2Pass = ; // Devicev2Pass | 
         try {
-            ArduinoDevicev2Pass result = apiInstance.devicesV2PassSet(id, devicev2Pass);
+            ArduinoDevicev2Pass result = apiInstance.devicesV2PassSet(iddevicev2Pass);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2PassApi#devicesV2PassSet");
@@ -12389,8 +12407,7 @@ Devicev2Pass *devicev2Pass = ; //
 DevicesV2PassApi *apiInstance = [[DevicesV2PassApi alloc] init];
 
 // set devices_v2_pass
-[apiInstance devicesV2PassSetWith:id
-    devicev2Pass:devicev2Pass
+[apiInstance devicesV2PassSetWith:id:devicev2Pass
               completionHandler: ^(ArduinoDevicev2Pass output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -12413,7 +12430,7 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 var api = new ArduinoIotClient.DevicesV2PassApi()
 var id = id_example; // {String} The id of the device
 var devicev2Pass = ; // {Devicev2Pass} 
-api.devicesV2PassSet(id, devicev2Pass).then(function(data) {
+api.devicesV2PassSet(iddevicev2Pass).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -12449,7 +12466,7 @@ namespace Example
             try
             {
                 // set devices_v2_pass
-                ArduinoDevicev2Pass result = apiInstance.devicesV2PassSet(id, devicev2Pass);
+                ArduinoDevicev2Pass result = apiInstance.devicesV2PassSet(iddevicev2Pass);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -12474,7 +12491,7 @@ $id = id_example; // String | The id of the device
 $devicev2Pass = ; // Devicev2Pass | 
 
 try {
-    $result = $api_instance->devicesV2PassSet($id, $devicev2Pass);
+    $result = $api_instance->devicesV2PassSet($id$devicev2Pass);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DevicesV2PassApi->devicesV2PassSet: ', $e->getMessage(), PHP_EOL;
@@ -12495,7 +12512,7 @@ my $id = id_example; # String | The id of the device
 my $devicev2Pass = WWW::OPenAPIClient::Object::Devicev2Pass->new(); # Devicev2Pass | 
 
 eval { 
-    my $result = $api_instance->devicesV2PassSet(id => $id, devicev2Pass => $devicev2Pass);
+    my $result = $api_instance->devicesV2PassSet(id => $iddevicev2Pass => $devicev2Pass);
     print Dumper($result);
 };
 if ($@) {
@@ -12520,7 +12537,7 @@ devicev2Pass =  # Devicev2Pass |
 
 try: 
     # set devices_v2_pass
-    api_response = api_instance.devices_v2_pass_set(id, devicev2Pass)
+    api_response = api_instance.devices_v2_pass_set(iddevicev2Pass)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DevicesV2PassApi->devicesV2PassSet: %s\n" % e)</code></pre>
@@ -12935,7 +12952,7 @@ public class PropertiesV2ApiExample {
         String id = id_example; // String | The id of the thing
         Property property = ; // Property | 
         try {
-            ArduinoProperty result = apiInstance.propertiesV2Create(id, property);
+            ArduinoProperty result = apiInstance.propertiesV2Create(idproperty);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PropertiesV2Api#propertiesV2Create");
@@ -12956,7 +12973,7 @@ public class PropertiesV2ApiExample {
         String id = id_example; // String | The id of the thing
         Property property = ; // Property | 
         try {
-            ArduinoProperty result = apiInstance.propertiesV2Create(id, property);
+            ArduinoProperty result = apiInstance.propertiesV2Create(idproperty);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PropertiesV2Api#propertiesV2Create");
@@ -12981,8 +12998,7 @@ Property *property = ; //
 PropertiesV2Api *apiInstance = [[PropertiesV2Api alloc] init];
 
 // create properties_v2
-[apiInstance propertiesV2CreateWith:id
-    property:property
+[apiInstance propertiesV2CreateWith:id:property
               completionHandler: ^(ArduinoProperty output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -13005,7 +13021,7 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 var api = new ArduinoIotClient.PropertiesV2Api()
 var id = id_example; // {String} The id of the thing
 var property = ; // {Property} 
-api.propertiesV2Create(id, property).then(function(data) {
+api.propertiesV2Create(idproperty).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -13041,7 +13057,7 @@ namespace Example
             try
             {
                 // create properties_v2
-                ArduinoProperty result = apiInstance.propertiesV2Create(id, property);
+                ArduinoProperty result = apiInstance.propertiesV2Create(idproperty);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -13066,7 +13082,7 @@ $id = id_example; // String | The id of the thing
 $property = ; // Property | 
 
 try {
-    $result = $api_instance->propertiesV2Create($id, $property);
+    $result = $api_instance->propertiesV2Create($id$property);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling PropertiesV2Api->propertiesV2Create: ', $e->getMessage(), PHP_EOL;
@@ -13087,7 +13103,7 @@ my $id = id_example; # String | The id of the thing
 my $property = WWW::OPenAPIClient::Object::Property->new(); # Property | 
 
 eval { 
-    my $result = $api_instance->propertiesV2Create(id => $id, property => $property);
+    my $result = $api_instance->propertiesV2Create(id => $idproperty => $property);
     print Dumper($result);
 };
 if ($@) {
@@ -13112,7 +13128,7 @@ property =  # Property |
 
 try: 
     # create properties_v2
-    api_response = api_instance.properties_v2_create(id, property)
+    api_response = api_instance.properties_v2_create(idproperty)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling PropertiesV2Api->propertiesV2Create: %s\n" % e)</code></pre>
@@ -13636,7 +13652,7 @@ public class PropertiesV2ApiExample {
         String pid = pid_example; // String | The id of the property
         Boolean force = true; // Boolean | If true, hard delete the property
         try {
-            apiInstance.propertiesV2Delete(id, pid, force);
+            apiInstance.propertiesV2Delete(idpidforce);
         } catch (ApiException e) {
             System.err.println("Exception when calling PropertiesV2Api#propertiesV2Delete");
             e.printStackTrace();
@@ -13657,7 +13673,7 @@ public class PropertiesV2ApiExample {
         String pid = pid_example; // String | The id of the property
         Boolean force = true; // Boolean | If true, hard delete the property
         try {
-            apiInstance.propertiesV2Delete(id, pid, force);
+            apiInstance.propertiesV2Delete(idpidforce);
         } catch (ApiException e) {
             System.err.println("Exception when calling PropertiesV2Api#propertiesV2Delete");
             e.printStackTrace();
@@ -13682,9 +13698,7 @@ Boolean *force = true; // If true, hard delete the property (optional) (default 
 PropertiesV2Api *apiInstance = [[PropertiesV2Api alloc] init];
 
 // delete properties_v2
-[apiInstance propertiesV2DeleteWith:id
-    pid:pid
-    force:force
+[apiInstance propertiesV2DeleteWith:id:pid:force
               completionHandler: ^(NSError* error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
@@ -13707,7 +13721,7 @@ var pid = pid_example; // {String} The id of the property
 var opts = {
   'force': true // {Boolean} If true, hard delete the property
 };
-api.propertiesV2Delete(id, pid, opts).then(function() {
+api.propertiesV2Delete(idpid, opts).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -13744,7 +13758,7 @@ namespace Example
             try
             {
                 // delete properties_v2
-                apiInstance.propertiesV2Delete(id, pid, force);
+                apiInstance.propertiesV2Delete(idpidforce);
             }
             catch (Exception e)
             {
@@ -13769,7 +13783,7 @@ $pid = pid_example; // String | The id of the property
 $force = true; // Boolean | If true, hard delete the property
 
 try {
-    $api_instance->propertiesV2Delete($id, $pid, $force);
+    $api_instance->propertiesV2Delete($id$pid$force);
 } catch (Exception $e) {
     echo 'Exception when calling PropertiesV2Api->propertiesV2Delete: ', $e->getMessage(), PHP_EOL;
 }
@@ -13790,7 +13804,7 @@ my $pid = pid_example; # String | The id of the property
 my $force = true; # Boolean | If true, hard delete the property
 
 eval { 
-    $api_instance->propertiesV2Delete(id => $id, pid => $pid, force => $force);
+    $api_instance->propertiesV2Delete(id => $idpid => $pidforce => $force);
 };
 if ($@) {
     warn "Exception when calling PropertiesV2Api->propertiesV2Delete: $@\n";
@@ -13815,7 +13829,7 @@ force = true # Boolean | If true, hard delete the property (optional) (default t
 
 try: 
     # delete properties_v2
-    api_instance.properties_v2_delete(id, pid, force=force)
+    api_instance.properties_v2_delete(idpidforce=force)
 except ApiException as e:
     print("Exception when calling PropertiesV2Api->propertiesV2Delete: %s\n" % e)</code></pre>
                             </div>
@@ -14166,7 +14180,7 @@ public class PropertiesV2ApiExample {
         String id = id_example; // String | The id of the thing
         Boolean showDeleted = true; // Boolean | If true, shows the soft deleted properties
         try {
-            array[ArduinoProperty] result = apiInstance.propertiesV2List(id, showDeleted);
+            array[ArduinoProperty] result = apiInstance.propertiesV2List(idshowDeleted);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PropertiesV2Api#propertiesV2List");
@@ -14187,7 +14201,7 @@ public class PropertiesV2ApiExample {
         String id = id_example; // String | The id of the thing
         Boolean showDeleted = true; // Boolean | If true, shows the soft deleted properties
         try {
-            array[ArduinoProperty] result = apiInstance.propertiesV2List(id, showDeleted);
+            array[ArduinoProperty] result = apiInstance.propertiesV2List(idshowDeleted);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PropertiesV2Api#propertiesV2List");
@@ -14212,8 +14226,7 @@ Boolean *showDeleted = true; // If true, shows the soft deleted properties (opti
 PropertiesV2Api *apiInstance = [[PropertiesV2Api alloc] init];
 
 // list properties_v2
-[apiInstance propertiesV2ListWith:id
-    showDeleted:showDeleted
+[apiInstance propertiesV2ListWith:id:showDeleted
               completionHandler: ^(array[ArduinoProperty] output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -14274,7 +14287,7 @@ namespace Example
             try
             {
                 // list properties_v2
-                array[ArduinoProperty] result = apiInstance.propertiesV2List(id, showDeleted);
+                array[ArduinoProperty] result = apiInstance.propertiesV2List(idshowDeleted);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -14299,7 +14312,7 @@ $id = id_example; // String | The id of the thing
 $showDeleted = true; // Boolean | If true, shows the soft deleted properties
 
 try {
-    $result = $api_instance->propertiesV2List($id, $showDeleted);
+    $result = $api_instance->propertiesV2List($id$showDeleted);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling PropertiesV2Api->propertiesV2List: ', $e->getMessage(), PHP_EOL;
@@ -14320,7 +14333,7 @@ my $id = id_example; # String | The id of the thing
 my $showDeleted = true; # Boolean | If true, shows the soft deleted properties
 
 eval { 
-    my $result = $api_instance->propertiesV2List(id => $id, showDeleted => $showDeleted);
+    my $result = $api_instance->propertiesV2List(id => $idshowDeleted => $showDeleted);
     print Dumper($result);
 };
 if ($@) {
@@ -14345,7 +14358,7 @@ showDeleted = true # Boolean | If true, shows the soft deleted properties (optio
 
 try: 
     # list properties_v2
-    api_response = api_instance.properties_v2_list(id, showDeleted=showDeleted)
+    api_response = api_instance.properties_v2_list(idshowDeleted=showDeleted)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling PropertiesV2Api->propertiesV2List: %s\n" % e)</code></pre>
@@ -14762,7 +14775,7 @@ public class PropertiesV2ApiExample {
         String pid = pid_example; // String | The id of the property
         PropertyValue propertyValue = ; // PropertyValue | 
         try {
-            apiInstance.propertiesV2Publish(id, pid, propertyValue);
+            apiInstance.propertiesV2Publish(idpidpropertyValue);
         } catch (ApiException e) {
             System.err.println("Exception when calling PropertiesV2Api#propertiesV2Publish");
             e.printStackTrace();
@@ -14783,7 +14796,7 @@ public class PropertiesV2ApiExample {
         String pid = pid_example; // String | The id of the property
         PropertyValue propertyValue = ; // PropertyValue | 
         try {
-            apiInstance.propertiesV2Publish(id, pid, propertyValue);
+            apiInstance.propertiesV2Publish(idpidpropertyValue);
         } catch (ApiException e) {
             System.err.println("Exception when calling PropertiesV2Api#propertiesV2Publish");
             e.printStackTrace();
@@ -14808,9 +14821,7 @@ PropertyValue *propertyValue = ; //
 PropertiesV2Api *apiInstance = [[PropertiesV2Api alloc] init];
 
 // publish properties_v2
-[apiInstance propertiesV2PublishWith:id
-    pid:pid
-    propertyValue:propertyValue
+[apiInstance propertiesV2PublishWith:id:pid:propertyValue
               completionHandler: ^(NSError* error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
@@ -14831,7 +14842,7 @@ var api = new ArduinoIotClient.PropertiesV2Api()
 var id = id_example; // {String} The id of the thing
 var pid = pid_example; // {String} The id of the property
 var propertyValue = ; // {PropertyValue} 
-api.propertiesV2Publish(id, pid, propertyValue).then(function() {
+api.propertiesV2Publish(idpidpropertyValue).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -14868,7 +14879,7 @@ namespace Example
             try
             {
                 // publish properties_v2
-                apiInstance.propertiesV2Publish(id, pid, propertyValue);
+                apiInstance.propertiesV2Publish(idpidpropertyValue);
             }
             catch (Exception e)
             {
@@ -14893,7 +14904,7 @@ $pid = pid_example; // String | The id of the property
 $propertyValue = ; // PropertyValue | 
 
 try {
-    $api_instance->propertiesV2Publish($id, $pid, $propertyValue);
+    $api_instance->propertiesV2Publish($id$pid$propertyValue);
 } catch (Exception $e) {
     echo 'Exception when calling PropertiesV2Api->propertiesV2Publish: ', $e->getMessage(), PHP_EOL;
 }
@@ -14914,7 +14925,7 @@ my $pid = pid_example; # String | The id of the property
 my $propertyValue = WWW::OPenAPIClient::Object::PropertyValue->new(); # PropertyValue | 
 
 eval { 
-    $api_instance->propertiesV2Publish(id => $id, pid => $pid, propertyValue => $propertyValue);
+    $api_instance->propertiesV2Publish(id => $idpid => $pidpropertyValue => $propertyValue);
 };
 if ($@) {
     warn "Exception when calling PropertiesV2Api->propertiesV2Publish: $@\n";
@@ -14939,7 +14950,7 @@ propertyValue =  # PropertyValue |
 
 try: 
     # publish properties_v2
-    api_instance.properties_v2_publish(id, pid, propertyValue)
+    api_instance.properties_v2_publish(idpidpropertyValue)
 except ApiException as e:
     print("Exception when calling PropertiesV2Api->propertiesV2Publish: %s\n" % e)</code></pre>
                             </div>
@@ -15376,7 +15387,7 @@ public class PropertiesV2ApiExample {
         String pid = pid_example; // String | The id of the property
         Boolean showDeleted = true; // Boolean | If true, shows the soft deleted properties
         try {
-            ArduinoProperty result = apiInstance.propertiesV2Show(id, pid, showDeleted);
+            ArduinoProperty result = apiInstance.propertiesV2Show(idpidshowDeleted);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PropertiesV2Api#propertiesV2Show");
@@ -15398,7 +15409,7 @@ public class PropertiesV2ApiExample {
         String pid = pid_example; // String | The id of the property
         Boolean showDeleted = true; // Boolean | If true, shows the soft deleted properties
         try {
-            ArduinoProperty result = apiInstance.propertiesV2Show(id, pid, showDeleted);
+            ArduinoProperty result = apiInstance.propertiesV2Show(idpidshowDeleted);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PropertiesV2Api#propertiesV2Show");
@@ -15424,9 +15435,7 @@ Boolean *showDeleted = true; // If true, shows the soft deleted properties (opti
 PropertiesV2Api *apiInstance = [[PropertiesV2Api alloc] init];
 
 // show properties_v2
-[apiInstance propertiesV2ShowWith:id
-    pid:pid
-    showDeleted:showDeleted
+[apiInstance propertiesV2ShowWith:id:pid:showDeleted
               completionHandler: ^(ArduinoProperty output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -15452,7 +15461,7 @@ var pid = pid_example; // {String} The id of the property
 var opts = {
   'showDeleted': true // {Boolean} If true, shows the soft deleted properties
 };
-api.propertiesV2Show(id, pid, opts).then(function(data) {
+api.propertiesV2Show(idpid, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -15489,7 +15498,7 @@ namespace Example
             try
             {
                 // show properties_v2
-                ArduinoProperty result = apiInstance.propertiesV2Show(id, pid, showDeleted);
+                ArduinoProperty result = apiInstance.propertiesV2Show(idpidshowDeleted);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -15515,7 +15524,7 @@ $pid = pid_example; // String | The id of the property
 $showDeleted = true; // Boolean | If true, shows the soft deleted properties
 
 try {
-    $result = $api_instance->propertiesV2Show($id, $pid, $showDeleted);
+    $result = $api_instance->propertiesV2Show($id$pid$showDeleted);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling PropertiesV2Api->propertiesV2Show: ', $e->getMessage(), PHP_EOL;
@@ -15537,7 +15546,7 @@ my $pid = pid_example; # String | The id of the property
 my $showDeleted = true; # Boolean | If true, shows the soft deleted properties
 
 eval { 
-    my $result = $api_instance->propertiesV2Show(id => $id, pid => $pid, showDeleted => $showDeleted);
+    my $result = $api_instance->propertiesV2Show(id => $idpid => $pidshowDeleted => $showDeleted);
     print Dumper($result);
 };
 if ($@) {
@@ -15563,7 +15572,7 @@ showDeleted = true # Boolean | If true, shows the soft deleted properties (optio
 
 try: 
     # show properties_v2
-    api_response = api_instance.properties_v2_show(id, pid, showDeleted=showDeleted)
+    api_response = api_instance.properties_v2_show(idpidshowDeleted=showDeleted)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling PropertiesV2Api->propertiesV2Show: %s\n" % e)</code></pre>
@@ -16004,7 +16013,7 @@ public class PropertiesV2ApiExample {
         String pid = pid_example; // String | The id of the property
         Property property = ; // Property | 
         try {
-            ArduinoProperty result = apiInstance.propertiesV2Update(id, pid, property);
+            ArduinoProperty result = apiInstance.propertiesV2Update(idpidproperty);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PropertiesV2Api#propertiesV2Update");
@@ -16026,7 +16035,7 @@ public class PropertiesV2ApiExample {
         String pid = pid_example; // String | The id of the property
         Property property = ; // Property | 
         try {
-            ArduinoProperty result = apiInstance.propertiesV2Update(id, pid, property);
+            ArduinoProperty result = apiInstance.propertiesV2Update(idpidproperty);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PropertiesV2Api#propertiesV2Update");
@@ -16052,9 +16061,7 @@ Property *property = ; //
 PropertiesV2Api *apiInstance = [[PropertiesV2Api alloc] init];
 
 // update properties_v2
-[apiInstance propertiesV2UpdateWith:id
-    pid:pid
-    property:property
+[apiInstance propertiesV2UpdateWith:id:pid:property
               completionHandler: ^(ArduinoProperty output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -16078,7 +16085,7 @@ var api = new ArduinoIotClient.PropertiesV2Api()
 var id = id_example; // {String} The id of the thing
 var pid = pid_example; // {String} The id of the property
 var property = ; // {Property} 
-api.propertiesV2Update(id, pid, property).then(function(data) {
+api.propertiesV2Update(idpidproperty).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -16115,7 +16122,7 @@ namespace Example
             try
             {
                 // update properties_v2
-                ArduinoProperty result = apiInstance.propertiesV2Update(id, pid, property);
+                ArduinoProperty result = apiInstance.propertiesV2Update(idpidproperty);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -16141,7 +16148,7 @@ $pid = pid_example; // String | The id of the property
 $property = ; // Property | 
 
 try {
-    $result = $api_instance->propertiesV2Update($id, $pid, $property);
+    $result = $api_instance->propertiesV2Update($id$pid$property);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling PropertiesV2Api->propertiesV2Update: ', $e->getMessage(), PHP_EOL;
@@ -16163,7 +16170,7 @@ my $pid = pid_example; # String | The id of the property
 my $property = WWW::OPenAPIClient::Object::Property->new(); # Property | 
 
 eval { 
-    my $result = $api_instance->propertiesV2Update(id => $id, pid => $pid, property => $property);
+    my $result = $api_instance->propertiesV2Update(id => $idpid => $pidproperty => $property);
     print Dumper($result);
 };
 if ($@) {
@@ -16189,7 +16196,7 @@ property =  # Property |
 
 try: 
     # update properties_v2
-    api_response = api_instance.properties_v2_update(id, pid, property)
+    api_response = api_instance.properties_v2_update(idpidproperty)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling PropertiesV2Api->propertiesV2Update: %s\n" % e)</code></pre>
@@ -18367,7 +18374,7 @@ public class ThingsV2ApiExample {
         CreateThingsV2Payload createThingsV2Payload = ; // CreateThingsV2Payload | 
         Boolean force = true; // Boolean | If true, detach device from the other thing, and attach to this thing
         try {
-            ArduinoThing result = apiInstance.thingsV2Create(createThingsV2Payload, force);
+            ArduinoThing result = apiInstance.thingsV2Create(createThingsV2Payloadforce);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ThingsV2Api#thingsV2Create");
@@ -18388,7 +18395,7 @@ public class ThingsV2ApiExample {
         CreateThingsV2Payload createThingsV2Payload = ; // CreateThingsV2Payload | 
         Boolean force = true; // Boolean | If true, detach device from the other thing, and attach to this thing
         try {
-            ArduinoThing result = apiInstance.thingsV2Create(createThingsV2Payload, force);
+            ArduinoThing result = apiInstance.thingsV2Create(createThingsV2Payloadforce);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ThingsV2Api#thingsV2Create");
@@ -18413,8 +18420,7 @@ Boolean *force = true; // If true, detach device from the other thing, and attac
 ThingsV2Api *apiInstance = [[ThingsV2Api alloc] init];
 
 // create things_v2
-[apiInstance thingsV2CreateWith:createThingsV2Payload
-    force:force
+[apiInstance thingsV2CreateWith:createThingsV2Payload:force
               completionHandler: ^(ArduinoThing output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -18475,7 +18481,7 @@ namespace Example
             try
             {
                 // create things_v2
-                ArduinoThing result = apiInstance.thingsV2Create(createThingsV2Payload, force);
+                ArduinoThing result = apiInstance.thingsV2Create(createThingsV2Payloadforce);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -18500,7 +18506,7 @@ $createThingsV2Payload = ; // CreateThingsV2Payload |
 $force = true; // Boolean | If true, detach device from the other thing, and attach to this thing
 
 try {
-    $result = $api_instance->thingsV2Create($createThingsV2Payload, $force);
+    $result = $api_instance->thingsV2Create($createThingsV2Payload$force);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ThingsV2Api->thingsV2Create: ', $e->getMessage(), PHP_EOL;
@@ -18521,7 +18527,7 @@ my $createThingsV2Payload = WWW::OPenAPIClient::Object::CreateThingsV2Payload->n
 my $force = true; # Boolean | If true, detach device from the other thing, and attach to this thing
 
 eval { 
-    my $result = $api_instance->thingsV2Create(createThingsV2Payload => $createThingsV2Payload, force => $force);
+    my $result = $api_instance->thingsV2Create(createThingsV2Payload => $createThingsV2Payloadforce => $force);
     print Dumper($result);
 };
 if ($@) {
@@ -18546,7 +18552,7 @@ force = true # Boolean | If true, detach device from the other thing, and attach
 
 try: 
     # create things_v2
-    api_response = api_instance.things_v2_create(createThingsV2Payload, force=force)
+    api_response = api_instance.things_v2_create(createThingsV2Payloadforce=force)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ThingsV2Api->thingsV2Create: %s\n" % e)</code></pre>
@@ -19066,7 +19072,7 @@ public class ThingsV2ApiExample {
         String id = id_example; // String | The id of the thing
         ThingSketch thingSketch = ; // ThingSketch | 
         try {
-            ArduinoThing result = apiInstance.thingsV2CreateSketch(id, thingSketch);
+            ArduinoThing result = apiInstance.thingsV2CreateSketch(idthingSketch);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ThingsV2Api#thingsV2CreateSketch");
@@ -19087,7 +19093,7 @@ public class ThingsV2ApiExample {
         String id = id_example; // String | The id of the thing
         ThingSketch thingSketch = ; // ThingSketch | 
         try {
-            ArduinoThing result = apiInstance.thingsV2CreateSketch(id, thingSketch);
+            ArduinoThing result = apiInstance.thingsV2CreateSketch(idthingSketch);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ThingsV2Api#thingsV2CreateSketch");
@@ -19112,8 +19118,7 @@ ThingSketch *thingSketch = ; //
 ThingsV2Api *apiInstance = [[ThingsV2Api alloc] init];
 
 // createSketch things_v2
-[apiInstance thingsV2CreateSketchWith:id
-    thingSketch:thingSketch
+[apiInstance thingsV2CreateSketchWith:id:thingSketch
               completionHandler: ^(ArduinoThing output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -19136,7 +19141,7 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 var api = new ArduinoIotClient.ThingsV2Api()
 var id = id_example; // {String} The id of the thing
 var thingSketch = ; // {ThingSketch} 
-api.thingsV2CreateSketch(id, thingSketch).then(function(data) {
+api.thingsV2CreateSketch(idthingSketch).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -19172,7 +19177,7 @@ namespace Example
             try
             {
                 // createSketch things_v2
-                ArduinoThing result = apiInstance.thingsV2CreateSketch(id, thingSketch);
+                ArduinoThing result = apiInstance.thingsV2CreateSketch(idthingSketch);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -19197,7 +19202,7 @@ $id = id_example; // String | The id of the thing
 $thingSketch = ; // ThingSketch | 
 
 try {
-    $result = $api_instance->thingsV2CreateSketch($id, $thingSketch);
+    $result = $api_instance->thingsV2CreateSketch($id$thingSketch);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ThingsV2Api->thingsV2CreateSketch: ', $e->getMessage(), PHP_EOL;
@@ -19218,7 +19223,7 @@ my $id = id_example; # String | The id of the thing
 my $thingSketch = WWW::OPenAPIClient::Object::ThingSketch->new(); # ThingSketch | 
 
 eval { 
-    my $result = $api_instance->thingsV2CreateSketch(id => $id, thingSketch => $thingSketch);
+    my $result = $api_instance->thingsV2CreateSketch(id => $idthingSketch => $thingSketch);
     print Dumper($result);
 };
 if ($@) {
@@ -19243,7 +19248,7 @@ thingSketch =  # ThingSketch |
 
 try: 
     # createSketch things_v2
-    api_response = api_instance.things_v2_create_sketch(id, thingSketch)
+    api_response = api_instance.things_v2_create_sketch(idthingSketch)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ThingsV2Api->thingsV2CreateSketch: %s\n" % e)</code></pre>
@@ -19722,7 +19727,7 @@ public class ThingsV2ApiExample {
         String id = id_example; // String | The id of the thing
         Boolean force = true; // Boolean | If true, hard delete the thing
         try {
-            apiInstance.thingsV2Delete(id, force);
+            apiInstance.thingsV2Delete(idforce);
         } catch (ApiException e) {
             System.err.println("Exception when calling ThingsV2Api#thingsV2Delete");
             e.printStackTrace();
@@ -19742,7 +19747,7 @@ public class ThingsV2ApiExample {
         String id = id_example; // String | The id of the thing
         Boolean force = true; // Boolean | If true, hard delete the thing
         try {
-            apiInstance.thingsV2Delete(id, force);
+            apiInstance.thingsV2Delete(idforce);
         } catch (ApiException e) {
             System.err.println("Exception when calling ThingsV2Api#thingsV2Delete");
             e.printStackTrace();
@@ -19766,8 +19771,7 @@ Boolean *force = true; // If true, hard delete the thing (optional) (default to 
 ThingsV2Api *apiInstance = [[ThingsV2Api alloc] init];
 
 // delete things_v2
-[apiInstance thingsV2DeleteWith:id
-    force:force
+[apiInstance thingsV2DeleteWith:id:force
               completionHandler: ^(NSError* error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
@@ -19825,7 +19829,7 @@ namespace Example
             try
             {
                 // delete things_v2
-                apiInstance.thingsV2Delete(id, force);
+                apiInstance.thingsV2Delete(idforce);
             }
             catch (Exception e)
             {
@@ -19849,7 +19853,7 @@ $id = id_example; // String | The id of the thing
 $force = true; // Boolean | If true, hard delete the thing
 
 try {
-    $api_instance->thingsV2Delete($id, $force);
+    $api_instance->thingsV2Delete($id$force);
 } catch (Exception $e) {
     echo 'Exception when calling ThingsV2Api->thingsV2Delete: ', $e->getMessage(), PHP_EOL;
 }
@@ -19869,7 +19873,7 @@ my $id = id_example; # String | The id of the thing
 my $force = true; # Boolean | If true, hard delete the thing
 
 eval { 
-    $api_instance->thingsV2Delete(id => $id, force => $force);
+    $api_instance->thingsV2Delete(id => $idforce => $force);
 };
 if ($@) {
     warn "Exception when calling ThingsV2Api->thingsV2Delete: $@\n";
@@ -19893,7 +19897,7 @@ force = true # Boolean | If true, hard delete the thing (optional) (default to n
 
 try: 
     # delete things_v2
-    api_instance.things_v2_delete(id, force=force)
+    api_instance.things_v2_delete(idforce=force)
 except ApiException as e:
     print("Exception when calling ThingsV2Api->thingsV2Delete: %s\n" % e)</code></pre>
                             </div>
@@ -20713,7 +20717,7 @@ public class ThingsV2ApiExample {
         Boolean showDeleted = true; // Boolean | If true, shows the soft deleted things
         Boolean showProperties = true; // Boolean | If true, returns things with their properties, and last values
         try {
-            array[ArduinoThing] result = apiInstance.thingsV2List(acrossUserIds, deviceId, ids, showDeleted, showProperties);
+            array[ArduinoThing] result = apiInstance.thingsV2List(acrossUserIdsdeviceIdidsshowDeletedshowProperties);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ThingsV2Api#thingsV2List");
@@ -20737,7 +20741,7 @@ public class ThingsV2ApiExample {
         Boolean showDeleted = true; // Boolean | If true, shows the soft deleted things
         Boolean showProperties = true; // Boolean | If true, returns things with their properties, and last values
         try {
-            array[ArduinoThing] result = apiInstance.thingsV2List(acrossUserIds, deviceId, ids, showDeleted, showProperties);
+            array[ArduinoThing] result = apiInstance.thingsV2List(acrossUserIdsdeviceIdidsshowDeletedshowProperties);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ThingsV2Api#thingsV2List");
@@ -20765,11 +20769,7 @@ Boolean *showProperties = true; // If true, returns things with their properties
 ThingsV2Api *apiInstance = [[ThingsV2Api alloc] init];
 
 // list things_v2
-[apiInstance thingsV2ListWith:acrossUserIds
-    deviceId:deviceId
-    ids:ids
-    showDeleted:showDeleted
-    showProperties:showProperties
+[apiInstance thingsV2ListWith:acrossUserIds:deviceId:ids:showDeleted:showProperties
               completionHandler: ^(array[ArduinoThing] output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -20791,10 +20791,10 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 
 var api = new ArduinoIotClient.ThingsV2Api()
 var opts = {
-  'acrossUserIds': true, // {Boolean} If true, returns all the things
-  'deviceId': deviceId_example, // {String} The id of the device you want to filter
-  'ids': , // {array[String]} Filter only the desired things
-  'showDeleted': true, // {Boolean} If true, shows the soft deleted things
+  'acrossUserIds': true // {Boolean} If true, returns all the things
+  'deviceId': deviceId_example // {String} The id of the device you want to filter
+  'ids':  // {array[String]} Filter only the desired things
+  'showDeleted': true // {Boolean} If true, shows the soft deleted things
   'showProperties': true // {Boolean} If true, returns things with their properties, and last values
 };
 api.thingsV2List(opts).then(function(data) {
@@ -20836,7 +20836,7 @@ namespace Example
             try
             {
                 // list things_v2
-                array[ArduinoThing] result = apiInstance.thingsV2List(acrossUserIds, deviceId, ids, showDeleted, showProperties);
+                array[ArduinoThing] result = apiInstance.thingsV2List(acrossUserIdsdeviceIdidsshowDeletedshowProperties);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -20864,7 +20864,7 @@ $showDeleted = true; // Boolean | If true, shows the soft deleted things
 $showProperties = true; // Boolean | If true, returns things with their properties, and last values
 
 try {
-    $result = $api_instance->thingsV2List($acrossUserIds, $deviceId, $ids, $showDeleted, $showProperties);
+    $result = $api_instance->thingsV2List($acrossUserIds$deviceId$ids$showDeleted$showProperties);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ThingsV2Api->thingsV2List: ', $e->getMessage(), PHP_EOL;
@@ -20883,12 +20883,12 @@ $WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
 my $api_instance = WWW::OPenAPIClient::ThingsV2Api->new();
 my $acrossUserIds = true; # Boolean | If true, returns all the things
 my $deviceId = deviceId_example; # String | The id of the device you want to filter
-my $ids = []; # array[String] | Filter only the desired things
+my $ids = ; # array[String] | Filter only the desired things
 my $showDeleted = true; # Boolean | If true, shows the soft deleted things
 my $showProperties = true; # Boolean | If true, returns things with their properties, and last values
 
 eval { 
-    my $result = $api_instance->thingsV2List(acrossUserIds => $acrossUserIds, deviceId => $deviceId, ids => $ids, showDeleted => $showDeleted, showProperties => $showProperties);
+    my $result = $api_instance->thingsV2List(acrossUserIds => $acrossUserIdsdeviceId => $deviceIdids => $idsshowDeleted => $showDeletedshowProperties => $showProperties);
     print Dumper($result);
 };
 if ($@) {
@@ -20916,7 +20916,7 @@ showProperties = true # Boolean | If true, returns things with their properties,
 
 try: 
     # list things_v2
-    api_response = api_instance.things_v2_list(acrossUserIds=acrossUserIds, deviceId=deviceId, ids=ids, showDeleted=showDeleted, showProperties=showProperties)
+    api_response = api_instance.things_v2_list(acrossUserIds=acrossUserIdsdeviceId=deviceIdids=idsshowDeleted=showDeletedshowProperties=showProperties)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ThingsV2Api->thingsV2List: %s\n" % e)</code></pre>
@@ -21275,7 +21275,7 @@ public class ThingsV2ApiExample {
         String id = id_example; // String | The id of the thing
         Boolean showDeleted = true; // Boolean | If true, shows the soft deleted thing
         try {
-            ArduinoThing result = apiInstance.thingsV2Show(id, showDeleted);
+            ArduinoThing result = apiInstance.thingsV2Show(idshowDeleted);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ThingsV2Api#thingsV2Show");
@@ -21296,7 +21296,7 @@ public class ThingsV2ApiExample {
         String id = id_example; // String | The id of the thing
         Boolean showDeleted = true; // Boolean | If true, shows the soft deleted thing
         try {
-            ArduinoThing result = apiInstance.thingsV2Show(id, showDeleted);
+            ArduinoThing result = apiInstance.thingsV2Show(idshowDeleted);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ThingsV2Api#thingsV2Show");
@@ -21321,8 +21321,7 @@ Boolean *showDeleted = true; // If true, shows the soft deleted thing (optional)
 ThingsV2Api *apiInstance = [[ThingsV2Api alloc] init];
 
 // show things_v2
-[apiInstance thingsV2ShowWith:id
-    showDeleted:showDeleted
+[apiInstance thingsV2ShowWith:id:showDeleted
               completionHandler: ^(ArduinoThing output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -21383,7 +21382,7 @@ namespace Example
             try
             {
                 // show things_v2
-                ArduinoThing result = apiInstance.thingsV2Show(id, showDeleted);
+                ArduinoThing result = apiInstance.thingsV2Show(idshowDeleted);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -21408,7 +21407,7 @@ $id = id_example; // String | The id of the thing
 $showDeleted = true; // Boolean | If true, shows the soft deleted thing
 
 try {
-    $result = $api_instance->thingsV2Show($id, $showDeleted);
+    $result = $api_instance->thingsV2Show($id$showDeleted);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ThingsV2Api->thingsV2Show: ', $e->getMessage(), PHP_EOL;
@@ -21429,7 +21428,7 @@ my $id = id_example; # String | The id of the thing
 my $showDeleted = true; # Boolean | If true, shows the soft deleted thing
 
 eval { 
-    my $result = $api_instance->thingsV2Show(id => $id, showDeleted => $showDeleted);
+    my $result = $api_instance->thingsV2Show(id => $idshowDeleted => $showDeleted);
     print Dumper($result);
 };
 if ($@) {
@@ -21454,7 +21453,7 @@ showDeleted = true # Boolean | If true, shows the soft deleted thing (optional) 
 
 try: 
     # show things_v2
-    api_response = api_instance.things_v2_show(id, showDeleted=showDeleted)
+    api_response = api_instance.things_v2_show(idshowDeleted=showDeleted)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ThingsV2Api->thingsV2Show: %s\n" % e)</code></pre>
@@ -21827,7 +21826,7 @@ public class ThingsV2ApiExample {
         Thing thing = ; // Thing | 
         Boolean force = true; // Boolean | If true, detach device from the other thing, and attach to this thing
         try {
-            ArduinoThing result = apiInstance.thingsV2Update(id, thing, force);
+            ArduinoThing result = apiInstance.thingsV2Update(idthingforce);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ThingsV2Api#thingsV2Update");
@@ -21849,7 +21848,7 @@ public class ThingsV2ApiExample {
         Thing thing = ; // Thing | 
         Boolean force = true; // Boolean | If true, detach device from the other thing, and attach to this thing
         try {
-            ArduinoThing result = apiInstance.thingsV2Update(id, thing, force);
+            ArduinoThing result = apiInstance.thingsV2Update(idthingforce);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ThingsV2Api#thingsV2Update");
@@ -21875,9 +21874,7 @@ Boolean *force = true; // If true, detach device from the other thing, and attac
 ThingsV2Api *apiInstance = [[ThingsV2Api alloc] init];
 
 // update things_v2
-[apiInstance thingsV2UpdateWith:id
-    thing:thing
-    force:force
+[apiInstance thingsV2UpdateWith:id:thing:force
               completionHandler: ^(ArduinoThing output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -21903,7 +21900,7 @@ var thing = ; // {Thing}
 var opts = {
   'force': true // {Boolean} If true, detach device from the other thing, and attach to this thing
 };
-api.thingsV2Update(id, thing, opts).then(function(data) {
+api.thingsV2Update(idthing, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -21940,7 +21937,7 @@ namespace Example
             try
             {
                 // update things_v2
-                ArduinoThing result = apiInstance.thingsV2Update(id, thing, force);
+                ArduinoThing result = apiInstance.thingsV2Update(idthingforce);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -21966,7 +21963,7 @@ $thing = ; // Thing |
 $force = true; // Boolean | If true, detach device from the other thing, and attach to this thing
 
 try {
-    $result = $api_instance->thingsV2Update($id, $thing, $force);
+    $result = $api_instance->thingsV2Update($id$thing$force);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ThingsV2Api->thingsV2Update: ', $e->getMessage(), PHP_EOL;
@@ -21988,7 +21985,7 @@ my $thing = WWW::OPenAPIClient::Object::Thing->new(); # Thing |
 my $force = true; # Boolean | If true, detach device from the other thing, and attach to this thing
 
 eval { 
-    my $result = $api_instance->thingsV2Update(id => $id, thing => $thing, force => $force);
+    my $result = $api_instance->thingsV2Update(id => $idthing => $thingforce => $force);
     print Dumper($result);
 };
 if ($@) {
@@ -22014,7 +22011,7 @@ force = true # Boolean | If true, detach device from the other thing, and attach
 
 try: 
     # update things_v2
-    api_response = api_instance.things_v2_update(id, thing, force=force)
+    api_response = api_instance.things_v2_update(idthingforce=force)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ThingsV2Api->thingsV2Update: %s\n" % e)</code></pre>
@@ -22522,7 +22519,7 @@ public class ThingsV2ApiExample {
         String sketchId = sketchId_example; // String | The id of the sketch
         UpdateSketch updateSketch = ; // UpdateSketch | 
         try {
-            ArduinoThing result = apiInstance.thingsV2UpdateSketch(id, sketchId, updateSketch);
+            ArduinoThing result = apiInstance.thingsV2UpdateSketch(idsketchIdupdateSketch);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ThingsV2Api#thingsV2UpdateSketch");
@@ -22544,7 +22541,7 @@ public class ThingsV2ApiExample {
         String sketchId = sketchId_example; // String | The id of the sketch
         UpdateSketch updateSketch = ; // UpdateSketch | 
         try {
-            ArduinoThing result = apiInstance.thingsV2UpdateSketch(id, sketchId, updateSketch);
+            ArduinoThing result = apiInstance.thingsV2UpdateSketch(idsketchIdupdateSketch);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ThingsV2Api#thingsV2UpdateSketch");
@@ -22570,9 +22567,7 @@ UpdateSketch *updateSketch = ; //  (optional)
 ThingsV2Api *apiInstance = [[ThingsV2Api alloc] init];
 
 // updateSketch things_v2
-[apiInstance thingsV2UpdateSketchWith:id
-    sketchId:sketchId
-    updateSketch:updateSketch
+[apiInstance thingsV2UpdateSketchWith:id:sketchId:updateSketch
               completionHandler: ^(ArduinoThing output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -22598,7 +22593,7 @@ var sketchId = sketchId_example; // {String} The id of the sketch
 var opts = {
   'updateSketch':  // {UpdateSketch} 
 };
-api.thingsV2UpdateSketch(id, sketchId, opts).then(function(data) {
+api.thingsV2UpdateSketch(idsketchId, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -22635,7 +22630,7 @@ namespace Example
             try
             {
                 // updateSketch things_v2
-                ArduinoThing result = apiInstance.thingsV2UpdateSketch(id, sketchId, updateSketch);
+                ArduinoThing result = apiInstance.thingsV2UpdateSketch(idsketchIdupdateSketch);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -22661,7 +22656,7 @@ $sketchId = sketchId_example; // String | The id of the sketch
 $updateSketch = ; // UpdateSketch | 
 
 try {
-    $result = $api_instance->thingsV2UpdateSketch($id, $sketchId, $updateSketch);
+    $result = $api_instance->thingsV2UpdateSketch($id$sketchId$updateSketch);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ThingsV2Api->thingsV2UpdateSketch: ', $e->getMessage(), PHP_EOL;
@@ -22683,7 +22678,7 @@ my $sketchId = sketchId_example; # String | The id of the sketch
 my $updateSketch = WWW::OPenAPIClient::Object::UpdateSketch->new(); # UpdateSketch | 
 
 eval { 
-    my $result = $api_instance->thingsV2UpdateSketch(id => $id, sketchId => $sketchId, updateSketch => $updateSketch);
+    my $result = $api_instance->thingsV2UpdateSketch(id => $idsketchId => $sketchIdupdateSketch => $updateSketch);
     print Dumper($result);
 };
 if ($@) {
@@ -22709,7 +22704,7 @@ updateSketch =  # UpdateSketch |  (optional)
 
 try: 
     # updateSketch things_v2
-    api_response = api_instance.things_v2_update_sketch(id, sketchId, updateSketch=updateSketch)
+    api_response = api_instance.things_v2_update_sketch(idsketchIdupdateSketch=updateSketch)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ThingsV2Api->thingsV2UpdateSketch: %s\n" % e)</code></pre>
