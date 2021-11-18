@@ -1314,6 +1314,9 @@ ul.nav-tabs {
       "type" : "string",
       "description" : "The name of the related thing"
     },
+    "thing_timezone" : {
+      "$ref" : "#/components/schemas/ArduinoTimezone"
+    },
     "type" : {
       "type" : "string",
       "description" : "The type of the variable"
@@ -1324,6 +1327,66 @@ ul.nav-tabs {
     }
   },
   "description" : "ArduinoLinkedvariable media type (default view)"
+};
+    defs["ArduinoLoradevicev1"] = {
+  "title" : "Mediatype identifier: application/vnd.arduino.loradevicev1+json; view=default",
+  "required" : [ "app_eui", "app_key", "device_id", "eui" ],
+  "type" : "object",
+  "properties" : {
+    "app_eui" : {
+      "type" : "string",
+      "description" : "The eui of the app"
+    },
+    "app_key" : {
+      "type" : "string",
+      "description" : "The key of the device"
+    },
+    "device_id" : {
+      "type" : "string",
+      "description" : "The id of the device",
+      "format" : "uuid"
+    },
+    "eui" : {
+      "type" : "string",
+      "description" : "The eui of the lora device",
+      "example" : "71619230301"
+    }
+  },
+  "description" : "ArduinoLoradevicev1 media type (default view)"
+};
+    defs["ArduinoLorafreqplansv1"] = {
+  "title" : "Mediatype identifier: application/vnd.arduino.lorafreqplansv1+json; view=default",
+  "type" : "object",
+  "properties" : {
+    "frequency_plans" : {
+      "type" : "array",
+      "description" : "The list of frequency plans",
+      "items" : {
+        "$ref" : "#/components/schemas/ArduinoLorafreqplanv1"
+      }
+    }
+  },
+  "description" : "ArduinoLorafreqplansv1 media type (default view)"
+};
+    defs["ArduinoLorafreqplanv1"] = {
+  "title" : "Mediatype identifier: application/vnd.arduino.lorafreqplanv1+json; view=default",
+  "required" : [ "advanced", "id", "name" ],
+  "type" : "object",
+  "properties" : {
+    "advanced" : {
+      "type" : "boolean",
+      "description" : "Frequency plan only for advanced users"
+    },
+    "id" : {
+      "type" : "string",
+      "description" : "The ID of the frequency paln"
+    },
+    "name" : {
+      "type" : "string",
+      "description" : "The name of the frequency plan"
+    }
+  },
+  "description" : "ArduinoLorafreqplanv1 media type (default view)"
 };
     defs["ArduinoProperty"] = {
   "title" : "Mediatype identifier: application/vnd.arduino.property+json; view=default",
@@ -1668,7 +1731,7 @@ ul.nav-tabs {
 };
     defs["ArduinoThing"] = {
   "title" : "Mediatype identifier: application/vnd.arduino.thing+json; view=default",
-  "required" : [ "href", "id", "name", "user_id" ],
+  "required" : [ "href", "id", "name", "timezone", "user_id" ],
   "type" : "object",
   "properties" : {
     "created_at" : {
@@ -1717,6 +1780,10 @@ ul.nav-tabs {
       "additionalProperties" : true,
       "description" : "Tags of the thing"
     },
+    "timezone" : {
+      "type" : "string",
+      "description" : "Time zone of the thing"
+    },
     "updated_at" : {
       "type" : "string",
       "description" : "Update date of the thing",
@@ -1751,6 +1818,23 @@ ul.nav-tabs {
     }
   },
   "description" : "ArduinoTimeseriesmedia media type (default view)"
+};
+    defs["ArduinoTimezone"] = {
+  "title" : "Mediatype identifier: application/vnd.arduino.timezone+json; view=default",
+  "required" : [ "name", "offset" ],
+  "type" : "object",
+  "properties" : {
+    "name" : {
+      "type" : "string",
+      "description" : "Name of the time zone."
+    },
+    "offset" : {
+      "type" : "integer",
+      "description" : "Current UTC DST offset in seconds.",
+      "format" : "int64"
+    }
+  },
+  "description" : "ArduinoTimezone media type (default view)"
 };
     defs["ArduinoVariableslinks"] = {
   "title" : "Mediatype identifier: application/vnd.arduino.variableslinks+json; view=default",
@@ -2065,6 +2149,54 @@ ul.nav-tabs {
   },
   "description" : "DeviceV2 describes a device."
 };
+    defs["CreateLoraDevicesV1Payload"] = {
+  "title" : "CreateLoraDevicesV1Payload",
+  "required" : [ "app", "eui", "frequency_plan", "name", "type", "user_id" ],
+  "type" : "object",
+  "properties" : {
+    "app" : {
+      "type" : "string",
+      "description" : "The app name"
+    },
+    "app_eui" : {
+      "pattern" : "[0-9a-z]{16}",
+      "type" : "string",
+      "description" : "The app eui of the lora device"
+    },
+    "app_key" : {
+      "pattern" : "[0-9a-z]{16}",
+      "type" : "string",
+      "description" : "The app key of the lora device"
+    },
+    "eui" : {
+      "pattern" : "[0-9a-z]{16}",
+      "type" : "string",
+      "description" : "The eui of the lora device"
+    },
+    "frequency_plan" : {
+      "type" : "string",
+      "description" : "The frequency plan required by your country ",
+      "enum" : [ "EU_863_870_TTN", "US_902_928_FSB_2", "EU_433", "AU_915_928_FSB_2", "CN_470_510_FSB_11", "AS_920_923", "AS_920_923_TTN_AU", "AS_923_925", "AS_923_925_TTN_AU", "KR_920_923_TTN", "IN_865_867" ]
+    },
+    "name" : {
+      "type" : "string",
+      "description" : "A common name for the device"
+    },
+    "serial" : {
+      "type" : "string",
+      "description" : "The optional serial number"
+    },
+    "type" : {
+      "type" : "string",
+      "description" : "The type of device",
+      "enum" : [ "lora-device", "mkrwan1300", "mkrwan1310" ]
+    },
+    "user_id" : {
+      "type" : "string",
+      "description" : "The id of the user. Can be the special string 'me'"
+    }
+  }
+};
     defs["dashboardshare"] = {
   "title" : "dashboardshare",
   "type" : "object",
@@ -2343,7 +2475,7 @@ ul.nav-tabs {
     "type" : {
       "type" : "string",
       "description" : "The type of the property",
-      "enum" : [ "ANALOG", "CHARSTRING", "FLOAT", "INT", "LENGHT_C", "LENGHT_I", "LENGHT_M", "PERCENTAGE", "STATUS", "TEMPERATURE_C", "TEMPERATURE_F", "METER", "KILOGRAM", "GRAM", "SECOND", "AMPERE", "KELVIN", "CANDELA", "MOLE", "HERTZ", "RADIAN", "STERADIAN", "NEWTON", "PASCAL", "JOULE", "WATT", "COULOMB", "VOLT", "FARAD", "OHM", "SIEMENS", "WEBER", "TESLA", "HENRY", "DEGREES_CELSIUS", "LUMEN", "LUX", "BECQUEREL", "GRAY", "SIEVERT", "KATAL", "SQUARE_METER", "CUBIC_METER", "LITER", "METER_PER_SECOND", "METER_PER_SQUARE_SECOND", "CUBIC_METER_PER_SECOND", "LITER_PER_SECOND", "WATT_PER_SQUARE_METER", "CANDELA_PER_SQUARE_METER", "BIT", "BIT_PER_SECOND", "DEGREES_LATITUDE", "DEGREES_LONGITUDE", "PH_VALUE", "DECIBEL", "DECIBEL_1W", "BEL", "COUNT", "RATIO_DIV", "RATIO_MOD", "PERCENTAGE_RELATIVE_HUMIDITY", "PERCENTAGE_BATTERY_LEVEL", "SECONDS_BATTERY_LEVEL", "EVENT_RATE_SECOND", "EVENT_RATE_MINUTE", "HEART_RATE", "HEART_BEATS", "SIEMENS_PER_METER", "LOCATION", "COLOR_HSB", "COLOR_RGB", "GENERIC_COMPLEX_PROPERTY", "HOME_COLORED_LIGHT", "HOME_DIMMED_LIGHT", "HOME_LIGHT", "HOME_CONTACT_SENSOR", "HOME_MOTION_SENSOR", "HOME_SMART_PLUG", "HOME_TEMPERATURE", "HOME_TEMPERATURE_C", "HOME_TEMPERATURE_F", "HOME_SWITCH", "HOME_TELEVISION", "ENERGY", "FORCE", "TEMPERATURE", "POWER", "ELECTRIC_CURRENT", "ELECTRIC_POTENTIAL", "ELECTRICAL_RESISTANCE", "CAPACITANCE", "TIME", "FREQUENCY", "DATA_RATE", "ACCELERATION", "AREA", "LENGTH", "VELOCITY", "MASS", "VOLUME", "FLOW_RATE", "ANGLE", "ILLUMINANCE", "LUMINOUS_FLUX", "LUMINANCE", "LUMINOUS_INTENSITY", "LOGARITHMIC_QUANTITY", "PRESSURE", "INFORMATION_CONTENT" ]
+      "enum" : [ "ANALOG", "CHARSTRING", "FLOAT", "INT", "LENGHT_C", "LENGHT_I", "LENGHT_M", "PERCENTAGE", "STATUS", "TEMPERATURE_C", "TEMPERATURE_F", "METER", "KILOGRAM", "GRAM", "SECOND", "AMPERE", "KELVIN", "CANDELA", "MOLE", "HERTZ", "RADIAN", "STERADIAN", "NEWTON", "PASCAL", "JOULE", "WATT", "COULOMB", "VOLT", "FARAD", "OHM", "SIEMENS", "WEBER", "TESLA", "HENRY", "DEGREES_CELSIUS", "LUMEN", "LUX", "BECQUEREL", "GRAY", "SIEVERT", "KATAL", "SQUARE_METER", "CUBIC_METER", "LITER", "METER_PER_SECOND", "METER_PER_SQUARE_SECOND", "CUBIC_METER_PER_SECOND", "LITER_PER_SECOND", "WATT_PER_SQUARE_METER", "CANDELA_PER_SQUARE_METER", "BIT", "BIT_PER_SECOND", "DEGREES_LATITUDE", "DEGREES_LONGITUDE", "PH_VALUE", "DECIBEL", "DECIBEL_1W", "BEL", "COUNT", "RATIO_DIV", "RATIO_MOD", "PERCENTAGE_RELATIVE_HUMIDITY", "PERCENTAGE_BATTERY_LEVEL", "SECONDS_BATTERY_LEVEL", "EVENT_RATE_SECOND", "EVENT_RATE_MINUTE", "HEART_RATE", "HEART_BEATS", "SIEMENS_PER_METER", "LOCATION", "COLOR_HSB", "COLOR_RGB", "GENERIC_COMPLEX_PROPERTY", "HOME_COLORED_LIGHT", "HOME_DIMMED_LIGHT", "HOME_LIGHT", "HOME_CONTACT_SENSOR", "HOME_MOTION_SENSOR", "HOME_SMART_PLUG", "HOME_TEMPERATURE", "HOME_TEMPERATURE_C", "HOME_TEMPERATURE_F", "HOME_SWITCH", "HOME_TELEVISION", "ENERGY", "FORCE", "TEMPERATURE", "POWER", "ELECTRIC_CURRENT", "ELECTRIC_POTENTIAL", "ELECTRICAL_RESISTANCE", "CAPACITANCE", "TIME", "FREQUENCY", "DATA_RATE", "ACCELERATION", "AREA", "LENGTH", "VELOCITY", "MASS", "VOLUME", "FLOW_RATE", "ANGLE", "ILLUMINANCE", "LUMINOUS_FLUX", "LUMINANCE", "LUMINOUS_INTENSITY", "LOGARITHMIC_QUANTITY", "PRESSURE", "INFORMATION_CONTENT", "SCHEDULE" ]
     },
     "update_parameter" : {
       "type" : "number",
@@ -2409,8 +2541,8 @@ ul.nav-tabs {
     }
   }
 };
-    defs["thing"] = {
-  "title" : "thing",
+    defs["ThingCreate"] = {
+  "title" : "ThingCreate",
   "type" : "object",
   "properties" : {
     "device_id" : {
@@ -2436,6 +2568,11 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/property"
       }
     },
+    "timezone" : {
+      "type" : "string",
+      "description" : "A time zone name\nCheck /v2/timezones for a list of valid names.",
+      "default" : "America/New_York"
+    },
     "webhook_active" : {
       "type" : "boolean",
       "description" : "Webhook uri"
@@ -2445,7 +2582,7 @@ ul.nav-tabs {
       "description" : "Webhook uri"
     }
   },
-  "description" : "ThingPayload describes a thing"
+  "description" : "Payload to create a new thing"
 };
     defs["thingSketch"] = {
   "title" : "thingSketch",
@@ -2458,6 +2595,48 @@ ul.nav-tabs {
     }
   },
   "description" : "ThingSketchPayload describes a sketch of a thing"
+};
+    defs["thingUpdate"] = {
+  "title" : "thingUpdate",
+  "type" : "object",
+  "properties" : {
+    "device_id" : {
+      "type" : "string",
+      "description" : "The arn of the associated device",
+      "format" : "uuid"
+    },
+    "id" : {
+      "type" : "string",
+      "description" : "The id of the thing",
+      "format" : "uuid"
+    },
+    "name" : {
+      "maxLength" : 64,
+      "pattern" : "^[a-zA-Z0-9_.@ -]+$",
+      "type" : "string",
+      "description" : "The friendly name of the thing"
+    },
+    "properties" : {
+      "type" : "array",
+      "description" : "The properties of the thing",
+      "items" : {
+        "$ref" : "#/components/schemas/property"
+      }
+    },
+    "timezone" : {
+      "type" : "string",
+      "description" : "A time zone name.\nCheck /v2/timezones for a list of valid names."
+    },
+    "webhook_active" : {
+      "type" : "boolean",
+      "description" : "Webhook uri"
+    },
+    "webhook_uri" : {
+      "type" : "string",
+      "description" : "Webhook uri"
+    }
+  },
+  "description" : "Payload to update an existing thing"
 };
     defs["TimeseriesDataPoint"] = {
   "title" : "TimeseriesDataPoint",
@@ -2695,6 +2874,14 @@ ul.nav-tabs {
                     </li>
                     <li data-group="DevicesV2Tags" data-name="devicesV2TagsUpsert" class="">
                       <a href="#api-DevicesV2Tags-devicesV2TagsUpsert">devicesV2TagsUpsert</a>
+                    </li>
+                  <li class="nav-header" data-group="LoraDevicesV1"><a href="#api-LoraDevicesV1">API Methods - LoraDevicesV1</a></li>
+                    <li data-group="LoraDevicesV1" data-name="loraDevicesV1Create" class="">
+                      <a href="#api-LoraDevicesV1-loraDevicesV1Create">loraDevicesV1Create</a>
+                    </li>
+                  <li class="nav-header" data-group="LoraFreqPlanV1"><a href="#api-LoraFreqPlanV1">API Methods - LoraFreqPlanV1</a></li>
+                    <li data-group="LoraFreqPlanV1" data-name="loraFreqPlanV1List" class="">
+                      <a href="#api-LoraFreqPlanV1-loraFreqPlanV1List">loraFreqPlanV1List</a>
                     </li>
                   <li class="nav-header" data-group="PropertiesV2"><a href="#api-PropertiesV2">API Methods - PropertiesV2</a></li>
                     <li data-group="PropertiesV2" data-name="propertiesV2Create" class="">
@@ -21194,6 +21381,787 @@ $(document).ready(function() {
                       </div>
                       <hr>
                   </section>
+                <section id="api-LoraDevicesV1">
+                  <h1>LoraDevicesV1</h1>
+                    <div id="api-LoraDevicesV1-loraDevicesV1Create">
+                      <article id="api-LoraDevicesV1-loraDevicesV1Create-0" data-group="User" data-name="loraDevicesV1Create" data-version="0">
+                        <div class="pull-left">
+                          <h1>loraDevicesV1Create</h1>
+                          <p>create lora_devices_v1</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Create a new lora device. Its info are saved on our database, and on the lora provider network. Creates a device_v2 automatically</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="put"><code><span class="pln">/v1/lora-devices/</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-LoraDevicesV1-loraDevicesV1Create-0-curl">Curl</a></li>
+                          <!-- <li class=""><a href="#examples-LoraDevicesV1-loraDevicesV1Create-0-java">Java</a></li> -->
+                          <!-- <li class=""><a href="#examples-LoraDevicesV1-loraDevicesV1Create-0-android">Android</a></li> -->
+                          <!--<li class=""><a href="#examples-LoraDevicesV1-loraDevicesV1Create-0-groovy">Groovy</a></li>-->
+                          <!-- <li class=""><a href="#examples-LoraDevicesV1-loraDevicesV1Create-0-objc">Obj-C</a></li> -->
+                          <li class=""><a href="#examples-LoraDevicesV1-loraDevicesV1Create-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-LoraDevicesV1-loraDevicesV1Create-0-angular">Angular</a></li>-->
+                          <!-- <li class=""><a href="#examples-LoraDevicesV1-loraDevicesV1Create-0-csharp">C#</a></li> -->
+                          <!-- <li class=""><a href="#examples-LoraDevicesV1-loraDevicesV1Create-0-php">PHP</a></li> -->
+                          <!-- <li class=""><a href="#examples-LoraDevicesV1-loraDevicesV1Create-0-perl">Perl</a></li> -->
+                          <li class=""><a href="#examples-LoraDevicesV1-loraDevicesV1Create-0-python">Python</a></li>
+                          <!-- <li class=""><a href="#examples-LoraDevicesV1-loraDevicesV1Create-0-rust">Rust</a></li> -->
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-LoraDevicesV1-loraDevicesV1Create-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "https://api2.arduino.cc/iot/v1/lora-devices/"</code></pre>
+                          </div>
+                          <!-- <div class="tab-pane" id="examples-LoraDevicesV1-loraDevicesV1Create-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.LoraDevicesV1Api;
+
+import java.io.File;
+import java.util.*;
+
+public class LoraDevicesV1ApiExample {
+
+    public static void main(String[] args) {
+        
+        LoraDevicesV1Api apiInstance = new LoraDevicesV1Api();
+        CreateLoraDevicesV1Payload createLoraDevicesV1Payload = ; // CreateLoraDevicesV1Payload | 
+        try {
+            ArduinoLoradevicev1 result = apiInstance.loraDevicesV1Create(createLoraDevicesV1Payload);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling LoraDevicesV1Api#loraDevicesV1Create");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div> -->
+
+                          <!-- <div class="tab-pane" id="examples-LoraDevicesV1-loraDevicesV1Create-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.LoraDevicesV1Api;
+
+public class LoraDevicesV1ApiExample {
+
+    public static void main(String[] args) {
+        LoraDevicesV1Api apiInstance = new LoraDevicesV1Api();
+        CreateLoraDevicesV1Payload createLoraDevicesV1Payload = ; // CreateLoraDevicesV1Payload | 
+        try {
+            ArduinoLoradevicev1 result = apiInstance.loraDevicesV1Create(createLoraDevicesV1Payload);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling LoraDevicesV1Api#loraDevicesV1Create");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div> -->
+  <!--
+  <div class="tab-pane" id="examples-LoraDevicesV1-loraDevicesV1Create-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <!-- <div class="tab-pane" id="examples-LoraDevicesV1-loraDevicesV1Create-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">CreateLoraDevicesV1Payload *createLoraDevicesV1Payload = ; // 
+
+LoraDevicesV1Api *apiInstance = [[LoraDevicesV1Api alloc] init];
+
+// create lora_devices_v1
+[apiInstance loraDevicesV1CreateWith:createLoraDevicesV1Payload
+              completionHandler: ^(ArduinoLoradevicev1 output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div> -->
+
+                            <div class="tab-pane" id="examples-LoraDevicesV1-loraDevicesV1Create-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+
+var api = new ArduinoIotClient.LoraDevicesV1Api()
+var createLoraDevicesV1Payload = ; // {CreateLoraDevicesV1Payload} 
+api.loraDevicesV1Create(createLoraDevicesV1Payload).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-LoraDevicesV1-loraDevicesV1Create-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <!-- <div class="tab-pane" id="examples-LoraDevicesV1-loraDevicesV1Create-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using iot.Api;
+using iot.Client;
+using iot.Model;
+
+namespace Example
+{
+    public class loraDevicesV1CreateExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new LoraDevicesV1Api();
+            var createLoraDevicesV1Payload = new CreateLoraDevicesV1Payload(); // CreateLoraDevicesV1Payload | 
+
+            try
+            {
+                // create lora_devices_v1
+                ArduinoLoradevicev1 result = apiInstance.loraDevicesV1Create(createLoraDevicesV1Payload);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling LoraDevicesV1Api.loraDevicesV1Create: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div> -->
+
+                            <!-- <div class="tab-pane" id="examples-LoraDevicesV1-loraDevicesV1Create-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new OpenAPITools\Client\Api\LoraDevicesV1Api();
+$createLoraDevicesV1Payload = ; // CreateLoraDevicesV1Payload | 
+
+try {
+    $result = $api_instance->loraDevicesV1Create($createLoraDevicesV1Payload);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling LoraDevicesV1Api->loraDevicesV1Create: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div> -->
+
+                            <!-- <div class="tab-pane" id="examples-LoraDevicesV1-loraDevicesV1Create-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::LoraDevicesV1Api;
+
+my $api_instance = WWW::OPenAPIClient::LoraDevicesV1Api->new();
+my $createLoraDevicesV1Payload = WWW::OPenAPIClient::Object::CreateLoraDevicesV1Payload->new(); # CreateLoraDevicesV1Payload | 
+
+eval { 
+    my $result = $api_instance->loraDevicesV1Create(createLoraDevicesV1Payload => $createLoraDevicesV1Payload);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling LoraDevicesV1Api->loraDevicesV1Create: $@\n";
+}</code></pre>
+                            </div> -->
+
+                            <div class="tab-pane" id="examples-LoraDevicesV1-loraDevicesV1Create-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = openapi_client.LoraDevicesV1Api()
+createLoraDevicesV1Payload =  # CreateLoraDevicesV1Payload | 
+
+try: 
+    # create lora_devices_v1
+    api_response = api_instance.lora_devices_v1_create(createLoraDevicesV1Payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling LoraDevicesV1Api->loraDevicesV1Create: %s\n" % e)</code></pre>
+                            </div>
+
+                            <!-- <div class="tab-pane" id="examples-LoraDevicesV1-loraDevicesV1Create-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate LoraDevicesV1Api;
+
+pub fn main() {
+    let createLoraDevicesV1Payload = ; // CreateLoraDevicesV1Payload
+
+    let mut context = LoraDevicesV1Api::Context::default();
+    let result = client.loraDevicesV1Create(createLoraDevicesV1Payload, &context).wait();
+    println!("{:?}", result);
+
+}
+</code></pre>
+                            </div> -->
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">createLoraDevicesV1Payload <span style="color:red;">*</span></td>
+<td>
+<p class="marked"></p>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/CreateLoraDevicesV1Payload"
+      }
+    },
+    "application/x-www-form-urlencoded" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/CreateLoraDevicesV1Payload"
+      }
+    }
+  },
+  "required" : true,
+  "x-originalParamName" : "payload"
+};
+  var schema = findNode('schema', schemaWrapper).schema;
+  if (!schema) {
+      schema = schemaWrapper.schema;
+  }
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_loraDevicesV1Create_createLoraDevicesV1Payload');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_loraDevicesV1Create_createLoraDevicesV1Payload"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-LoraDevicesV1-loraDevicesV1Create-title-201"></h3>
+                            <p id="examples-LoraDevicesV1-loraDevicesV1Create-description-201" class="marked"></p>
+                            <script>
+                              var responseLoraDevicesV1201_description = `Created`;
+                              var responseLoraDevicesV1201_description_break = responseLoraDevicesV1201_description.indexOf('\n');
+                              if (responseLoraDevicesV1201_description_break == -1) {
+                                $("#examples-LoraDevicesV1-loraDevicesV1Create-title-201").text("Status: 201 - " + responseLoraDevicesV1201_description);
+                              } else {
+                                $("#examples-LoraDevicesV1-loraDevicesV1Create-title-201").text("Status: 201 - " + responseLoraDevicesV1201_description.substring(0, responseLoraDevicesV1201_description_break));
+                                $("#examples-LoraDevicesV1-loraDevicesV1Create-description-201").html(responseLoraDevicesV1201_description.substring(responseLoraDevicesV1201_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-LoraDevicesV1-loraDevicesV1Create-201" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-LoraDevicesV1-loraDevicesV1Create-201-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-LoraDevicesV1-loraDevicesV1Create-201-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-LoraDevicesV1-loraDevicesV1Create-201-schema">
+                                  <div id="responses-LoraDevicesV1-loraDevicesV1Create-schema-201" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Created",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ArduinoLoradevicev1"
+      }
+    }
+  }
+};
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                            schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-LoraDevicesV1-loraDevicesV1Create-201-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-LoraDevicesV1-loraDevicesV1Create-schema-201');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-LoraDevicesV1-loraDevicesV1Create-201-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
+                <section id="api-LoraFreqPlanV1">
+                  <h1>LoraFreqPlanV1</h1>
+                    <div id="api-LoraFreqPlanV1-loraFreqPlanV1List">
+                      <article id="api-LoraFreqPlanV1-loraFreqPlanV1List-0" data-group="User" data-name="loraFreqPlanV1List" data-version="0">
+                        <div class="pull-left">
+                          <h1>loraFreqPlanV1List</h1>
+                          <p>list lora_freq_plan_v1</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">List the lora frequency plans supported</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/v1/lora-freq-plans/</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-LoraFreqPlanV1-loraFreqPlanV1List-0-curl">Curl</a></li>
+                          <!-- <li class=""><a href="#examples-LoraFreqPlanV1-loraFreqPlanV1List-0-java">Java</a></li> -->
+                          <!-- <li class=""><a href="#examples-LoraFreqPlanV1-loraFreqPlanV1List-0-android">Android</a></li> -->
+                          <!--<li class=""><a href="#examples-LoraFreqPlanV1-loraFreqPlanV1List-0-groovy">Groovy</a></li>-->
+                          <!-- <li class=""><a href="#examples-LoraFreqPlanV1-loraFreqPlanV1List-0-objc">Obj-C</a></li> -->
+                          <li class=""><a href="#examples-LoraFreqPlanV1-loraFreqPlanV1List-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-LoraFreqPlanV1-loraFreqPlanV1List-0-angular">Angular</a></li>-->
+                          <!-- <li class=""><a href="#examples-LoraFreqPlanV1-loraFreqPlanV1List-0-csharp">C#</a></li> -->
+                          <!-- <li class=""><a href="#examples-LoraFreqPlanV1-loraFreqPlanV1List-0-php">PHP</a></li> -->
+                          <!-- <li class=""><a href="#examples-LoraFreqPlanV1-loraFreqPlanV1List-0-perl">Perl</a></li> -->
+                          <li class=""><a href="#examples-LoraFreqPlanV1-loraFreqPlanV1List-0-python">Python</a></li>
+                          <!-- <li class=""><a href="#examples-LoraFreqPlanV1-loraFreqPlanV1List-0-rust">Rust</a></li> -->
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-LoraFreqPlanV1-loraFreqPlanV1List-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://api2.arduino.cc/iot/v1/lora-freq-plans/"</code></pre>
+                          </div>
+                          <!-- <div class="tab-pane" id="examples-LoraFreqPlanV1-loraFreqPlanV1List-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.LoraFreqPlanV1Api;
+
+import java.io.File;
+import java.util.*;
+
+public class LoraFreqPlanV1ApiExample {
+
+    public static void main(String[] args) {
+        
+        LoraFreqPlanV1Api apiInstance = new LoraFreqPlanV1Api();
+        try {
+            ArduinoLorafreqplansv1 result = apiInstance.loraFreqPlanV1List();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling LoraFreqPlanV1Api#loraFreqPlanV1List");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div> -->
+
+                          <!-- <div class="tab-pane" id="examples-LoraFreqPlanV1-loraFreqPlanV1List-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.LoraFreqPlanV1Api;
+
+public class LoraFreqPlanV1ApiExample {
+
+    public static void main(String[] args) {
+        LoraFreqPlanV1Api apiInstance = new LoraFreqPlanV1Api();
+        try {
+            ArduinoLorafreqplansv1 result = apiInstance.loraFreqPlanV1List();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling LoraFreqPlanV1Api#loraFreqPlanV1List");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div> -->
+  <!--
+  <div class="tab-pane" id="examples-LoraFreqPlanV1-loraFreqPlanV1List-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <!-- <div class="tab-pane" id="examples-LoraFreqPlanV1-loraFreqPlanV1List-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">
+LoraFreqPlanV1Api *apiInstance = [[LoraFreqPlanV1Api alloc] init];
+
+// list lora_freq_plan_v1
+[apiInstance loraFreqPlanV1ListWithCompletionHandler: 
+              ^(ArduinoLorafreqplansv1 output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div> -->
+
+                            <div class="tab-pane" id="examples-LoraFreqPlanV1-loraFreqPlanV1List-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+
+var api = new ArduinoIotClient.LoraFreqPlanV1Api()api.loraFreqPlanV1List().then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-LoraFreqPlanV1-loraFreqPlanV1List-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <!-- <div class="tab-pane" id="examples-LoraFreqPlanV1-loraFreqPlanV1List-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using iot.Api;
+using iot.Client;
+using iot.Model;
+
+namespace Example
+{
+    public class loraFreqPlanV1ListExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new LoraFreqPlanV1Api();
+
+            try
+            {
+                // list lora_freq_plan_v1
+                ArduinoLorafreqplansv1 result = apiInstance.loraFreqPlanV1List();
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling LoraFreqPlanV1Api.loraFreqPlanV1List: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div> -->
+
+                            <!-- <div class="tab-pane" id="examples-LoraFreqPlanV1-loraFreqPlanV1List-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new OpenAPITools\Client\Api\LoraFreqPlanV1Api();
+
+try {
+    $result = $api_instance->loraFreqPlanV1List();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling LoraFreqPlanV1Api->loraFreqPlanV1List: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div> -->
+
+                            <!-- <div class="tab-pane" id="examples-LoraFreqPlanV1-loraFreqPlanV1List-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::LoraFreqPlanV1Api;
+
+my $api_instance = WWW::OPenAPIClient::LoraFreqPlanV1Api->new();
+
+eval { 
+    my $result = $api_instance->loraFreqPlanV1List();
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling LoraFreqPlanV1Api->loraFreqPlanV1List: $@\n";
+}</code></pre>
+                            </div> -->
+
+                            <div class="tab-pane" id="examples-LoraFreqPlanV1-loraFreqPlanV1List-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = openapi_client.LoraFreqPlanV1Api()
+
+try: 
+    # list lora_freq_plan_v1
+    api_response = api_instance.lora_freq_plan_v1_list()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling LoraFreqPlanV1Api->loraFreqPlanV1List: %s\n" % e)</code></pre>
+                            </div>
+
+                            <!-- <div class="tab-pane" id="examples-LoraFreqPlanV1-loraFreqPlanV1List-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate LoraFreqPlanV1Api;
+
+pub fn main() {
+
+    let mut context = LoraFreqPlanV1Api::Context::default();
+    let result = client.loraFreqPlanV1List(&context).wait();
+    println!("{:?}", result);
+
+}
+</code></pre>
+                            </div> -->
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-LoraFreqPlanV1-loraFreqPlanV1List-title-200"></h3>
+                            <p id="examples-LoraFreqPlanV1-loraFreqPlanV1List-description-200" class="marked"></p>
+                            <script>
+                              var responseLoraFreqPlanV1200_description = `OK`;
+                              var responseLoraFreqPlanV1200_description_break = responseLoraFreqPlanV1200_description.indexOf('\n');
+                              if (responseLoraFreqPlanV1200_description_break == -1) {
+                                $("#examples-LoraFreqPlanV1-loraFreqPlanV1List-title-200").text("Status: 200 - " + responseLoraFreqPlanV1200_description);
+                              } else {
+                                $("#examples-LoraFreqPlanV1-loraFreqPlanV1List-title-200").text("Status: 200 - " + responseLoraFreqPlanV1200_description.substring(0, responseLoraFreqPlanV1200_description_break));
+                                $("#examples-LoraFreqPlanV1-loraFreqPlanV1List-description-200").html(responseLoraFreqPlanV1200_description.substring(responseLoraFreqPlanV1200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-LoraFreqPlanV1-loraFreqPlanV1List-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-LoraFreqPlanV1-loraFreqPlanV1List-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-LoraFreqPlanV1-loraFreqPlanV1List-200-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-LoraFreqPlanV1-loraFreqPlanV1List-200-schema">
+                                  <div id="responses-LoraFreqPlanV1-loraFreqPlanV1List-schema-200" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "OK",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ArduinoLorafreqplansv1"
+      }
+    }
+  }
+};
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                            schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-LoraFreqPlanV1-loraFreqPlanV1List-200-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-LoraFreqPlanV1-loraFreqPlanV1List-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-LoraFreqPlanV1-loraFreqPlanV1List-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-LoraFreqPlanV1-loraFreqPlanV1List-title-401"></h3>
+                            <p id="examples-LoraFreqPlanV1-loraFreqPlanV1List-description-401" class="marked"></p>
+                            <script>
+                              var responseLoraFreqPlanV1401_description = `Unauthorized`;
+                              var responseLoraFreqPlanV1401_description_break = responseLoraFreqPlanV1401_description.indexOf('\n');
+                              if (responseLoraFreqPlanV1401_description_break == -1) {
+                                $("#examples-LoraFreqPlanV1-loraFreqPlanV1List-title-401").text("Status: 401 - " + responseLoraFreqPlanV1401_description);
+                              } else {
+                                $("#examples-LoraFreqPlanV1-loraFreqPlanV1List-title-401").text("Status: 401 - " + responseLoraFreqPlanV1401_description.substring(0, responseLoraFreqPlanV1401_description_break));
+                                $("#examples-LoraFreqPlanV1-loraFreqPlanV1List-description-401").html(responseLoraFreqPlanV1401_description.substring(responseLoraFreqPlanV1401_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-LoraFreqPlanV1-loraFreqPlanV1List-401" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-LoraFreqPlanV1-loraFreqPlanV1List-401-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-LoraFreqPlanV1-loraFreqPlanV1List-401-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-LoraFreqPlanV1-loraFreqPlanV1List-401-schema">
+                                  <div id="responses-LoraFreqPlanV1-loraFreqPlanV1List-schema-401" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Unauthorized",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/error"
+      }
+    }
+  }
+};
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                            schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-LoraFreqPlanV1-loraFreqPlanV1List-401-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-LoraFreqPlanV1-loraFreqPlanV1List-schema-401');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-LoraFreqPlanV1-loraFreqPlanV1List-401-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-LoraFreqPlanV1-loraFreqPlanV1List-title-500"></h3>
+                            <p id="examples-LoraFreqPlanV1-loraFreqPlanV1List-description-500" class="marked"></p>
+                            <script>
+                              var responseLoraFreqPlanV1500_description = `Internal Server Error`;
+                              var responseLoraFreqPlanV1500_description_break = responseLoraFreqPlanV1500_description.indexOf('\n');
+                              if (responseLoraFreqPlanV1500_description_break == -1) {
+                                $("#examples-LoraFreqPlanV1-loraFreqPlanV1List-title-500").text("Status: 500 - " + responseLoraFreqPlanV1500_description);
+                              } else {
+                                $("#examples-LoraFreqPlanV1-loraFreqPlanV1List-title-500").text("Status: 500 - " + responseLoraFreqPlanV1500_description.substring(0, responseLoraFreqPlanV1500_description_break));
+                                $("#examples-LoraFreqPlanV1-loraFreqPlanV1List-description-500").html(responseLoraFreqPlanV1500_description.substring(responseLoraFreqPlanV1500_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-LoraFreqPlanV1-loraFreqPlanV1List-500" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-LoraFreqPlanV1-loraFreqPlanV1List-500-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-LoraFreqPlanV1-loraFreqPlanV1List-500-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-LoraFreqPlanV1-loraFreqPlanV1List-500-schema">
+                                  <div id="responses-LoraFreqPlanV1-loraFreqPlanV1List-schema-500" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Internal Server Error",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/error"
+      }
+    }
+  }
+};
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                            schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-LoraFreqPlanV1-loraFreqPlanV1List-500-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-LoraFreqPlanV1-loraFreqPlanV1List-schema-500');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-LoraFreqPlanV1-loraFreqPlanV1List-500-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
                 <section id="api-PropertiesV2">
                   <h1>PropertiesV2</h1>
                     <div id="api-PropertiesV2-propertiesV2Create">
@@ -28070,10 +29038,10 @@ public class ThingsV2ApiExample {
         oauth2.setAccessToken("YOUR ACCESS TOKEN");
 
         ThingsV2Api apiInstance = new ThingsV2Api();
-        Thing thing = ; // Thing | 
+        ThingCreate thingCreate = ; // ThingCreate | 
         Boolean force = true; // Boolean | If true, detach device from the other thing, and attach to this thing
         try {
-            ArduinoThing result = apiInstance.thingsV2Create(thing, force);
+            ArduinoThing result = apiInstance.thingsV2Create(thingCreate, force);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ThingsV2Api#thingsV2Create");
@@ -28091,10 +29059,10 @@ public class ThingsV2ApiExample {
 
     public static void main(String[] args) {
         ThingsV2Api apiInstance = new ThingsV2Api();
-        Thing thing = ; // Thing | 
+        ThingCreate thingCreate = ; // ThingCreate | 
         Boolean force = true; // Boolean | If true, detach device from the other thing, and attach to this thing
         try {
-            ArduinoThing result = apiInstance.thingsV2Create(thing, force);
+            ArduinoThing result = apiInstance.thingsV2Create(thingCreate, force);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ThingsV2Api#thingsV2Create");
@@ -28113,13 +29081,13 @@ public class ThingsV2ApiExample {
 // Configure OAuth2 access token for authorization: (authentication scheme: oauth2)
 [apiConfig setAccessToken:@"YOUR_ACCESS_TOKEN"];
 
-Thing *thing = ; // 
+ThingCreate *thingCreate = ; // 
 Boolean *force = true; // If true, detach device from the other thing, and attach to this thing (optional) (default to false)
 
 ThingsV2Api *apiInstance = [[ThingsV2Api alloc] init];
 
 // create things_v2
-[apiInstance thingsV2CreateWith:thing
+[apiInstance thingsV2CreateWith:thingCreate
     force:force
               completionHandler: ^(ArduinoThing output, NSError* error) {
                             if (output) {
@@ -28141,11 +29109,11 @@ var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
 var api = new ArduinoIotClient.ThingsV2Api()
-var thing = ; // {Thing} 
+var thingCreate = ; // {ThingCreate} 
 var opts = {
   'force': true // {Boolean} If true, detach device from the other thing, and attach to this thing
 };
-api.thingsV2Create(thing, opts).then(function(data) {
+api.thingsV2Create(thingCreate, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -28175,13 +29143,13 @@ namespace Example
             Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
 
             var apiInstance = new ThingsV2Api();
-            var thing = new Thing(); // Thing | 
+            var thingCreate = new ThingCreate(); // ThingCreate | 
             var force = true;  // Boolean | If true, detach device from the other thing, and attach to this thing (optional)  (default to false)
 
             try
             {
                 // create things_v2
-                ArduinoThing result = apiInstance.thingsV2Create(thing, force);
+                ArduinoThing result = apiInstance.thingsV2Create(thingCreate, force);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -28202,11 +29170,11 @@ require_once(__DIR__ . '/vendor/autoload.php');
 OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 $api_instance = new OpenAPITools\Client\Api\ThingsV2Api();
-$thing = ; // Thing | 
+$thingCreate = ; // ThingCreate | 
 $force = true; // Boolean | If true, detach device from the other thing, and attach to this thing
 
 try {
-    $result = $api_instance->thingsV2Create($thing, $force);
+    $result = $api_instance->thingsV2Create($thingCreate, $force);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ThingsV2Api->thingsV2Create: ', $e->getMessage(), PHP_EOL;
@@ -28223,11 +29191,11 @@ use WWW::OPenAPIClient::ThingsV2Api;
 $WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
 
 my $api_instance = WWW::OPenAPIClient::ThingsV2Api->new();
-my $thing = WWW::OPenAPIClient::Object::Thing->new(); # Thing | 
+my $thingCreate = WWW::OPenAPIClient::Object::ThingCreate->new(); # ThingCreate | 
 my $force = true; # Boolean | If true, detach device from the other thing, and attach to this thing
 
 eval { 
-    my $result = $api_instance->thingsV2Create(thing => $thing, force => $force);
+    my $result = $api_instance->thingsV2Create(thingCreate => $thingCreate, force => $force);
     print Dumper($result);
 };
 if ($@) {
@@ -28247,12 +29215,12 @@ openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
 api_instance = openapi_client.ThingsV2Api()
-thing =  # Thing | 
+thingCreate =  # ThingCreate | 
 force = true # Boolean | If true, detach device from the other thing, and attach to this thing (optional) (default to false)
 
 try: 
     # create things_v2
-    api_response = api_instance.things_v2_create(thing, force=force)
+    api_response = api_instance.things_v2_create(thingCreate, force=force)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ThingsV2Api->thingsV2Create: %s\n" % e)</code></pre>
@@ -28262,11 +29230,11 @@ except ApiException as e:
                               <pre class="prettyprint"><code class="language-rust">extern crate ThingsV2Api;
 
 pub fn main() {
-    let thing = ; // Thing
+    let thingCreate = ; // ThingCreate
     let force = true; // Boolean
 
     let mut context = ThingsV2Api::Context::default();
-    let result = client.thingsV2Create(thing, force, &context).wait();
+    let result = client.thingsV2Create(thingCreate, force, &context).wait();
     println!("{:?}", result);
 
 }
@@ -28289,22 +29257,22 @@ pub fn main() {
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
-                                <tr><td style="width:150px;">thing <span style="color:red;">*</span></td>
+                                <tr><td style="width:150px;">thingCreate <span style="color:red;">*</span></td>
 <td>
-<p class="marked">ThingPayload describes a thing</p>
+<p class="marked">Payload to create a new thing</p>
 <script>
 $(document).ready(function() {
   var schemaWrapper = {
-  "description" : "ThingPayload describes a thing",
+  "description" : "Payload to create a new thing",
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/thing"
+        "$ref" : "#/components/schemas/ThingCreate"
       }
     },
     "application/x-www-form-urlencoded" : {
       "schema" : {
-        "$ref" : "#/components/schemas/thing"
+        "$ref" : "#/components/schemas/ThingCreate"
       }
     }
   },
@@ -28325,12 +29293,12 @@ $(document).ready(function() {
   }
 
   var view = new JSONSchemaView(schema,2,{isBodyParam: true});
-  var result = $('#d2e199_thingsV2Create_thing');
+  var result = $('#d2e199_thingsV2Create_thingCreate');
   result.empty();
   result.append(view.render());
 });
 </script>
-<div id="d2e199_thingsV2Create_thing"></div>
+<div id="d2e199_thingsV2Create_thingCreate"></div>
 </td>
 </tr>
 
@@ -31638,10 +32606,10 @@ public class ThingsV2ApiExample {
 
         ThingsV2Api apiInstance = new ThingsV2Api();
         String id = id_example; // String | The id of the thing
-        Thing thing = ; // Thing | 
+        ThingUpdate thingUpdate = ; // ThingUpdate | 
         Boolean force = true; // Boolean | If true, detach device from the other thing, and attach to this thing
         try {
-            ArduinoThing result = apiInstance.thingsV2Update(id, thing, force);
+            ArduinoThing result = apiInstance.thingsV2Update(id, thingUpdate, force);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ThingsV2Api#thingsV2Update");
@@ -31660,10 +32628,10 @@ public class ThingsV2ApiExample {
     public static void main(String[] args) {
         ThingsV2Api apiInstance = new ThingsV2Api();
         String id = id_example; // String | The id of the thing
-        Thing thing = ; // Thing | 
+        ThingUpdate thingUpdate = ; // ThingUpdate | 
         Boolean force = true; // Boolean | If true, detach device from the other thing, and attach to this thing
         try {
-            ArduinoThing result = apiInstance.thingsV2Update(id, thing, force);
+            ArduinoThing result = apiInstance.thingsV2Update(id, thingUpdate, force);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ThingsV2Api#thingsV2Update");
@@ -31683,14 +32651,14 @@ public class ThingsV2ApiExample {
 [apiConfig setAccessToken:@"YOUR_ACCESS_TOKEN"];
 
 String *id = id_example; // The id of the thing (default to null)
-Thing *thing = ; // 
+ThingUpdate *thingUpdate = ; // 
 Boolean *force = true; // If true, detach device from the other thing, and attach to this thing (optional) (default to false)
 
 ThingsV2Api *apiInstance = [[ThingsV2Api alloc] init];
 
 // update things_v2
 [apiInstance thingsV2UpdateWith:id
-    thing:thing
+    thingUpdate:thingUpdate
     force:force
               completionHandler: ^(ArduinoThing output, NSError* error) {
                             if (output) {
@@ -31713,11 +32681,11 @@ oauth2.accessToken = "YOUR ACCESS TOKEN"
 
 var api = new ArduinoIotClient.ThingsV2Api()
 var id = id_example; // {String} The id of the thing
-var thing = ; // {Thing} 
+var thingUpdate = ; // {ThingUpdate} 
 var opts = {
   'force': true // {Boolean} If true, detach device from the other thing, and attach to this thing
 };
-api.thingsV2Update(id, thing, opts).then(function(data) {
+api.thingsV2Update(id, thingUpdate, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -31748,13 +32716,13 @@ namespace Example
 
             var apiInstance = new ThingsV2Api();
             var id = id_example;  // String | The id of the thing (default to null)
-            var thing = new Thing(); // Thing | 
+            var thingUpdate = new ThingUpdate(); // ThingUpdate | 
             var force = true;  // Boolean | If true, detach device from the other thing, and attach to this thing (optional)  (default to false)
 
             try
             {
                 // update things_v2
-                ArduinoThing result = apiInstance.thingsV2Update(id, thing, force);
+                ArduinoThing result = apiInstance.thingsV2Update(id, thingUpdate, force);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -31776,11 +32744,11 @@ OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('YO
 
 $api_instance = new OpenAPITools\Client\Api\ThingsV2Api();
 $id = id_example; // String | The id of the thing
-$thing = ; // Thing | 
+$thingUpdate = ; // ThingUpdate | 
 $force = true; // Boolean | If true, detach device from the other thing, and attach to this thing
 
 try {
-    $result = $api_instance->thingsV2Update($id, $thing, $force);
+    $result = $api_instance->thingsV2Update($id, $thingUpdate, $force);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ThingsV2Api->thingsV2Update: ', $e->getMessage(), PHP_EOL;
@@ -31798,11 +32766,11 @@ $WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
 
 my $api_instance = WWW::OPenAPIClient::ThingsV2Api->new();
 my $id = id_example; # String | The id of the thing
-my $thing = WWW::OPenAPIClient::Object::Thing->new(); # Thing | 
+my $thingUpdate = WWW::OPenAPIClient::Object::ThingUpdate->new(); # ThingUpdate | 
 my $force = true; # Boolean | If true, detach device from the other thing, and attach to this thing
 
 eval { 
-    my $result = $api_instance->thingsV2Update(id => $id, thing => $thing, force => $force);
+    my $result = $api_instance->thingsV2Update(id => $id, thingUpdate => $thingUpdate, force => $force);
     print Dumper($result);
 };
 if ($@) {
@@ -31823,12 +32791,12 @@ openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 # create an instance of the API class
 api_instance = openapi_client.ThingsV2Api()
 id = id_example # String | The id of the thing (default to null)
-thing =  # Thing | 
+thingUpdate =  # ThingUpdate | 
 force = true # Boolean | If true, detach device from the other thing, and attach to this thing (optional) (default to false)
 
 try: 
     # update things_v2
-    api_response = api_instance.things_v2_update(id, thing, force=force)
+    api_response = api_instance.things_v2_update(id, thingUpdate, force=force)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ThingsV2Api->thingsV2Update: %s\n" % e)</code></pre>
@@ -31839,11 +32807,11 @@ except ApiException as e:
 
 pub fn main() {
     let id = id_example; // String
-    let thing = ; // Thing
+    let thingUpdate = ; // ThingUpdate
     let force = true; // Boolean
 
     let mut context = ThingsV2Api::Context::default();
-    let result = client.thingsV2Update(id, thing, force, &context).wait();
+    let result = client.thingsV2Update(id, thingUpdate, force, &context).wait();
     println!("{:?}", result);
 
 }
@@ -31896,22 +32864,22 @@ The id of the thing
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
-                                <tr><td style="width:150px;">thing <span style="color:red;">*</span></td>
+                                <tr><td style="width:150px;">thingUpdate <span style="color:red;">*</span></td>
 <td>
-<p class="marked">ThingPayload describes a thing</p>
+<p class="marked">Payload to update an existing thing</p>
 <script>
 $(document).ready(function() {
   var schemaWrapper = {
-  "description" : "ThingPayload describes a thing",
+  "description" : "Payload to update an existing thing",
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/thing"
+        "$ref" : "#/components/schemas/thingUpdate"
       }
     },
     "application/x-www-form-urlencoded" : {
       "schema" : {
-        "$ref" : "#/components/schemas/thing"
+        "$ref" : "#/components/schemas/thingUpdate"
       }
     }
   },
@@ -31932,12 +32900,12 @@ $(document).ready(function() {
   }
 
   var view = new JSONSchemaView(schema,2,{isBodyParam: true});
-  var result = $('#d2e199_thingsV2Update_thing');
+  var result = $('#d2e199_thingsV2Update_thingUpdate');
   result.empty();
   result.append(view.render());
 });
 </script>
-<div id="d2e199_thingsV2Update_thing"></div>
+<div id="d2e199_thingsV2Update_thingUpdate"></div>
 </td>
 </tr>
 
