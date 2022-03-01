@@ -1744,10 +1744,22 @@ ul.nav-tabs {
       "description" : "Delete date of the thing",
       "format" : "date-time"
     },
+    "device_fqbn" : {
+      "type" : "string",
+      "description" : "The fqbn of the attached device, if any"
+    },
     "device_id" : {
       "type" : "string",
-      "description" : "The arn of the device",
+      "description" : "The id of the device",
       "format" : "uuid"
+    },
+    "device_name" : {
+      "type" : "string",
+      "description" : "The name of the attached device, if any"
+    },
+    "device_type" : {
+      "type" : "string",
+      "description" : "The type of the attached device, if any"
     },
     "href" : {
       "type" : "string",
@@ -1832,6 +1844,11 @@ ul.nav-tabs {
       "type" : "integer",
       "description" : "Current UTC DST offset in seconds.",
       "format" : "int64"
+    },
+    "until" : {
+      "type" : "string",
+      "description" : "Date until the offset is valid.",
+      "format" : "date-time"
     }
   },
   "description" : "ArduinoTimezone media type (default view)"
@@ -2390,6 +2407,12 @@ ul.nav-tabs {
   "required" : [ "ota_file" ],
   "type" : "object",
   "properties" : {
+    "async" : {
+      "type" : "boolean",
+      "description" : "If false, wait for the full OTA process, until it gets a result from the device",
+      "default" : true,
+      "x-formData-name" : "async"
+    },
     "expire_in_mins" : {
       "type" : "integer",
       "description" : "Binary expire time in minutes, default 10 mins",
@@ -2430,6 +2453,11 @@ ul.nav-tabs {
   "required" : [ "properties" ],
   "type" : "object",
   "properties" : {
+    "input" : {
+      "type" : "boolean",
+      "description" : "If true, send property values to device's input topic.",
+      "default" : false
+    },
     "properties" : {
       "type" : "array",
       "items" : {
@@ -17071,9 +17099,10 @@ public class DevicesV2OtaApiExample {
         DevicesV2OtaApi apiInstance = new DevicesV2OtaApi();
         String id = id_example; // String | The id of the device
         File otaFile = BINARY_DATA_HERE; // File | OTA file
+        Boolean async = true; // Boolean | If false, wait for the full OTA process, until it gets a result from the device
         Integer expireInMins = 56; // Integer | Binary expire time in minutes, default 10 mins
         try {
-            apiInstance.devicesV2OtaUpload(id, otaFile, expireInMins);
+            apiInstance.devicesV2OtaUpload(id, otaFile, async, expireInMins);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2OtaApi#devicesV2OtaUpload");
             e.printStackTrace();
@@ -17092,9 +17121,10 @@ public class DevicesV2OtaApiExample {
         DevicesV2OtaApi apiInstance = new DevicesV2OtaApi();
         String id = id_example; // String | The id of the device
         File otaFile = BINARY_DATA_HERE; // File | OTA file
+        Boolean async = true; // Boolean | If false, wait for the full OTA process, until it gets a result from the device
         Integer expireInMins = 56; // Integer | Binary expire time in minutes, default 10 mins
         try {
-            apiInstance.devicesV2OtaUpload(id, otaFile, expireInMins);
+            apiInstance.devicesV2OtaUpload(id, otaFile, async, expireInMins);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2OtaApi#devicesV2OtaUpload");
             e.printStackTrace();
@@ -17114,6 +17144,7 @@ public class DevicesV2OtaApiExample {
 
 String *id = id_example; // The id of the device (default to null)
 File *otaFile = BINARY_DATA_HERE; // OTA file (default to null)
+Boolean *async = true; // If false, wait for the full OTA process, until it gets a result from the device (optional) (default to true)
 Integer *expireInMins = 56; // Binary expire time in minutes, default 10 mins (optional) (default to 10)
 
 DevicesV2OtaApi *apiInstance = [[DevicesV2OtaApi alloc] init];
@@ -17121,6 +17152,7 @@ DevicesV2OtaApi *apiInstance = [[DevicesV2OtaApi alloc] init];
 // upload devices_v2_ota
 [apiInstance devicesV2OtaUploadWith:id
     otaFile:otaFile
+    async:async
     expireInMins:expireInMins
               completionHandler: ^(NSError* error) {
                             if (error) {
@@ -17142,6 +17174,7 @@ var api = new ArduinoIotClient.DevicesV2OtaApi()
 var id = id_example; // {String} The id of the device
 var otaFile = BINARY_DATA_HERE; // {File} OTA file
 var opts = {
+  'async': true, // {Boolean} If false, wait for the full OTA process, until it gets a result from the device
   'expireInMins': 56 // {Integer} Binary expire time in minutes, default 10 mins
 };
 api.devicesV2OtaUpload(id, otaFile, opts).then(function() {
@@ -17176,12 +17209,13 @@ namespace Example
             var apiInstance = new DevicesV2OtaApi();
             var id = id_example;  // String | The id of the device (default to null)
             var otaFile = BINARY_DATA_HERE;  // File | OTA file (default to null)
+            var async = true;  // Boolean | If false, wait for the full OTA process, until it gets a result from the device (optional)  (default to true)
             var expireInMins = 56;  // Integer | Binary expire time in minutes, default 10 mins (optional)  (default to 10)
 
             try
             {
                 // upload devices_v2_ota
-                apiInstance.devicesV2OtaUpload(id, otaFile, expireInMins);
+                apiInstance.devicesV2OtaUpload(id, otaFile, async, expireInMins);
             }
             catch (Exception e)
             {
@@ -17203,10 +17237,11 @@ OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('YO
 $api_instance = new OpenAPITools\Client\Api\DevicesV2OtaApi();
 $id = id_example; // String | The id of the device
 $otaFile = BINARY_DATA_HERE; // File | OTA file
+$async = true; // Boolean | If false, wait for the full OTA process, until it gets a result from the device
 $expireInMins = 56; // Integer | Binary expire time in minutes, default 10 mins
 
 try {
-    $api_instance->devicesV2OtaUpload($id, $otaFile, $expireInMins);
+    $api_instance->devicesV2OtaUpload($id, $otaFile, $async, $expireInMins);
 } catch (Exception $e) {
     echo 'Exception when calling DevicesV2OtaApi->devicesV2OtaUpload: ', $e->getMessage(), PHP_EOL;
 }
@@ -17224,10 +17259,11 @@ $WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
 my $api_instance = WWW::OPenAPIClient::DevicesV2OtaApi->new();
 my $id = id_example; # String | The id of the device
 my $otaFile = BINARY_DATA_HERE; # File | OTA file
+my $async = true; # Boolean | If false, wait for the full OTA process, until it gets a result from the device
 my $expireInMins = 56; # Integer | Binary expire time in minutes, default 10 mins
 
 eval { 
-    $api_instance->devicesV2OtaUpload(id => $id, otaFile => $otaFile, expireInMins => $expireInMins);
+    $api_instance->devicesV2OtaUpload(id => $id, otaFile => $otaFile, async => $async, expireInMins => $expireInMins);
 };
 if ($@) {
     warn "Exception when calling DevicesV2OtaApi->devicesV2OtaUpload: $@\n";
@@ -17248,11 +17284,12 @@ openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 api_instance = openapi_client.DevicesV2OtaApi()
 id = id_example # String | The id of the device (default to null)
 otaFile = BINARY_DATA_HERE # File | OTA file (default to null)
+async = true # Boolean | If false, wait for the full OTA process, until it gets a result from the device (optional) (default to true)
 expireInMins = 56 # Integer | Binary expire time in minutes, default 10 mins (optional) (default to 10)
 
 try: 
     # upload devices_v2_ota
-    api_instance.devices_v2_ota_upload(id, otaFile, expireInMins=expireInMins)
+    api_instance.devices_v2_ota_upload(id, otaFile, async=async, expireInMins=expireInMins)
 except ApiException as e:
     print("Exception when calling DevicesV2OtaApi->devicesV2OtaUpload: %s\n" % e)</code></pre>
                             </div>
@@ -17263,10 +17300,11 @@ except ApiException as e:
 pub fn main() {
     let id = id_example; // String
     let otaFile = BINARY_DATA_HERE; // File
+    let async = true; // Boolean
     let expireInMins = 56; // Integer
 
     let mut context = DevicesV2OtaApi::Context::default();
-    let result = client.devicesV2OtaUpload(id, otaFile, expireInMins, &context).wait();
+    let result = client.devicesV2OtaUpload(id, otaFile, async, expireInMins, &context).wait();
     println!("{:?}", result);
 
 }
@@ -17320,6 +17358,26 @@ The id of the device
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
+                                  <tr><td style="width:150px;">async</td>
+<td>
+
+
+    <div id="d2e199_devicesV2OtaUpload_async">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Boolean
+                </span>
+
+                    <div class="inner description marked">
+If false, wait for the full OTA process, until it gets a result from the device
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
                                   <tr><td style="width:150px;">expire_in_mins</td>
 <td>
 
@@ -17370,6 +17428,28 @@ OTA file
 
 
                           <h2>Responses</h2>
+                            <h3 id="examples-DevicesV2Ota-devicesV2OtaUpload-title-200"></h3>
+                            <p id="examples-DevicesV2Ota-devicesV2OtaUpload-description-200" class="marked"></p>
+                            <script>
+                              var responseDevicesV2Ota200_description = `OK`;
+                              var responseDevicesV2Ota200_description_break = responseDevicesV2Ota200_description.indexOf('\n');
+                              if (responseDevicesV2Ota200_description_break == -1) {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUpload-title-200").text("Status: 200 - " + responseDevicesV2Ota200_description);
+                              } else {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUpload-title-200").text("Status: 200 - " + responseDevicesV2Ota200_description.substring(0, responseDevicesV2Ota200_description_break));
+                                $("#examples-DevicesV2Ota-devicesV2OtaUpload-description-200").html(responseDevicesV2Ota200_description.substring(responseDevicesV2Ota200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUpload-200" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUpload-200-wrapper" style='margin-bottom: 10px;'>
+                            </div>
                             <h3 id="examples-DevicesV2Ota-devicesV2OtaUpload-title-202"></h3>
                             <p id="examples-DevicesV2Ota-devicesV2OtaUpload-description-202" class="marked"></p>
                             <script>
