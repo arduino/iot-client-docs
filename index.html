@@ -967,6 +967,11 @@ ul.nav-tabs {
   "required" : [ "href", "id", "label", "name", "serial", "type", "user_id" ],
   "type" : "object",
   "properties" : {
+    "connection_type" : {
+      "type" : "string",
+      "description" : "The type of the connections selected by the user when multiple connections are available",
+      "enum" : [ "wifi", "eth", "wifiandsecret", "gsm", "nb", "lora" ]
+    },
     "created_at" : {
       "type" : "string",
       "description" : "Creation date of the device",
@@ -1009,6 +1014,10 @@ ul.nav-tabs {
     "name" : {
       "type" : "string",
       "description" : "The friendly name of the device"
+    },
+    "no_sketch" : {
+      "type" : "boolean",
+      "description" : "True if the device type can not have an associated sketch"
     },
     "organization_id" : {
       "type" : "string",
@@ -2166,6 +2175,11 @@ ul.nav-tabs {
   "required" : [ "type" ],
   "type" : "object",
   "properties" : {
+    "connection_type" : {
+      "type" : "string",
+      "description" : "The type of the connections selected by the user when multiple connections are available",
+      "enum" : [ "wifi", "eth", "wifiandsecret", "gsm", "nb", "lora" ]
+    },
     "fqbn" : {
       "type" : "string",
       "description" : "The fully qualified board name"
@@ -2185,7 +2199,7 @@ ul.nav-tabs {
     "type" : {
       "type" : "string",
       "description" : "The type of the device",
-      "enum" : [ "mkrwifi1010", "mkr1000", "nano_33_iot", "mkrgsm1400", "mkrwan1310", "mkrwan1300", "mkrnb1500", "lora-device", "login_and_secretkey_wifi", "envie_m7", "nanorp2040connect", "nicla_vision" ]
+      "enum" : [ "mkrwifi1010", "mkr1000", "nano_33_iot", "mkrgsm1400", "mkrwan1310", "mkrwan1300", "mkrnb1500", "lora-device", "login_and_secretkey_wifi", "envie_m7", "nanorp2040connect", "nicla_vision", "phone", "portenta_x8", "opta" ]
     },
     "user_id" : {
       "type" : "string",
@@ -2288,6 +2302,11 @@ ul.nav-tabs {
   "title" : "devicev2",
   "type" : "object",
   "properties" : {
+    "connection_type" : {
+      "type" : "string",
+      "description" : "The type of the connections selected by the user when multiple connections are available",
+      "enum" : [ "wifi", "eth", "wifiandsecret", "gsm", "nb", "lora" ]
+    },
     "fqbn" : {
       "type" : "string",
       "description" : "The fully qualified board name"
@@ -2307,7 +2326,7 @@ ul.nav-tabs {
     "type" : {
       "type" : "string",
       "description" : "The type of the device",
-      "enum" : [ "mkrwifi1010", "mkr1000", "nano_33_iot", "mkrgsm1400", "mkrwan1310", "mkrwan1300", "mkrnb1500", "lora-device", "login_and_secretkey_wifi", "envie_m7", "nanorp2040connect", "nicla_vision" ]
+      "enum" : [ "mkrwifi1010", "mkr1000", "nano_33_iot", "mkrgsm1400", "mkrwan1310", "mkrwan1300", "mkrnb1500", "lora-device", "login_and_secretkey_wifi", "envie_m7", "nanorp2040connect", "nicla_vision", "phone", "portenta_x8", "opta" ]
     },
     "user_id" : {
       "type" : "string",
@@ -22156,8 +22175,9 @@ public class LoraDevicesV1ApiExample {
         
         LoraDevicesV1Api apiInstance = new LoraDevicesV1Api();
         CreateLoraDevicesV1Payload createLoraDevicesV1Payload = ; // CreateLoraDevicesV1Payload | 
+        String xOrganization = xOrganization_example; // String | 
         try {
-            ArduinoLoradevicev1 result = apiInstance.loraDevicesV1Create(createLoraDevicesV1Payload);
+            ArduinoLoradevicev1 result = apiInstance.loraDevicesV1Create(createLoraDevicesV1Payload, xOrganization);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling LoraDevicesV1Api#loraDevicesV1Create");
@@ -22176,8 +22196,9 @@ public class LoraDevicesV1ApiExample {
     public static void main(String[] args) {
         LoraDevicesV1Api apiInstance = new LoraDevicesV1Api();
         CreateLoraDevicesV1Payload createLoraDevicesV1Payload = ; // CreateLoraDevicesV1Payload | 
+        String xOrganization = xOrganization_example; // String | 
         try {
-            ArduinoLoradevicev1 result = apiInstance.loraDevicesV1Create(createLoraDevicesV1Payload);
+            ArduinoLoradevicev1 result = apiInstance.loraDevicesV1Create(createLoraDevicesV1Payload, xOrganization);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling LoraDevicesV1Api#loraDevicesV1Create");
@@ -22192,11 +22213,13 @@ public class LoraDevicesV1ApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-LoraDevicesV1-loraDevicesV1Create-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">CreateLoraDevicesV1Payload *createLoraDevicesV1Payload = ; // 
+String *xOrganization = xOrganization_example; //  (optional) (default to null)
 
 LoraDevicesV1Api *apiInstance = [[LoraDevicesV1Api alloc] init];
 
 // create lora_devices_v1
 [apiInstance loraDevicesV1CreateWith:createLoraDevicesV1Payload
+    xOrganization:xOrganization
               completionHandler: ^(ArduinoLoradevicev1 output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -22213,7 +22236,10 @@ LoraDevicesV1Api *apiInstance = [[LoraDevicesV1Api alloc] init];
 
 var api = new ArduinoIotClient.LoraDevicesV1Api()
 var createLoraDevicesV1Payload = ; // {CreateLoraDevicesV1Payload} 
-api.loraDevicesV1Create(createLoraDevicesV1Payload).then(function(data) {
+var opts = {
+  'xOrganization': xOrganization_example // {String} 
+};
+api.loraDevicesV1Create(createLoraDevicesV1Payload, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -22241,11 +22267,12 @@ namespace Example
             
             var apiInstance = new LoraDevicesV1Api();
             var createLoraDevicesV1Payload = new CreateLoraDevicesV1Payload(); // CreateLoraDevicesV1Payload | 
+            var xOrganization = xOrganization_example;  // String |  (optional)  (default to null)
 
             try
             {
                 // create lora_devices_v1
-                ArduinoLoradevicev1 result = apiInstance.loraDevicesV1Create(createLoraDevicesV1Payload);
+                ArduinoLoradevicev1 result = apiInstance.loraDevicesV1Create(createLoraDevicesV1Payload, xOrganization);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -22264,9 +22291,10 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new OpenAPITools\Client\Api\LoraDevicesV1Api();
 $createLoraDevicesV1Payload = ; // CreateLoraDevicesV1Payload | 
+$xOrganization = xOrganization_example; // String | 
 
 try {
-    $result = $api_instance->loraDevicesV1Create($createLoraDevicesV1Payload);
+    $result = $api_instance->loraDevicesV1Create($createLoraDevicesV1Payload, $xOrganization);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling LoraDevicesV1Api->loraDevicesV1Create: ', $e->getMessage(), PHP_EOL;
@@ -22281,9 +22309,10 @@ use WWW::OPenAPIClient::LoraDevicesV1Api;
 
 my $api_instance = WWW::OPenAPIClient::LoraDevicesV1Api->new();
 my $createLoraDevicesV1Payload = WWW::OPenAPIClient::Object::CreateLoraDevicesV1Payload->new(); # CreateLoraDevicesV1Payload | 
+my $xOrganization = xOrganization_example; # String | 
 
 eval { 
-    my $result = $api_instance->loraDevicesV1Create(createLoraDevicesV1Payload => $createLoraDevicesV1Payload);
+    my $result = $api_instance->loraDevicesV1Create(createLoraDevicesV1Payload => $createLoraDevicesV1Payload, xOrganization => $xOrganization);
     print Dumper($result);
 };
 if ($@) {
@@ -22301,10 +22330,11 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = openapi_client.LoraDevicesV1Api()
 createLoraDevicesV1Payload =  # CreateLoraDevicesV1Payload | 
+xOrganization = xOrganization_example # String |  (optional) (default to null)
 
 try: 
     # create lora_devices_v1
-    api_response = api_instance.lora_devices_v1_create(createLoraDevicesV1Payload)
+    api_response = api_instance.lora_devices_v1_create(createLoraDevicesV1Payload, xOrganization=xOrganization)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling LoraDevicesV1Api->loraDevicesV1Create: %s\n" % e)</code></pre>
@@ -22315,9 +22345,10 @@ except ApiException as e:
 
 pub fn main() {
     let createLoraDevicesV1Payload = ; // CreateLoraDevicesV1Payload
+    let xOrganization = xOrganization_example; // String
 
     let mut context = LoraDevicesV1Api::Context::default();
-    let result = client.loraDevicesV1Create(createLoraDevicesV1Payload, &context).wait();
+    let result = client.loraDevicesV1Create(createLoraDevicesV1Payload, xOrganization, &context).wait();
     println!("{:?}", result);
 
 }
@@ -22333,6 +22364,30 @@ pub fn main() {
                           <h2>Parameters</h2>
 
 
+                            <div class="methodsubtabletitle">Header parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                  <tr><td style="width:150px;">X-Organization</td>
+<td>
+
+
+    <div id="d2e199_loraDevicesV1Create_xOrganization">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
 
                             <div class="methodsubtabletitle">Body parameters</div>
                             <table id="methodsubtable">
