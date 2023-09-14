@@ -2199,7 +2199,7 @@ ul.nav-tabs {
     "type" : {
       "type" : "string",
       "description" : "The type of the device",
-      "enum" : [ "mkrwifi1010", "mkr1000", "nano_33_iot", "mkrgsm1400", "mkrwan1310", "mkrwan1300", "mkrnb1500", "lora-device", "login_and_secretkey_wifi", "envie_m7", "nanorp2040connect", "nicla_vision", "phone", "portenta_x8", "opta" ]
+      "enum" : [ "mkrwifi1010", "mkr1000", "nano_33_iot", "mkrgsm1400", "mkrwan1310", "mkrwan1300", "mkrnb1500", "lora-device", "login_and_secretkey_wifi", "envie_m7", "nanorp2040connect", "nicla_vision", "phone", "portenta_x8", "opta", "giga" ]
     },
     "user_id" : {
       "type" : "string",
@@ -2326,7 +2326,7 @@ ul.nav-tabs {
     "type" : {
       "type" : "string",
       "description" : "The type of the device",
-      "enum" : [ "mkrwifi1010", "mkr1000", "nano_33_iot", "mkrgsm1400", "mkrwan1310", "mkrwan1300", "mkrnb1500", "lora-device", "login_and_secretkey_wifi", "envie_m7", "nanorp2040connect", "nicla_vision", "phone", "portenta_x8", "opta" ]
+      "enum" : [ "mkrwifi1010", "mkr1000", "nano_33_iot", "mkrgsm1400", "mkrwan1310", "mkrwan1300", "mkrnb1500", "lora-device", "login_and_secretkey_wifi", "envie_m7", "nanorp2040connect", "nicla_vision", "phone", "portenta_x8", "opta", "giga" ]
     },
     "user_id" : {
       "type" : "string",
@@ -3157,7 +3157,12 @@ import java.util.*;
 public class DashboardsV2ApiExample {
 
     public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
         
+        // Configure OAuth2 access token for authorization: oauth2
+        OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
+        oauth2.setAccessToken("YOUR ACCESS TOKEN");
+
         DashboardsV2Api apiInstance = new DashboardsV2Api();
         Dashboardv2 dashboardv2 = ; // Dashboardv2 | 
         String xOrganization = xOrganization_example; // String | 
@@ -3197,7 +3202,12 @@ public class DashboardsV2ApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-DashboardsV2-dashboardsV2Create-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">Dashboardv2 *dashboardv2 = ; // 
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure OAuth2 access token for authorization: (authentication scheme: oauth2)
+[apiConfig setAccessToken:@"YOUR_ACCESS_TOKEN"];
+
+Dashboardv2 *dashboardv2 = ; // 
 String *xOrganization = xOrganization_example; //  (optional) (default to null)
 
 DashboardsV2Api *apiInstance = [[DashboardsV2Api alloc] init];
@@ -3218,6 +3228,11 @@ DashboardsV2Api *apiInstance = [[DashboardsV2Api alloc] init];
 
                             <div class="tab-pane" id="examples-DashboardsV2-dashboardsV2Create-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = "YOUR ACCESS TOKEN"
 
 var api = new ArduinoIotClient.DashboardsV2Api()
 var dashboardv2 = ; // {Dashboardv2} 
@@ -3250,6 +3265,9 @@ namespace Example
         public void main()
         {
             
+            // Configure OAuth2 access token for authorization: oauth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
             var apiInstance = new DashboardsV2Api();
             var dashboardv2 = new Dashboardv2(); // Dashboardv2 | 
             var xOrganization = xOrganization_example;  // String |  (optional)  (default to null)
@@ -3274,6 +3292,9 @@ namespace Example
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+// Configure OAuth2 access token for authorization: oauth2
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 $api_instance = new OpenAPITools\Client\Api\DashboardsV2Api();
 $dashboardv2 = ; // Dashboardv2 | 
 $xOrganization = xOrganization_example; // String | 
@@ -3291,6 +3312,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::OPenAPIClient::Configuration;
 use WWW::OPenAPIClient::DashboardsV2Api;
+
+# Configure OAuth2 access token for authorization: oauth2
+$WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
 
 my $api_instance = WWW::OPenAPIClient::DashboardsV2Api->new();
 my $dashboardv2 = WWW::OPenAPIClient::Object::Dashboardv2->new(); # Dashboardv2 | 
@@ -3311,6 +3335,9 @@ import time
 import openapi_client
 from openapi_client.rest import ApiException
 from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth2
+openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
 api_instance = openapi_client.DashboardsV2Api()
@@ -3744,7 +3771,12 @@ import java.util.*;
 public class DashboardsV2ApiExample {
 
     public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
         
+        // Configure OAuth2 access token for authorization: oauth2
+        OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
+        oauth2.setAccessToken("YOUR ACCESS TOKEN");
+
         DashboardsV2Api apiInstance = new DashboardsV2Api();
         String id = id_example; // String | The id of the dashboard
         String xOrganization = xOrganization_example; // String | 
@@ -3782,7 +3814,12 @@ public class DashboardsV2ApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-DashboardsV2-dashboardsV2Delete-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *id = id_example; // The id of the dashboard (default to null)
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure OAuth2 access token for authorization: (authentication scheme: oauth2)
+[apiConfig setAccessToken:@"YOUR_ACCESS_TOKEN"];
+
+String *id = id_example; // The id of the dashboard (default to null)
 String *xOrganization = xOrganization_example; //  (optional) (default to null)
 
 DashboardsV2Api *apiInstance = [[DashboardsV2Api alloc] init];
@@ -3800,6 +3837,11 @@ DashboardsV2Api *apiInstance = [[DashboardsV2Api alloc] init];
 
                             <div class="tab-pane" id="examples-DashboardsV2-dashboardsV2Delete-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = "YOUR ACCESS TOKEN"
 
 var api = new ArduinoIotClient.DashboardsV2Api()
 var id = id_example; // {String} The id of the dashboard
@@ -3832,6 +3874,9 @@ namespace Example
         public void main()
         {
             
+            // Configure OAuth2 access token for authorization: oauth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
             var apiInstance = new DashboardsV2Api();
             var id = id_example;  // String | The id of the dashboard (default to null)
             var xOrganization = xOrganization_example;  // String |  (optional)  (default to null)
@@ -3855,6 +3900,9 @@ namespace Example
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+// Configure OAuth2 access token for authorization: oauth2
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 $api_instance = new OpenAPITools\Client\Api\DashboardsV2Api();
 $id = id_example; // String | The id of the dashboard
 $xOrganization = xOrganization_example; // String | 
@@ -3871,6 +3919,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::OPenAPIClient::Configuration;
 use WWW::OPenAPIClient::DashboardsV2Api;
+
+# Configure OAuth2 access token for authorization: oauth2
+$WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
 
 my $api_instance = WWW::OPenAPIClient::DashboardsV2Api->new();
 my $id = id_example; # String | The id of the dashboard
@@ -3890,6 +3941,9 @@ import time
 import openapi_client
 from openapi_client.rest import ApiException
 from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth2
+openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
 api_instance = openapi_client.DashboardsV2Api()
@@ -4278,7 +4332,12 @@ import java.util.*;
 public class DashboardsV2ApiExample {
 
     public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
         
+        // Configure OAuth2 access token for authorization: oauth2
+        OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
+        oauth2.setAccessToken("YOUR ACCESS TOKEN");
+
         DashboardsV2Api apiInstance = new DashboardsV2Api();
         String id = id_example; // String | The id of the dashboard
         String userId = userId_example; // String | The id of the user
@@ -4318,7 +4377,12 @@ public class DashboardsV2ApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-DashboardsV2-dashboardsV2DeleteShare-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *id = id_example; // The id of the dashboard (default to null)
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure OAuth2 access token for authorization: (authentication scheme: oauth2)
+[apiConfig setAccessToken:@"YOUR_ACCESS_TOKEN"];
+
+String *id = id_example; // The id of the dashboard (default to null)
 String *userId = userId_example; // The id of the user (default to null)
 String *xOrganization = xOrganization_example; //  (optional) (default to null)
 
@@ -4338,6 +4402,11 @@ DashboardsV2Api *apiInstance = [[DashboardsV2Api alloc] init];
 
                             <div class="tab-pane" id="examples-DashboardsV2-dashboardsV2DeleteShare-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = "YOUR ACCESS TOKEN"
 
 var api = new ArduinoIotClient.DashboardsV2Api()
 var id = id_example; // {String} The id of the dashboard
@@ -4371,6 +4440,9 @@ namespace Example
         public void main()
         {
             
+            // Configure OAuth2 access token for authorization: oauth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
             var apiInstance = new DashboardsV2Api();
             var id = id_example;  // String | The id of the dashboard (default to null)
             var userId = userId_example;  // String | The id of the user (default to null)
@@ -4395,6 +4467,9 @@ namespace Example
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+// Configure OAuth2 access token for authorization: oauth2
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 $api_instance = new OpenAPITools\Client\Api\DashboardsV2Api();
 $id = id_example; // String | The id of the dashboard
 $userId = userId_example; // String | The id of the user
@@ -4412,6 +4487,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::OPenAPIClient::Configuration;
 use WWW::OPenAPIClient::DashboardsV2Api;
+
+# Configure OAuth2 access token for authorization: oauth2
+$WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
 
 my $api_instance = WWW::OPenAPIClient::DashboardsV2Api->new();
 my $id = id_example; # String | The id of the dashboard
@@ -4432,6 +4510,9 @@ import time
 import openapi_client
 from openapi_client.rest import ApiException
 from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth2
+openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
 api_instance = openapi_client.DashboardsV2Api()
@@ -4845,7 +4926,12 @@ import java.util.*;
 public class DashboardsV2ApiExample {
 
     public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
         
+        // Configure OAuth2 access token for authorization: oauth2
+        OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
+        oauth2.setAccessToken("YOUR ACCESS TOKEN");
+
         DashboardsV2Api apiInstance = new DashboardsV2Api();
         String id = id_example; // String | The id of the dashboard
         String widgetId = widgetId_example; // String | The id of the widget
@@ -4889,7 +4975,12 @@ public class DashboardsV2ApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-DashboardsV2-dashboardsV2Link-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *id = id_example; // The id of the dashboard (default to null)
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure OAuth2 access token for authorization: (authentication scheme: oauth2)
+[apiConfig setAccessToken:@"YOUR_ACCESS_TOKEN"];
+
+String *id = id_example; // The id of the dashboard (default to null)
 String *widgetId = widgetId_example; // The id of the widget (default to null)
 Widgetlink *widgetlink = ; // 
 String *xOrganization = xOrganization_example; //  (optional) (default to null)
@@ -4914,6 +5005,11 @@ DashboardsV2Api *apiInstance = [[DashboardsV2Api alloc] init];
 
                             <div class="tab-pane" id="examples-DashboardsV2-dashboardsV2Link-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = "YOUR ACCESS TOKEN"
 
 var api = new ArduinoIotClient.DashboardsV2Api()
 var id = id_example; // {String} The id of the dashboard
@@ -4948,6 +5044,9 @@ namespace Example
         public void main()
         {
             
+            // Configure OAuth2 access token for authorization: oauth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
             var apiInstance = new DashboardsV2Api();
             var id = id_example;  // String | The id of the dashboard (default to null)
             var widgetId = widgetId_example;  // String | The id of the widget (default to null)
@@ -4974,6 +5073,9 @@ namespace Example
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+// Configure OAuth2 access token for authorization: oauth2
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 $api_instance = new OpenAPITools\Client\Api\DashboardsV2Api();
 $id = id_example; // String | The id of the dashboard
 $widgetId = widgetId_example; // String | The id of the widget
@@ -4993,6 +5095,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::OPenAPIClient::Configuration;
 use WWW::OPenAPIClient::DashboardsV2Api;
+
+# Configure OAuth2 access token for authorization: oauth2
+$WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
 
 my $api_instance = WWW::OPenAPIClient::DashboardsV2Api->new();
 my $id = id_example; # String | The id of the dashboard
@@ -5015,6 +5120,9 @@ import time
 import openapi_client
 from openapi_client.rest import ApiException
 from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth2
+openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
 api_instance = openapi_client.DashboardsV2Api()
@@ -5526,7 +5634,12 @@ import java.util.*;
 public class DashboardsV2ApiExample {
 
     public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
         
+        // Configure OAuth2 access token for authorization: oauth2
+        OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
+        oauth2.setAccessToken("YOUR ACCESS TOKEN");
+
         DashboardsV2Api apiInstance = new DashboardsV2Api();
         String name = name_example; // String | The name of the dashboard
         String userId = userId_example; // String | The user_id of the dashboard's owner
@@ -5568,7 +5681,12 @@ public class DashboardsV2ApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-DashboardsV2-dashboardsV2List-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *name = name_example; // The name of the dashboard (optional) (default to null)
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure OAuth2 access token for authorization: (authentication scheme: oauth2)
+[apiConfig setAccessToken:@"YOUR_ACCESS_TOKEN"];
+
+String *name = name_example; // The name of the dashboard (optional) (default to null)
 String *userId = userId_example; // The user_id of the dashboard's owner (optional) (default to null)
 String *xOrganization = xOrganization_example; //  (optional) (default to null)
 
@@ -5591,6 +5709,11 @@ DashboardsV2Api *apiInstance = [[DashboardsV2Api alloc] init];
 
                             <div class="tab-pane" id="examples-DashboardsV2-dashboardsV2List-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = "YOUR ACCESS TOKEN"
 
 var api = new ArduinoIotClient.DashboardsV2Api()
 var opts = {
@@ -5624,6 +5747,9 @@ namespace Example
         public void main()
         {
             
+            // Configure OAuth2 access token for authorization: oauth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
             var apiInstance = new DashboardsV2Api();
             var name = name_example;  // String | The name of the dashboard (optional)  (default to null)
             var userId = userId_example;  // String | The user_id of the dashboard's owner (optional)  (default to null)
@@ -5649,6 +5775,9 @@ namespace Example
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+// Configure OAuth2 access token for authorization: oauth2
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 $api_instance = new OpenAPITools\Client\Api\DashboardsV2Api();
 $name = name_example; // String | The name of the dashboard
 $userId = userId_example; // String | The user_id of the dashboard's owner
@@ -5667,6 +5796,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::OPenAPIClient::Configuration;
 use WWW::OPenAPIClient::DashboardsV2Api;
+
+# Configure OAuth2 access token for authorization: oauth2
+$WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
 
 my $api_instance = WWW::OPenAPIClient::DashboardsV2Api->new();
 my $name = name_example; # String | The name of the dashboard
@@ -5688,6 +5820,9 @@ import time
 import openapi_client
 from openapi_client.rest import ApiException
 from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth2
+openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
 api_instance = openapi_client.DashboardsV2Api()
@@ -6052,7 +6187,12 @@ import java.util.*;
 public class DashboardsV2ApiExample {
 
     public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
         
+        // Configure OAuth2 access token for authorization: oauth2
+        OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
+        oauth2.setAccessToken("YOUR ACCESS TOKEN");
+
         DashboardsV2Api apiInstance = new DashboardsV2Api();
         String id = id_example; // String | The id of the dashboard
         String xOrganization = xOrganization_example; // String | 
@@ -6092,7 +6232,12 @@ public class DashboardsV2ApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-DashboardsV2-dashboardsV2ListShares-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *id = id_example; // The id of the dashboard (default to null)
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure OAuth2 access token for authorization: (authentication scheme: oauth2)
+[apiConfig setAccessToken:@"YOUR_ACCESS_TOKEN"];
+
+String *id = id_example; // The id of the dashboard (default to null)
 String *xOrganization = xOrganization_example; //  (optional) (default to null)
 
 DashboardsV2Api *apiInstance = [[DashboardsV2Api alloc] init];
@@ -6113,6 +6258,11 @@ DashboardsV2Api *apiInstance = [[DashboardsV2Api alloc] init];
 
                             <div class="tab-pane" id="examples-DashboardsV2-dashboardsV2ListShares-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = "YOUR ACCESS TOKEN"
 
 var api = new ArduinoIotClient.DashboardsV2Api()
 var id = id_example; // {String} The id of the dashboard
@@ -6145,6 +6295,9 @@ namespace Example
         public void main()
         {
             
+            // Configure OAuth2 access token for authorization: oauth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
             var apiInstance = new DashboardsV2Api();
             var id = id_example;  // String | The id of the dashboard (default to null)
             var xOrganization = xOrganization_example;  // String |  (optional)  (default to null)
@@ -6169,6 +6322,9 @@ namespace Example
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+// Configure OAuth2 access token for authorization: oauth2
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 $api_instance = new OpenAPITools\Client\Api\DashboardsV2Api();
 $id = id_example; // String | The id of the dashboard
 $xOrganization = xOrganization_example; // String | 
@@ -6186,6 +6342,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::OPenAPIClient::Configuration;
 use WWW::OPenAPIClient::DashboardsV2Api;
+
+# Configure OAuth2 access token for authorization: oauth2
+$WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
 
 my $api_instance = WWW::OPenAPIClient::DashboardsV2Api->new();
 my $id = id_example; # String | The id of the dashboard
@@ -6206,6 +6365,9 @@ import time
 import openapi_client
 from openapi_client.rest import ApiException
 from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth2
+openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
 api_instance = openapi_client.DashboardsV2Api()
@@ -6639,7 +6801,12 @@ import java.util.*;
 public class DashboardsV2ApiExample {
 
     public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
         
+        // Configure OAuth2 access token for authorization: oauth2
+        OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
+        oauth2.setAccessToken("YOUR ACCESS TOKEN");
+
         DashboardsV2Api apiInstance = new DashboardsV2Api();
         String id = id_example; // String | The id of the dashboard
         Sharerequest sharerequest = ; // Sharerequest | 
@@ -6679,7 +6846,12 @@ public class DashboardsV2ApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-DashboardsV2-dashboardsV2RequestAccess-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *id = id_example; // The id of the dashboard (default to null)
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure OAuth2 access token for authorization: (authentication scheme: oauth2)
+[apiConfig setAccessToken:@"YOUR_ACCESS_TOKEN"];
+
+String *id = id_example; // The id of the dashboard (default to null)
 Sharerequest *sharerequest = ; // 
 String *xOrganization = xOrganization_example; //  (optional) (default to null)
 
@@ -6699,6 +6871,11 @@ DashboardsV2Api *apiInstance = [[DashboardsV2Api alloc] init];
 
                             <div class="tab-pane" id="examples-DashboardsV2-dashboardsV2RequestAccess-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = "YOUR ACCESS TOKEN"
 
 var api = new ArduinoIotClient.DashboardsV2Api()
 var id = id_example; // {String} The id of the dashboard
@@ -6732,6 +6909,9 @@ namespace Example
         public void main()
         {
             
+            // Configure OAuth2 access token for authorization: oauth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
             var apiInstance = new DashboardsV2Api();
             var id = id_example;  // String | The id of the dashboard (default to null)
             var sharerequest = new Sharerequest(); // Sharerequest | 
@@ -6756,6 +6936,9 @@ namespace Example
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+// Configure OAuth2 access token for authorization: oauth2
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 $api_instance = new OpenAPITools\Client\Api\DashboardsV2Api();
 $id = id_example; // String | The id of the dashboard
 $sharerequest = ; // Sharerequest | 
@@ -6773,6 +6956,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::OPenAPIClient::Configuration;
 use WWW::OPenAPIClient::DashboardsV2Api;
+
+# Configure OAuth2 access token for authorization: oauth2
+$WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
 
 my $api_instance = WWW::OPenAPIClient::DashboardsV2Api->new();
 my $id = id_example; # String | The id of the dashboard
@@ -6793,6 +6979,9 @@ import time
 import openapi_client
 from openapi_client.rest import ApiException
 from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth2
+openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
 api_instance = openapi_client.DashboardsV2Api()
@@ -7234,7 +7423,12 @@ import java.util.*;
 public class DashboardsV2ApiExample {
 
     public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
         
+        // Configure OAuth2 access token for authorization: oauth2
+        OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
+        oauth2.setAccessToken("YOUR ACCESS TOKEN");
+
         DashboardsV2Api apiInstance = new DashboardsV2Api();
         String id = id_example; // String | The id of the dashboard
         Dashboardshare dashboardshare = ; // Dashboardshare | 
@@ -7274,7 +7468,12 @@ public class DashboardsV2ApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-DashboardsV2-dashboardsV2Share-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *id = id_example; // The id of the dashboard (default to null)
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure OAuth2 access token for authorization: (authentication scheme: oauth2)
+[apiConfig setAccessToken:@"YOUR_ACCESS_TOKEN"];
+
+String *id = id_example; // The id of the dashboard (default to null)
 Dashboardshare *dashboardshare = ; // 
 String *xOrganization = xOrganization_example; //  (optional) (default to null)
 
@@ -7294,6 +7493,11 @@ DashboardsV2Api *apiInstance = [[DashboardsV2Api alloc] init];
 
                             <div class="tab-pane" id="examples-DashboardsV2-dashboardsV2Share-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = "YOUR ACCESS TOKEN"
 
 var api = new ArduinoIotClient.DashboardsV2Api()
 var id = id_example; // {String} The id of the dashboard
@@ -7327,6 +7531,9 @@ namespace Example
         public void main()
         {
             
+            // Configure OAuth2 access token for authorization: oauth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
             var apiInstance = new DashboardsV2Api();
             var id = id_example;  // String | The id of the dashboard (default to null)
             var dashboardshare = new Dashboardshare(); // Dashboardshare | 
@@ -7351,6 +7558,9 @@ namespace Example
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+// Configure OAuth2 access token for authorization: oauth2
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 $api_instance = new OpenAPITools\Client\Api\DashboardsV2Api();
 $id = id_example; // String | The id of the dashboard
 $dashboardshare = ; // Dashboardshare | 
@@ -7368,6 +7578,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::OPenAPIClient::Configuration;
 use WWW::OPenAPIClient::DashboardsV2Api;
+
+# Configure OAuth2 access token for authorization: oauth2
+$WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
 
 my $api_instance = WWW::OPenAPIClient::DashboardsV2Api->new();
 my $id = id_example; # String | The id of the dashboard
@@ -7388,6 +7601,9 @@ import time
 import openapi_client
 from openapi_client.rest import ApiException
 from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth2
+openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
 api_instance = openapi_client.DashboardsV2Api()
@@ -7829,7 +8045,12 @@ import java.util.*;
 public class DashboardsV2ApiExample {
 
     public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
         
+        // Configure OAuth2 access token for authorization: oauth2
+        OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
+        oauth2.setAccessToken("YOUR ACCESS TOKEN");
+
         DashboardsV2Api apiInstance = new DashboardsV2Api();
         String id = id_example; // String | The id of the dashboard
         String xOrganization = xOrganization_example; // String | 
@@ -7869,7 +8090,12 @@ public class DashboardsV2ApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-DashboardsV2-dashboardsV2Show-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *id = id_example; // The id of the dashboard (default to null)
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure OAuth2 access token for authorization: (authentication scheme: oauth2)
+[apiConfig setAccessToken:@"YOUR_ACCESS_TOKEN"];
+
+String *id = id_example; // The id of the dashboard (default to null)
 String *xOrganization = xOrganization_example; //  (optional) (default to null)
 
 DashboardsV2Api *apiInstance = [[DashboardsV2Api alloc] init];
@@ -7890,6 +8116,11 @@ DashboardsV2Api *apiInstance = [[DashboardsV2Api alloc] init];
 
                             <div class="tab-pane" id="examples-DashboardsV2-dashboardsV2Show-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = "YOUR ACCESS TOKEN"
 
 var api = new ArduinoIotClient.DashboardsV2Api()
 var id = id_example; // {String} The id of the dashboard
@@ -7922,6 +8153,9 @@ namespace Example
         public void main()
         {
             
+            // Configure OAuth2 access token for authorization: oauth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
             var apiInstance = new DashboardsV2Api();
             var id = id_example;  // String | The id of the dashboard (default to null)
             var xOrganization = xOrganization_example;  // String |  (optional)  (default to null)
@@ -7946,6 +8180,9 @@ namespace Example
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+// Configure OAuth2 access token for authorization: oauth2
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 $api_instance = new OpenAPITools\Client\Api\DashboardsV2Api();
 $id = id_example; // String | The id of the dashboard
 $xOrganization = xOrganization_example; // String | 
@@ -7963,6 +8200,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::OPenAPIClient::Configuration;
 use WWW::OPenAPIClient::DashboardsV2Api;
+
+# Configure OAuth2 access token for authorization: oauth2
+$WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
 
 my $api_instance = WWW::OPenAPIClient::DashboardsV2Api->new();
 my $id = id_example; # String | The id of the dashboard
@@ -7983,6 +8223,9 @@ import time
 import openapi_client
 from openapi_client.rest import ApiException
 from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth2
+openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
 api_instance = openapi_client.DashboardsV2Api()
@@ -8350,7 +8593,12 @@ import java.util.*;
 public class DashboardsV2ApiExample {
 
     public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
         
+        // Configure OAuth2 access token for authorization: oauth2
+        OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
+        oauth2.setAccessToken("YOUR ACCESS TOKEN");
+
         DashboardsV2Api apiInstance = new DashboardsV2Api();
         String id = id_example; // String | The id of the dashboard
         Dashboardv2 dashboardv2 = ; // Dashboardv2 | 
@@ -8392,7 +8640,12 @@ public class DashboardsV2ApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-DashboardsV2-dashboardsV2Update-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *id = id_example; // The id of the dashboard (default to null)
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure OAuth2 access token for authorization: (authentication scheme: oauth2)
+[apiConfig setAccessToken:@"YOUR_ACCESS_TOKEN"];
+
+String *id = id_example; // The id of the dashboard (default to null)
 Dashboardv2 *dashboardv2 = ; // 
 String *xOrganization = xOrganization_example; //  (optional) (default to null)
 
@@ -8415,6 +8668,11 @@ DashboardsV2Api *apiInstance = [[DashboardsV2Api alloc] init];
 
                             <div class="tab-pane" id="examples-DashboardsV2-dashboardsV2Update-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = "YOUR ACCESS TOKEN"
 
 var api = new ArduinoIotClient.DashboardsV2Api()
 var id = id_example; // {String} The id of the dashboard
@@ -8448,6 +8706,9 @@ namespace Example
         public void main()
         {
             
+            // Configure OAuth2 access token for authorization: oauth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
             var apiInstance = new DashboardsV2Api();
             var id = id_example;  // String | The id of the dashboard (default to null)
             var dashboardv2 = new Dashboardv2(); // Dashboardv2 | 
@@ -8473,6 +8734,9 @@ namespace Example
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+// Configure OAuth2 access token for authorization: oauth2
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 $api_instance = new OpenAPITools\Client\Api\DashboardsV2Api();
 $id = id_example; // String | The id of the dashboard
 $dashboardv2 = ; // Dashboardv2 | 
@@ -8491,6 +8755,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::OPenAPIClient::Configuration;
 use WWW::OPenAPIClient::DashboardsV2Api;
+
+# Configure OAuth2 access token for authorization: oauth2
+$WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
 
 my $api_instance = WWW::OPenAPIClient::DashboardsV2Api->new();
 my $id = id_example; # String | The id of the dashboard
@@ -8512,6 +8779,9 @@ import time
 import openapi_client
 from openapi_client.rest import ApiException
 from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth2
+openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
 api_instance = openapi_client.DashboardsV2Api()
