@@ -1152,6 +1152,31 @@ ul.nav-tabs {
   },
   "description" : "ArduinoDevicev2EventProperties media type (default view)"
 };
+    defs["ArduinoDevicev2Otaupload"] = {
+  "title" : "Mediatype identifier: application/vnd.arduino.devicev2.otaupload+json; view=default",
+  "required" : [ "ota_version" ],
+  "type" : "object",
+  "properties" : {
+    "file_sha" : {
+      "type" : "string",
+      "description" : "SHA256 of the uploaded file"
+    },
+    "ota_id" : {
+      "type" : "string",
+      "description" : "OTA request id (only available from OTA version 2 and above)"
+    },
+    "ota_version" : {
+      "type" : "integer",
+      "description" : "OTA version",
+      "format" : "int64"
+    },
+    "status" : {
+      "type" : "string",
+      "description" : "OTA request status (only available from OTA version 2 and above)"
+    }
+  },
+  "description" : "ArduinoDevicev2Otaupload media type (default view)"
+};
     defs["ArduinoDevicev2Pass"] = {
   "title" : "Mediatype identifier: application/vnd.arduino.devicev2.pass+json; view=default",
   "required" : [ "set" ],
@@ -2639,6 +2664,27 @@ ul.nav-tabs {
     }
   }
 };
+    defs["devicev2.otaurlpyalod"] = {
+  "title" : "devicev2.otaurlpyalod",
+  "type" : "object",
+  "properties" : {
+    "binary_key" : {
+      "pattern" : "^ota/[a-zA-Z0-9_-]+/[a-zA-Z0-9_-]+.ota$",
+      "type" : "string",
+      "description" : "The object key of the binary"
+    },
+    "sha256" : {
+      "pattern" : "^[a-fA-F0-9]{64}$",
+      "type" : "string",
+      "description" : "The sha256 of the binary"
+    },
+    "user_id" : {
+      "type" : "string",
+      "description" : "The id of the user who is requesting the url",
+      "format" : "uuid"
+    }
+  }
+};
     defs["devicev2.pass"] = {
   "title" : "devicev2.pass",
   "type" : "object",
@@ -3213,6 +3259,9 @@ ul.nav-tabs {
                     </li>
                     <li data-group="DevicesV2Ota" data-name="devicesV2OtaUpload" class="">
                       <a href="#api-DevicesV2Ota-devicesV2OtaUpload">devicesV2OtaUpload</a>
+                    </li>
+                    <li data-group="DevicesV2Ota" data-name="devicesV2OtaUrl" class="">
+                      <a href="#api-DevicesV2Ota-devicesV2OtaUrl">devicesV2OtaUrl</a>
                     </li>
                   <li class="nav-header" data-group="DevicesV2Pass"><a href="#api-DevicesV2Pass">API Methods - DevicesV2Pass</a></li>
                     <li data-group="DevicesV2Pass" data-name="devicesV2PassCheck" class="">
@@ -20766,7 +20815,7 @@ $(document).ready(function() {
                           <div class="tab-pane active" id="examples-DevicesV2Ota-devicesV2OtaUpload-0-curl">
                             <pre class="prettyprint"><code class="language-bsh">curl -X POST \
  \
- -H "Accept: application/vnd.goa.error+json,text/plain" \
+ -H "Accept: application/vnd.arduino.devicev2.otaupload+json,application/vnd.goa.error+json" \
  -H "Content-Type: multipart/form-data" \
  "https://api2.arduino.cc/iot/v2/devices/{id}/ota"
 </code></pre>
@@ -20796,7 +20845,8 @@ public class DevicesV2OtaApiExample {
         Integer expireInMins = 56; // Integer | Binary expire time in minutes, default 10 mins
 
         try {
-            apiInstance.devicesV2OtaUpload(id, otaFile, async, expireInMins);
+            ArduinoDevicev2Otaupload result = apiInstance.devicesV2OtaUpload(id, otaFile, async, expireInMins);
+            System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2OtaApi#devicesV2OtaUpload");
             e.printStackTrace();
@@ -20838,7 +20888,8 @@ public class DevicesV2OtaApiExample {
         Integer expireInMins = 56; // Integer | Binary expire time in minutes, default 10 mins
 
         try {
-            apiInstance.devicesV2OtaUpload(id, otaFile, async, expireInMins);
+            ArduinoDevicev2Otaupload result = apiInstance.devicesV2OtaUpload(id, otaFile, async, expireInMins);
+            System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2OtaApi#devicesV2OtaUpload");
             e.printStackTrace();
@@ -20869,7 +20920,10 @@ Integer *expireInMins = 56; // Binary expire time in minutes, default 10 mins (o
     otaFile:otaFile
     async:async
     expireInMins:expireInMins
-              completionHandler: ^(NSError* error) {
+              completionHandler: ^(ArduinoDevicev2Otaupload output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
     if (error) {
         NSLog(@"Error: %@", error);
     }
@@ -20893,8 +20947,8 @@ var opts = {
   'async': true, // {Boolean} If false, wait for the full OTA process, until it gets a result from the device
   'expireInMins': 56 // {Integer} Binary expire time in minutes, default 10 mins
 };
-api.devicesV2OtaUpload(id, otaFile, opts).then(function() {
-  console.log('API called successfully.');
+api.devicesV2OtaUpload(id, otaFile, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
 });
@@ -20930,7 +20984,8 @@ namespace Example
 
             try {
                 // upload devices_v2_ota
-                apiInstance.devicesV2OtaUpload(id, otaFile, async, expireInMins);
+                ArduinoDevicev2Otaupload result = apiInstance.devicesV2OtaUpload(id, otaFile, async, expireInMins);
+                Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling DevicesV2OtaApi.devicesV2OtaUpload: " + e.Message );
             }
@@ -20955,7 +21010,8 @@ $async = true; // Boolean | If false, wait for the full OTA process, until it ge
 $expireInMins = 56; // Integer | Binary expire time in minutes, default 10 mins
 
 try {
-    $api_instance->devicesV2OtaUpload($id, $otaFile, $async, $expireInMins);
+    $result = $api_instance->devicesV2OtaUpload($id, $otaFile, $async, $expireInMins);
+    print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DevicesV2OtaApi->devicesV2OtaUpload: ', $e->getMessage(), PHP_EOL;
 }
@@ -20978,7 +21034,8 @@ my $async = true; # Boolean | If false, wait for the full OTA process, until it 
 my $expireInMins = 56; # Integer | Binary expire time in minutes, default 10 mins
 
 eval {
-    $api_instance->devicesV2OtaUpload(id => $id, otaFile => $otaFile, async => $async, expireInMins => $expireInMins);
+    my $result = $api_instance->devicesV2OtaUpload(id => $id, otaFile => $otaFile, async => $async, expireInMins => $expireInMins);
+    print Dumper($result);
 };
 if ($@) {
     warn "Exception when calling DevicesV2OtaApi->devicesV2OtaUpload: $@\n";
@@ -21004,7 +21061,8 @@ expireInMins = 56 # Integer | Binary expire time in minutes, default 10 mins (op
 
 try:
     # upload devices_v2_ota
-    api_instance.devices_v2_ota_upload(id, otaFile, async=async, expireInMins=expireInMins)
+    api_response = api_instance.devices_v2_ota_upload(id, otaFile, async=async, expireInMins=expireInMins)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling DevicesV2OtaApi->devicesV2OtaUpload: %s\n" % e)</code></pre>
                             </div>
@@ -21158,12 +21216,52 @@ OTA file
 
 
                             <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUpload-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-DevicesV2Ota-devicesV2OtaUpload-200-schema">Schema</a>
+                                </li>
+
+
 
 
                             </ul>
 
 
                             <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUpload-200-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-DevicesV2Ota-devicesV2OtaUpload-200-schema">
+                                  <div id="responses-DevicesV2Ota-devicesV2OtaUpload-schema-200" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-DevicesV2Ota-devicesV2OtaUpload-200-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-DevicesV2Ota-devicesV2OtaUpload-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-DevicesV2Ota-devicesV2OtaUpload-200-schema-data' type='hidden' value=''></input>
+                                </div>
                             </div>
                             <h3 id="examples-DevicesV2Ota-devicesV2OtaUpload-title-202"></h3>
                             <p id="examples-DevicesV2Ota-devicesV2OtaUpload-description-202" class="marked"></p>
@@ -21180,12 +21278,52 @@ OTA file
 
 
                             <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUpload-202" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-DevicesV2Ota-devicesV2OtaUpload-202-schema">Schema</a>
+                                </li>
+
+
 
 
                             </ul>
 
 
                             <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUpload-202-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-DevicesV2Ota-devicesV2OtaUpload-202-schema">
+                                  <div id="responses-DevicesV2Ota-devicesV2OtaUpload-schema-202" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-DevicesV2Ota-devicesV2OtaUpload-202-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-DevicesV2Ota-devicesV2OtaUpload-schema-202');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-DevicesV2Ota-devicesV2OtaUpload-202-schema-data' type='hidden' value=''></input>
+                                </div>
                             </div>
                             <h3 id="examples-DevicesV2Ota-devicesV2OtaUpload-title-400"></h3>
                             <p id="examples-DevicesV2Ota-devicesV2OtaUpload-description-400" class="marked"></p>
@@ -21332,6 +21470,28 @@ OTA file
                                   </div>
                                   <input id='responses-DevicesV2Ota-devicesV2OtaUpload-404-schema-data' type='hidden' value=''></input>
                                 </div>
+                            </div>
+                            <h3 id="examples-DevicesV2Ota-devicesV2OtaUpload-title-409"></h3>
+                            <p id="examples-DevicesV2Ota-devicesV2OtaUpload-description-409" class="marked"></p>
+                            <script>
+                              var responseDevicesV2Ota409_description = `Conflict`;
+                              var responseDevicesV2Ota409_description_break = responseDevicesV2Ota409_description.indexOf('\n');
+                              if (responseDevicesV2Ota409_description_break == -1) {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUpload-title-409").text("Status: 409 - " + responseDevicesV2Ota409_description);
+                              } else {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUpload-title-409").text("Status: 409 - " + responseDevicesV2Ota409_description.substring(0, responseDevicesV2Ota409_description_break));
+                                $("#examples-DevicesV2Ota-devicesV2OtaUpload-description-409").html(responseDevicesV2Ota409_description.substring(responseDevicesV2Ota409_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUpload-409" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUpload-409-wrapper" style='margin-bottom: 10px;'>
                             </div>
                             <h3 id="examples-DevicesV2Ota-devicesV2OtaUpload-title-410"></h3>
                             <p id="examples-DevicesV2Ota-devicesV2OtaUpload-description-410" class="marked"></p>
@@ -21517,6 +21677,754 @@ OTA file
                                     </script>
                                   </div>
                                   <input id='responses-DevicesV2Ota-devicesV2OtaUpload-500-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-DevicesV2Ota-devicesV2OtaUrl">
+                      <article id="api-DevicesV2Ota-devicesV2OtaUrl-0" data-group="User" data-name="devicesV2OtaUrl" data-version="0">
+                        <div class="pull-left">
+                          <h1>devicesV2OtaUrl</h1>
+                          <p>url devices_v2_ota</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Generate a url for downloading a binary</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/v2/devices/{id}/ota/url</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-curl">Curl</a></li>
+                          <!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-java">Java</a></li>-->
+                          <!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-dart">Dart</a></li>-->
+                          <!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-android">Android</a></li>-->
+                          <!--<!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-groovy">Groovy</a></li>-->
+                          <!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-objc">Obj-C</a></li>-->
+                          <li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-angular">Angular</a></li>-->
+                          <!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-csharp">C#</a></li>-->
+                          <!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-php">PHP</a></li>-->
+                          <!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-perl">Perl</a></li>-->
+                          <!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-python">Python</a></li>-->
+                          <!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-rust">Rust</a></li>-->
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST \
+ \
+ -H "Accept: application/vnd.goa.error+json,text/plain" \
+ -H "Content-Type: application/json,application/x-www-form-urlencoded" \
+ "https://api2.arduino.cc/iot/v2/devices/{id}/ota/url" \
+ -d 'Custom MIME type example not yet supported: application/x-www-form-urlencoded'
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.DevicesV2OtaApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DevicesV2OtaApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure OAuth2 access token for authorization: oauth2
+        OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
+        oauth2.setAccessToken("YOUR ACCESS TOKEN");
+
+        // Create an instance of the API class
+        DevicesV2OtaApi apiInstance = new DevicesV2OtaApi();
+        String id = id_example; // String | The id of the device
+        Devicev2Otaurlpyalod devicev2Otaurlpyalod = ; // Devicev2Otaurlpyalod | 
+
+        try {
+            apiInstance.devicesV2OtaUrl(id, devicev2Otaurlpyalod);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DevicesV2OtaApi#devicesV2OtaUrl");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String id = new String(); // String | The id of the device
+final Devicev2Otaurlpyalod devicev2Otaurlpyalod = new Devicev2Otaurlpyalod(); // Devicev2Otaurlpyalod | 
+
+try {
+    final result = await api_instance.devicesV2OtaUrl(id, devicev2Otaurlpyalod);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->devicesV2OtaUrl: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DevicesV2OtaApi;
+
+public class DevicesV2OtaApiExample {
+    public static void main(String[] args) {
+        DevicesV2OtaApi apiInstance = new DevicesV2OtaApi();
+        String id = id_example; // String | The id of the device
+        Devicev2Otaurlpyalod devicev2Otaurlpyalod = ; // Devicev2Otaurlpyalod | 
+
+        try {
+            apiInstance.devicesV2OtaUrl(id, devicev2Otaurlpyalod);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DevicesV2OtaApi#devicesV2OtaUrl");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure OAuth2 access token for authorization: (authentication scheme: oauth2)
+[apiConfig setAccessToken:@"YOUR_ACCESS_TOKEN"];
+
+
+// Create an instance of the API class
+DevicesV2OtaApi *apiInstance = [[DevicesV2OtaApi alloc] init];
+String *id = id_example; // The id of the device (default to null)
+Devicev2Otaurlpyalod *devicev2Otaurlpyalod = ; // 
+
+// url devices_v2_ota
+[apiInstance devicesV2OtaUrlWith:id
+    devicev2Otaurlpyalod:devicev2Otaurlpyalod
+              completionHandler: ^(NSError* error) {
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = "YOUR ACCESS TOKEN";
+
+// Create an instance of the API class
+var api = new ArduinoIotClient.DevicesV2OtaApi()
+var id = id_example; // {String} The id of the device
+var devicev2Otaurlpyalod = ; // {Devicev2Otaurlpyalod} 
+api.devicesV2OtaUrl(id, devicev2Otaurlpyalod).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using iot.Api;
+using iot.Client;
+using iot.Model;
+
+namespace Example
+{
+    public class devicesV2OtaUrlExample
+    {
+        public void main()
+        {
+            // Configure OAuth2 access token for authorization: oauth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
+            // Create an instance of the API class
+            var apiInstance = new DevicesV2OtaApi();
+            var id = id_example;  // String | The id of the device (default to null)
+            var devicev2Otaurlpyalod = new Devicev2Otaurlpyalod(); // Devicev2Otaurlpyalod | 
+
+            try {
+                // url devices_v2_ota
+                apiInstance.devicesV2OtaUrl(id, devicev2Otaurlpyalod);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling DevicesV2OtaApi.devicesV2OtaUrl: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: oauth2
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\DevicesV2OtaApi();
+$id = id_example; // String | The id of the device
+$devicev2Otaurlpyalod = ; // Devicev2Otaurlpyalod | 
+
+try {
+    $api_instance->devicesV2OtaUrl($id, $devicev2Otaurlpyalod);
+} catch (Exception $e) {
+    echo 'Exception when calling DevicesV2OtaApi->devicesV2OtaUrl: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::DevicesV2OtaApi;
+
+# Configure OAuth2 access token for authorization: oauth2
+$WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::DevicesV2OtaApi->new();
+my $id = id_example; # String | The id of the device
+my $devicev2Otaurlpyalod = WWW::OPenAPIClient::Object::Devicev2Otaurlpyalod->new(); # Devicev2Otaurlpyalod | 
+
+eval {
+    $api_instance->devicesV2OtaUrl(id => $id, devicev2Otaurlpyalod => $devicev2Otaurlpyalod);
+};
+if ($@) {
+    warn "Exception when calling DevicesV2OtaApi->devicesV2OtaUrl: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth2
+openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
+# Create an instance of the API class
+api_instance = openapi_client.DevicesV2OtaApi()
+id = id_example # String | The id of the device (default to null)
+devicev2Otaurlpyalod =  # Devicev2Otaurlpyalod | 
+
+try:
+    # url devices_v2_ota
+    api_instance.devices_v2_ota_url(id, devicev2Otaurlpyalod)
+except ApiException as e:
+    print("Exception when calling DevicesV2OtaApi->devicesV2OtaUrl: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate DevicesV2OtaApi;
+
+pub fn main() {
+    let id = id_example; // String
+    let devicev2Otaurlpyalod = ; // Devicev2Otaurlpyalod
+
+    let mut context = DevicesV2OtaApi::Context::default();
+    let result = client.devicesV2OtaUrl(id, devicev2Otaurlpyalod, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">id*</td>
+<td>
+
+
+    <div id="d2e199_devicesV2OtaUrl_id">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+The id of the device
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">devicev2Otaurlpyalod <span style="color:red;">*</span></td>
+<td>
+<p class="marked"></p>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/devicev2.otaurlpyalod"
+      }
+    },
+    "application/x-www-form-urlencoded" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/devicev2.otaurlpyalod"
+      }
+    }
+  },
+  "required" : true,
+  "x-originalParamName" : "payload"
+};
+
+  var schema = findNode('schema',schemaWrapper).schema;
+  if (!schema) {
+    schema = schemaWrapper.schema;
+  }
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_devicesV2OtaUrl_devicev2Otaurlpyalod');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_devicesV2OtaUrl_devicev2Otaurlpyalod"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-DevicesV2Ota-devicesV2OtaUrl-title-200"></h3>
+                            <p id="examples-DevicesV2Ota-devicesV2OtaUrl-description-200" class="marked"></p>
+                            <script>
+                              var responseDevicesV2Ota200_description = `OK`;
+                              var responseDevicesV2Ota200_description_break = responseDevicesV2Ota200_description.indexOf('\n');
+                              if (responseDevicesV2Ota200_description_break == -1) {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-200").text("Status: 200 - " + responseDevicesV2Ota200_description);
+                              } else {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-200").text("Status: 200 - " + responseDevicesV2Ota200_description.substring(0, responseDevicesV2Ota200_description_break));
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-description-200").html(responseDevicesV2Ota200_description.substring(responseDevicesV2Ota200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUrl-200" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUrl-200-wrapper" style='margin-bottom: 10px;'>
+                            </div>
+                            <h3 id="examples-DevicesV2Ota-devicesV2OtaUrl-title-202"></h3>
+                            <p id="examples-DevicesV2Ota-devicesV2OtaUrl-description-202" class="marked"></p>
+                            <script>
+                              var responseDevicesV2Ota202_description = `Accepted`;
+                              var responseDevicesV2Ota202_description_break = responseDevicesV2Ota202_description.indexOf('\n');
+                              if (responseDevicesV2Ota202_description_break == -1) {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-202").text("Status: 202 - " + responseDevicesV2Ota202_description);
+                              } else {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-202").text("Status: 202 - " + responseDevicesV2Ota202_description.substring(0, responseDevicesV2Ota202_description_break));
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-description-202").html(responseDevicesV2Ota202_description.substring(responseDevicesV2Ota202_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUrl-202" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUrl-202-wrapper" style='margin-bottom: 10px;'>
+                            </div>
+                            <h3 id="examples-DevicesV2Ota-devicesV2OtaUrl-title-400"></h3>
+                            <p id="examples-DevicesV2Ota-devicesV2OtaUrl-description-400" class="marked"></p>
+                            <script>
+                              var responseDevicesV2Ota400_description = `Bad Request`;
+                              var responseDevicesV2Ota400_description_break = responseDevicesV2Ota400_description.indexOf('\n');
+                              if (responseDevicesV2Ota400_description_break == -1) {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-400").text("Status: 400 - " + responseDevicesV2Ota400_description);
+                              } else {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-400").text("Status: 400 - " + responseDevicesV2Ota400_description.substring(0, responseDevicesV2Ota400_description_break));
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-description-400").html(responseDevicesV2Ota400_description.substring(responseDevicesV2Ota400_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUrl-400" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-DevicesV2Ota-devicesV2OtaUrl-400-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUrl-400-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-DevicesV2Ota-devicesV2OtaUrl-400-schema">
+                                  <div id="responses-DevicesV2Ota-devicesV2OtaUrl-schema-400" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-DevicesV2Ota-devicesV2OtaUrl-400-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-DevicesV2Ota-devicesV2OtaUrl-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-DevicesV2Ota-devicesV2OtaUrl-400-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-DevicesV2Ota-devicesV2OtaUrl-title-401"></h3>
+                            <p id="examples-DevicesV2Ota-devicesV2OtaUrl-description-401" class="marked"></p>
+                            <script>
+                              var responseDevicesV2Ota401_description = `Unauthorized`;
+                              var responseDevicesV2Ota401_description_break = responseDevicesV2Ota401_description.indexOf('\n');
+                              if (responseDevicesV2Ota401_description_break == -1) {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-401").text("Status: 401 - " + responseDevicesV2Ota401_description);
+                              } else {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-401").text("Status: 401 - " + responseDevicesV2Ota401_description.substring(0, responseDevicesV2Ota401_description_break));
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-description-401").html(responseDevicesV2Ota401_description.substring(responseDevicesV2Ota401_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUrl-401" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUrl-401-wrapper" style='margin-bottom: 10px;'>
+                            </div>
+                            <h3 id="examples-DevicesV2Ota-devicesV2OtaUrl-title-404"></h3>
+                            <p id="examples-DevicesV2Ota-devicesV2OtaUrl-description-404" class="marked"></p>
+                            <script>
+                              var responseDevicesV2Ota404_description = `Not Found`;
+                              var responseDevicesV2Ota404_description_break = responseDevicesV2Ota404_description.indexOf('\n');
+                              if (responseDevicesV2Ota404_description_break == -1) {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-404").text("Status: 404 - " + responseDevicesV2Ota404_description);
+                              } else {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-404").text("Status: 404 - " + responseDevicesV2Ota404_description.substring(0, responseDevicesV2Ota404_description_break));
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-description-404").html(responseDevicesV2Ota404_description.substring(responseDevicesV2Ota404_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUrl-404" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-DevicesV2Ota-devicesV2OtaUrl-404-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUrl-404-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-DevicesV2Ota-devicesV2OtaUrl-404-schema">
+                                  <div id="responses-DevicesV2Ota-devicesV2OtaUrl-schema-404" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-DevicesV2Ota-devicesV2OtaUrl-404-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-DevicesV2Ota-devicesV2OtaUrl-schema-404');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-DevicesV2Ota-devicesV2OtaUrl-404-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-DevicesV2Ota-devicesV2OtaUrl-title-410"></h3>
+                            <p id="examples-DevicesV2Ota-devicesV2OtaUrl-description-410" class="marked"></p>
+                            <script>
+                              var responseDevicesV2Ota410_description = `Gone`;
+                              var responseDevicesV2Ota410_description_break = responseDevicesV2Ota410_description.indexOf('\n');
+                              if (responseDevicesV2Ota410_description_break == -1) {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-410").text("Status: 410 - " + responseDevicesV2Ota410_description);
+                              } else {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-410").text("Status: 410 - " + responseDevicesV2Ota410_description.substring(0, responseDevicesV2Ota410_description_break));
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-description-410").html(responseDevicesV2Ota410_description.substring(responseDevicesV2Ota410_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUrl-410" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-DevicesV2Ota-devicesV2OtaUrl-410-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUrl-410-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-DevicesV2Ota-devicesV2OtaUrl-410-schema">
+                                  <div id="responses-DevicesV2Ota-devicesV2OtaUrl-schema-410" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-DevicesV2Ota-devicesV2OtaUrl-410-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-DevicesV2Ota-devicesV2OtaUrl-schema-410');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-DevicesV2Ota-devicesV2OtaUrl-410-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-DevicesV2Ota-devicesV2OtaUrl-title-412"></h3>
+                            <p id="examples-DevicesV2Ota-devicesV2OtaUrl-description-412" class="marked"></p>
+                            <script>
+                              var responseDevicesV2Ota412_description = `Precondition Failed`;
+                              var responseDevicesV2Ota412_description_break = responseDevicesV2Ota412_description.indexOf('\n');
+                              if (responseDevicesV2Ota412_description_break == -1) {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-412").text("Status: 412 - " + responseDevicesV2Ota412_description);
+                              } else {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-412").text("Status: 412 - " + responseDevicesV2Ota412_description.substring(0, responseDevicesV2Ota412_description_break));
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-description-412").html(responseDevicesV2Ota412_description.substring(responseDevicesV2Ota412_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUrl-412" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-DevicesV2Ota-devicesV2OtaUrl-412-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUrl-412-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-DevicesV2Ota-devicesV2OtaUrl-412-schema">
+                                  <div id="responses-DevicesV2Ota-devicesV2OtaUrl-schema-412" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-DevicesV2Ota-devicesV2OtaUrl-412-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-DevicesV2Ota-devicesV2OtaUrl-schema-412');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-DevicesV2Ota-devicesV2OtaUrl-412-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-DevicesV2Ota-devicesV2OtaUrl-title-500"></h3>
+                            <p id="examples-DevicesV2Ota-devicesV2OtaUrl-description-500" class="marked"></p>
+                            <script>
+                              var responseDevicesV2Ota500_description = `Internal Server Error`;
+                              var responseDevicesV2Ota500_description_break = responseDevicesV2Ota500_description.indexOf('\n');
+                              if (responseDevicesV2Ota500_description_break == -1) {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-500").text("Status: 500 - " + responseDevicesV2Ota500_description);
+                              } else {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-500").text("Status: 500 - " + responseDevicesV2Ota500_description.substring(0, responseDevicesV2Ota500_description_break));
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-description-500").html(responseDevicesV2Ota500_description.substring(responseDevicesV2Ota500_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUrl-500" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-DevicesV2Ota-devicesV2OtaUrl-500-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUrl-500-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-DevicesV2Ota-devicesV2OtaUrl-500-schema">
+                                  <div id="responses-DevicesV2Ota-devicesV2OtaUrl-schema-500" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-DevicesV2Ota-devicesV2OtaUrl-500-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-DevicesV2Ota-devicesV2OtaUrl-schema-500');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-DevicesV2Ota-devicesV2OtaUrl-500-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
                         </article>
