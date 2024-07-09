@@ -894,6 +894,30 @@ ul.nav-tabs {
   },
   "description" : "compressed contains the info from which to generate the certificate (default view)"
 };
+    defs["ArduinoCredentialsv1"] = {
+  "title" : "Mediatype identifier: application/vnd.arduino.credentialsv1+json; view=default",
+  "required" : [ "friendly_name", "required", "secret_name", "sensitive" ],
+  "type" : "object",
+  "properties" : {
+    "friendly_name" : {
+      "type" : "string",
+      "description" : "Friendly name"
+    },
+    "required" : {
+      "type" : "boolean",
+      "description" : "Tell if the parameter is required or not"
+    },
+    "secret_name" : {
+      "type" : "string",
+      "description" : "The secret parameter name"
+    },
+    "sensitive" : {
+      "type" : "boolean",
+      "description" : "Tell if the field is sensitive"
+    }
+  },
+  "description" : "ArduinoCredentialsv1 media type (default view)"
+};
     defs["ArduinoDashboardowner"] = {
   "title" : "Mediatype identifier: application/vnd.arduino.dashboardowner+json; view=default",
   "required" : [ "user_id" ],
@@ -972,6 +996,10 @@ ul.nav-tabs {
   "required" : [ "name" ],
   "type" : "object",
   "properties" : {
+    "id" : {
+      "type" : "string",
+      "description" : "The friendly ID of the dashboard"
+    },
     "name" : {
       "type" : "string",
       "description" : "The friendly name of the dashboard"
@@ -990,7 +1018,7 @@ ul.nav-tabs {
     "connection_type" : {
       "type" : "string",
       "description" : "The type of the connections selected by the user when multiple connections are available",
-      "enum" : [ "wifi", "eth", "wifiandsecret", "gsm", "nb", "lora" ]
+      "enum" : [ "wifi", "eth", "wifiandsecret", "gsm", "nb", "lora", "catm1", "cellular" ]
     },
     "created_at" : {
       "type" : "string",
@@ -1151,6 +1179,31 @@ ul.nav-tabs {
     }
   },
   "description" : "ArduinoDevicev2EventProperties media type (default view)"
+};
+    defs["ArduinoDevicev2Otaupload"] = {
+  "title" : "Mediatype identifier: application/vnd.arduino.devicev2.otaupload+json; view=default",
+  "required" : [ "ota_version" ],
+  "type" : "object",
+  "properties" : {
+    "file_sha" : {
+      "type" : "string",
+      "description" : "SHA256 of the uploaded file"
+    },
+    "ota_id" : {
+      "type" : "string",
+      "description" : "OTA request id (only available from OTA version 2 and above)"
+    },
+    "ota_version" : {
+      "type" : "integer",
+      "description" : "OTA version",
+      "format" : "int64"
+    },
+    "status" : {
+      "type" : "string",
+      "description" : "OTA request status (only available from OTA version 2 and above)"
+    }
+  },
+  "description" : "ArduinoDevicev2Otaupload media type (default view)"
 };
     defs["ArduinoDevicev2Pass"] = {
   "title" : "Mediatype identifier: application/vnd.arduino.devicev2.pass+json; view=default",
@@ -1379,6 +1432,21 @@ ul.nav-tabs {
       "type" : "string"
     }
   }
+};
+    defs["ArduinoDevicev2templatedevice"] = {
+  "title" : "Mediatype identifier: application/vnd.arduino.devicev2templatedevice+json; view=default",
+  "type" : "object",
+  "properties" : {
+    "fqbn" : {
+      "type" : "string",
+      "description" : "The device fqbn"
+    },
+    "name" : {
+      "type" : "string",
+      "description" : "The device type name"
+    }
+  },
+  "description" : "ArduinoDevicev2templatedevice media type (default view)"
 };
     defs["ArduinoLinkedvariable"] = {
   "title" : "Mediatype identifier: application/vnd.arduino.linkedvariable+json; view=default",
@@ -1611,6 +1679,26 @@ ul.nav-tabs {
   },
   "description" : "ArduinoSeriesBatch media type (default view)"
 };
+    defs["ArduinoSeriesBatchSampled"] = {
+  "title" : "Mediatype identifier: application/vnd.arduino.series.batch.sampled+json; view=default",
+  "required" : [ "resp_version", "responses" ],
+  "type" : "object",
+  "properties" : {
+    "resp_version" : {
+      "type" : "integer",
+      "description" : "Response version",
+      "format" : "int64"
+    },
+    "responses" : {
+      "type" : "array",
+      "description" : "Responses of the request",
+      "items" : {
+        "$ref" : "#/components/schemas/ArduinoSeriesSampledResponse"
+      }
+    }
+  },
+  "description" : "ArduinoSeriesBatchSampled media type (default view)"
+};
     defs["ArduinoSeriesRawBatch"] = {
   "title" : "Mediatype identifier: application/vnd.arduino.series.raw.batch+json; view=default",
   "required" : [ "resp_version", "responses" ],
@@ -1826,6 +1914,70 @@ ul.nav-tabs {
   },
   "description" : "ArduinoSeriesResponse media type (default view)"
 };
+    defs["ArduinoSeriesSampledResponse"] = {
+  "title" : "Mediatype identifier: application/vnd.arduino.series.sampled.response+json; view=default",
+  "required" : [ "count_values", "from_date", "interval", "query", "resp_version", "status", "times", "to_date", "values" ],
+  "type" : "object",
+  "properties" : {
+    "count_values" : {
+      "type" : "integer",
+      "description" : "Total number of values in the array 'values'",
+      "format" : "int64"
+    },
+    "from_date" : {
+      "type" : "string",
+      "description" : "From date",
+      "format" : "date-time"
+    },
+    "interval" : {
+      "type" : "integer",
+      "description" : "Resolution in seconds",
+      "format" : "int64"
+    },
+    "message" : {
+      "type" : "string",
+      "description" : "If the response is different than 'ok'",
+      "default" : ""
+    },
+    "query" : {
+      "type" : "string",
+      "description" : "Query of for the data"
+    },
+    "resp_version" : {
+      "type" : "integer",
+      "description" : "Response version",
+      "format" : "int64"
+    },
+    "series_limit" : {
+      "type" : "integer",
+      "description" : "Maximum number of values returned after data aggregation, if any",
+      "format" : "int64"
+    },
+    "status" : {
+      "type" : "string",
+      "description" : "Status of the response"
+    },
+    "times" : {
+      "type" : "array",
+      "description" : "Timestamp in RFC3339",
+      "items" : {
+        "type" : "string",
+        "format" : "date-time"
+      }
+    },
+    "to_date" : {
+      "type" : "string",
+      "description" : "To date",
+      "format" : "date-time"
+    },
+    "values" : {
+      "type" : "array",
+      "description" : "Values in Float",
+      "items" : { }
+    }
+  },
+  "description" : "ArduinoSeriesSampledResponse media type (default view)"
+};
     defs["ArduinoTags"] = {
   "title" : "Mediatype identifier: application/vnd.arduino.tags+json; view=default",
   "required" : [ "tags" ],
@@ -1840,11 +1992,40 @@ ul.nav-tabs {
   },
   "description" : "ArduinoTags media type (default view)"
 };
+    defs["ArduinoTemplate"] = {
+  "title" : "Mediatype identifier: application/vnd.arduino.template+json; view=default",
+  "required" : [ "things" ],
+  "type" : "object",
+  "properties" : {
+    "dashboards" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string",
+        "format" : "uuid"
+      }
+    },
+    "things" : {
+      "$ref" : "#/components/schemas/ArduinoThingresultCollection"
+    },
+    "triggers" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string",
+        "format" : "uuid"
+      }
+    }
+  },
+  "description" : "ArduinoTemplate media type (default view)"
+};
     defs["ArduinoTemplateproperty"] = {
   "title" : "Mediatype identifier: application/vnd.arduino.templateproperty+json; view=default",
   "required" : [ "name", "permission", "type", "update_strategy" ],
   "type" : "object",
   "properties" : {
+    "id" : {
+      "type" : "string",
+      "description" : "The friendly id of the property"
+    },
     "name" : {
       "type" : "string",
       "description" : "The friendly name of the property"
@@ -1909,6 +2090,11 @@ ul.nav-tabs {
   "required" : [ "href", "id", "name", "timezone", "user_id" ],
   "type" : "object",
   "properties" : {
+    "assistant" : {
+      "type" : "string",
+      "description" : "The kind of voice assistant the thing is connected to, it can be ALEXA | GOOGLE | NONE",
+      "enum" : [ "ALEXA", "GOOGLE", "NONE" ]
+    },
     "created_at" : {
       "type" : "string",
       "description" : "Creation date of the thing",
@@ -1997,11 +2183,41 @@ ul.nav-tabs {
   },
   "description" : "ArduinoThing media type (default view)"
 };
+    defs["ArduinoThingresult"] = {
+  "title" : "Mediatype identifier: application/vnd.arduino.thingresult+json; view=default",
+  "required" : [ "id", "sketch_id" ],
+  "type" : "object",
+  "properties" : {
+    "device_id" : {
+      "type" : "string",
+      "description" : "UUID of the attached device",
+      "format" : "uuid"
+    },
+    "id" : {
+      "type" : "string",
+      "description" : "UUID of the created Thing",
+      "format" : "uuid"
+    },
+    "sketch_id" : {
+      "type" : "string",
+      "description" : "UUID of the created Sketch",
+      "format" : "uuid"
+    }
+  },
+  "description" : "ArduinoThingresult media type (default view)"
+};
     defs["ArduinoThingtemplate"] = {
   "title" : "Mediatype identifier: application/vnd.arduino.thingtemplate+json; view=default",
   "required" : [ "name", "timezone" ],
   "type" : "object",
   "properties" : {
+    "device_metadata" : {
+      "$ref" : "#/components/schemas/ArduinoDevicev2templatedevice"
+    },
+    "id" : {
+      "type" : "string",
+      "description" : "The friendly id of the thing"
+    },
     "name" : {
       "type" : "string",
       "description" : "The friendly name of the thing"
@@ -2011,8 +2227,9 @@ ul.nav-tabs {
       "description" : "Id of the organization the thing belongs to",
       "format" : "uuid"
     },
-    "properties" : {
-      "$ref" : "#/components/schemas/ArduinoTemplatepropertyCollection"
+    "sketch_template" : {
+      "type" : "string",
+      "description" : "The ID of the template's sketch"
     },
     "tags" : {
       "type" : "array",
@@ -2024,6 +2241,9 @@ ul.nav-tabs {
     "timezone" : {
       "type" : "string",
       "description" : "Time zone of the thing"
+    },
+    "variables" : {
+      "$ref" : "#/components/schemas/ArduinoTemplatepropertyCollection"
     },
     "webhook_uri" : {
       "type" : "string",
@@ -2127,8 +2347,7 @@ ul.nav-tabs {
     },
     "type" : {
       "type" : "string",
-      "description" : "The type of the widget",
-      "enum" : [ "slider, gauge" ]
+      "description" : "The type of the widget"
     },
     "variables" : {
       "$ref" : "#/components/schemas/ArduinoLinkedvariableCollection"
@@ -2379,6 +2598,58 @@ ul.nav-tabs {
     }
   }
 };
+    defs["BatchQuerySampledRequestMediaV1"] = {
+  "title" : "BatchQuerySampledRequestMediaV1",
+  "required" : [ "q" ],
+  "type" : "object",
+  "properties" : {
+    "from" : {
+      "type" : "string",
+      "description" : "From timestamp (default: now UTC - 24h)",
+      "format" : "date-time"
+    },
+    "interval" : {
+      "maximum" : 86400,
+      "minimum" : 60,
+      "type" : "integer",
+      "description" : "Resolution in seconds (allowed min:60, max:86400)",
+      "default" : 300
+    },
+    "q" : {
+      "type" : "string",
+      "description" : "Data selection query (e.g. property.2a99729d-2556-4220-a139-023348a1e6b5)"
+    },
+    "series_limit" : {
+      "type" : "integer",
+      "description" : "Maximum number of values returned after data aggregation, if any (default: 300, limit: 1000)",
+      "format" : "int64"
+    },
+    "to" : {
+      "type" : "string",
+      "description" : "To timestamp (default: now UTC)",
+      "format" : "date-time"
+    }
+  }
+};
+    defs["BatchQuerySampledRequestsMediaV1"] = {
+  "title" : "BatchQuerySampledRequestsMediaV1",
+  "required" : [ "requests", "resp_version" ],
+  "type" : "object",
+  "properties" : {
+    "requests" : {
+      "type" : "array",
+      "description" : "Requests",
+      "items" : {
+        "$ref" : "#/components/schemas/BatchQuerySampledRequestMediaV1"
+      }
+    },
+    "resp_version" : {
+      "type" : "integer",
+      "description" : "Response version",
+      "format" : "int64"
+    }
+  }
+};
     defs["CheckDevicesV2PassPayload"] = {
   "title" : "CheckDevicesV2PassPayload",
   "required" : [ "password" ],
@@ -2432,7 +2703,7 @@ ul.nav-tabs {
     "connection_type" : {
       "type" : "string",
       "description" : "The type of the connections selected by the user when multiple connections are available",
-      "enum" : [ "wifi", "eth", "wifiandsecret", "gsm", "nb", "lora" ]
+      "enum" : [ "wifi", "eth", "wifiandsecret", "gsm", "nb", "lora", "catm1", "cellular" ]
     },
     "fqbn" : {
       "type" : "string",
@@ -2559,7 +2830,7 @@ ul.nav-tabs {
     "connection_type" : {
       "type" : "string",
       "description" : "The type of the connections selected by the user when multiple connections are available",
-      "enum" : [ "wifi", "eth", "wifiandsecret", "gsm", "nb", "lora" ]
+      "enum" : [ "wifi", "eth", "wifiandsecret", "gsm", "nb", "lora", "catm1", "cellular" ]
     },
     "fqbn" : {
       "type" : "string",
@@ -2636,6 +2907,27 @@ ul.nav-tabs {
       "description" : "Binary expire time in minutes, default 10 mins",
       "format" : "int64",
       "default" : 10
+    }
+  }
+};
+    defs["devicev2.otaurlpyalod"] = {
+  "title" : "devicev2.otaurlpyalod",
+  "type" : "object",
+  "properties" : {
+    "binary_key" : {
+      "pattern" : "^ota/[a-zA-Z0-9_-]+/[a-zA-Z0-9_-]+.ota$",
+      "type" : "string",
+      "description" : "The object key of the binary"
+    },
+    "sha256" : {
+      "pattern" : "^[a-fA-F0-9]{64}$",
+      "type" : "string",
+      "description" : "The sha256 of the binary"
+    },
+    "user_id" : {
+      "type" : "string",
+      "description" : "The id of the user who is requesting the url",
+      "format" : "uuid"
     }
   }
 };
@@ -2869,6 +3161,33 @@ ul.nav-tabs {
     }
   }
 };
+    defs["template"] = {
+  "title" : "template",
+  "required" : [ "template_name" ],
+  "type" : "object",
+  "properties" : {
+    "custom_template_id" : {
+      "type" : "string",
+      "description" : "The name of the directory on S3 bucket containing the user's template"
+    },
+    "prefix_name" : {
+      "maxLength" : 45,
+      "pattern" : "^[a-zA-Z0-9_. -]+$",
+      "type" : "string",
+      "description" : "The prefix to apply to the names of the generated resources"
+    },
+    "template_name" : {
+      "type" : "string",
+      "description" : "The name of the directory on S3 bucket containing the template",
+      "example" : "remote-controlled-lights"
+    },
+    "things_options" : {
+      "type" : "object",
+      "additionalProperties" : true
+    }
+  },
+  "description" : "TemplatePayload describes the needed attribute to apply a template"
+};
     defs["ThingClone"] = {
   "title" : "ThingClone",
   "required" : [ "name" ],
@@ -2880,7 +3199,7 @@ ul.nav-tabs {
     },
     "name" : {
       "maxLength" : 64,
-      "pattern" : "^[a-zA-Z0-9_.@ -]+$",
+      "pattern" : "^[a-zA-Z0-9_. -]+$",
       "type" : "string",
       "description" : "The friendly name of the thing"
     }
@@ -2891,6 +3210,11 @@ ul.nav-tabs {
   "title" : "ThingCreate",
   "type" : "object",
   "properties" : {
+    "assistant" : {
+      "type" : "string",
+      "description" : "The kind of voice assistant the thing is connected to, it can be ALEXA | GOOGLE | NONE",
+      "enum" : [ "ALEXA", "GOOGLE", "NONE" ]
+    },
     "device_id" : {
       "type" : "string",
       "description" : "The arn of the associated device",
@@ -2903,7 +3227,7 @@ ul.nav-tabs {
     },
     "name" : {
       "maxLength" : 64,
-      "pattern" : "^[a-zA-Z0-9_.@ -]+$",
+      "pattern" : "^[a-zA-Z0-9_. -]+$",
       "type" : "string",
       "description" : "The friendly name of the thing"
     },
@@ -2953,6 +3277,11 @@ ul.nav-tabs {
   "title" : "thingUpdate",
   "type" : "object",
   "properties" : {
+    "assistant" : {
+      "type" : "string",
+      "description" : "The kind of voice assistant the thing is connected to, it can be ALEXA | GOOGLE | NONE",
+      "enum" : [ "ALEXA", "GOOGLE", "NONE" ]
+    },
     "device_id" : {
       "type" : "string",
       "description" : "The arn of the associated device",
@@ -2965,7 +3294,7 @@ ul.nav-tabs {
     },
     "name" : {
       "maxLength" : 64,
-      "pattern" : "^[a-zA-Z0-9_.@ -]+$",
+      "pattern" : "^[a-zA-Z0-9_. -]+$",
       "type" : "string",
       "description" : "The friendly name of the thing"
     },
@@ -3214,6 +3543,9 @@ ul.nav-tabs {
                     <li data-group="DevicesV2Ota" data-name="devicesV2OtaUpload" class="">
                       <a href="#api-DevicesV2Ota-devicesV2OtaUpload">devicesV2OtaUpload</a>
                     </li>
+                    <li data-group="DevicesV2Ota" data-name="devicesV2OtaUrl" class="">
+                      <a href="#api-DevicesV2Ota-devicesV2OtaUrl">devicesV2OtaUrl</a>
+                    </li>
                   <li class="nav-header" data-group="DevicesV2Pass"><a href="#api-DevicesV2Pass">API Methods - DevicesV2Pass</a></li>
                     <li data-group="DevicesV2Pass" data-name="devicesV2PassCheck" class="">
                       <a href="#api-DevicesV2Pass-devicesV2PassCheck">devicesV2PassCheck</a>
@@ -3244,6 +3576,13 @@ ul.nav-tabs {
                   <li class="nav-header" data-group="LoraFreqPlanV1"><a href="#api-LoraFreqPlanV1">API Methods - LoraFreqPlanV1</a></li>
                     <li data-group="LoraFreqPlanV1" data-name="loraFreqPlanV1List" class="">
                       <a href="#api-LoraFreqPlanV1-loraFreqPlanV1List">loraFreqPlanV1List</a>
+                    </li>
+                  <li class="nav-header" data-group="NetworkCredentialsV1"><a href="#api-NetworkCredentialsV1">API Methods - NetworkCredentialsV1</a></li>
+                    <li data-group="NetworkCredentialsV1" data-name="networkCredentialsV1Show" class="">
+                      <a href="#api-NetworkCredentialsV1-networkCredentialsV1Show">networkCredentialsV1Show</a>
+                    </li>
+                    <li data-group="NetworkCredentialsV1" data-name="networkCredentialsV1ShowByDevice" class="">
+                      <a href="#api-NetworkCredentialsV1-networkCredentialsV1ShowByDevice">networkCredentialsV1ShowByDevice</a>
                     </li>
                   <li class="nav-header" data-group="PropertiesV2"><a href="#api-PropertiesV2">API Methods - PropertiesV2</a></li>
                     <li data-group="PropertiesV2" data-name="propertiesV2Create" class="">
@@ -3277,8 +3616,15 @@ ul.nav-tabs {
                     <li data-group="SeriesV2" data-name="seriesV2BatchQueryRawLastValue" class="">
                       <a href="#api-SeriesV2-seriesV2BatchQueryRawLastValue">seriesV2BatchQueryRawLastValue</a>
                     </li>
+                    <li data-group="SeriesV2" data-name="seriesV2BatchQuerySampling" class="">
+                      <a href="#api-SeriesV2-seriesV2BatchQuerySampling">seriesV2BatchQuerySampling</a>
+                    </li>
                     <li data-group="SeriesV2" data-name="seriesV2HistoricData" class="">
                       <a href="#api-SeriesV2-seriesV2HistoricData">seriesV2HistoricData</a>
+                    </li>
+                  <li class="nav-header" data-group="Templates"><a href="#api-Templates">API Methods - Templates</a></li>
+                    <li data-group="Templates" data-name="templatesApply" class="">
+                      <a href="#api-Templates-templatesApply">templatesApply</a>
                     </li>
                   <li class="nav-header" data-group="ThingsV2"><a href="#api-ThingsV2">API Methods - ThingsV2</a></li>
                     <li data-group="ThingsV2" data-name="thingsV2Clone" class="">
@@ -20766,7 +21112,7 @@ $(document).ready(function() {
                           <div class="tab-pane active" id="examples-DevicesV2Ota-devicesV2OtaUpload-0-curl">
                             <pre class="prettyprint"><code class="language-bsh">curl -X POST \
  \
- -H "Accept: application/vnd.goa.error+json,text/plain" \
+ -H "Accept: application/vnd.arduino.devicev2.otaupload+json,application/vnd.goa.error+json" \
  -H "Content-Type: multipart/form-data" \
  "https://api2.arduino.cc/iot/v2/devices/{id}/ota"
 </code></pre>
@@ -20796,7 +21142,8 @@ public class DevicesV2OtaApiExample {
         Integer expireInMins = 56; // Integer | Binary expire time in minutes, default 10 mins
 
         try {
-            apiInstance.devicesV2OtaUpload(id, otaFile, async, expireInMins);
+            ArduinoDevicev2Otaupload result = apiInstance.devicesV2OtaUpload(id, otaFile, async, expireInMins);
+            System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2OtaApi#devicesV2OtaUpload");
             e.printStackTrace();
@@ -20838,7 +21185,8 @@ public class DevicesV2OtaApiExample {
         Integer expireInMins = 56; // Integer | Binary expire time in minutes, default 10 mins
 
         try {
-            apiInstance.devicesV2OtaUpload(id, otaFile, async, expireInMins);
+            ArduinoDevicev2Otaupload result = apiInstance.devicesV2OtaUpload(id, otaFile, async, expireInMins);
+            System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DevicesV2OtaApi#devicesV2OtaUpload");
             e.printStackTrace();
@@ -20869,7 +21217,10 @@ Integer *expireInMins = 56; // Binary expire time in minutes, default 10 mins (o
     otaFile:otaFile
     async:async
     expireInMins:expireInMins
-              completionHandler: ^(NSError* error) {
+              completionHandler: ^(ArduinoDevicev2Otaupload output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
     if (error) {
         NSLog(@"Error: %@", error);
     }
@@ -20893,8 +21244,8 @@ var opts = {
   'async': true, // {Boolean} If false, wait for the full OTA process, until it gets a result from the device
   'expireInMins': 56 // {Integer} Binary expire time in minutes, default 10 mins
 };
-api.devicesV2OtaUpload(id, otaFile, opts).then(function() {
-  console.log('API called successfully.');
+api.devicesV2OtaUpload(id, otaFile, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
 });
@@ -20930,7 +21281,8 @@ namespace Example
 
             try {
                 // upload devices_v2_ota
-                apiInstance.devicesV2OtaUpload(id, otaFile, async, expireInMins);
+                ArduinoDevicev2Otaupload result = apiInstance.devicesV2OtaUpload(id, otaFile, async, expireInMins);
+                Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling DevicesV2OtaApi.devicesV2OtaUpload: " + e.Message );
             }
@@ -20955,7 +21307,8 @@ $async = true; // Boolean | If false, wait for the full OTA process, until it ge
 $expireInMins = 56; // Integer | Binary expire time in minutes, default 10 mins
 
 try {
-    $api_instance->devicesV2OtaUpload($id, $otaFile, $async, $expireInMins);
+    $result = $api_instance->devicesV2OtaUpload($id, $otaFile, $async, $expireInMins);
+    print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DevicesV2OtaApi->devicesV2OtaUpload: ', $e->getMessage(), PHP_EOL;
 }
@@ -20978,7 +21331,8 @@ my $async = true; # Boolean | If false, wait for the full OTA process, until it 
 my $expireInMins = 56; # Integer | Binary expire time in minutes, default 10 mins
 
 eval {
-    $api_instance->devicesV2OtaUpload(id => $id, otaFile => $otaFile, async => $async, expireInMins => $expireInMins);
+    my $result = $api_instance->devicesV2OtaUpload(id => $id, otaFile => $otaFile, async => $async, expireInMins => $expireInMins);
+    print Dumper($result);
 };
 if ($@) {
     warn "Exception when calling DevicesV2OtaApi->devicesV2OtaUpload: $@\n";
@@ -21004,7 +21358,8 @@ expireInMins = 56 # Integer | Binary expire time in minutes, default 10 mins (op
 
 try:
     # upload devices_v2_ota
-    api_instance.devices_v2_ota_upload(id, otaFile, async=async, expireInMins=expireInMins)
+    api_response = api_instance.devices_v2_ota_upload(id, otaFile, async=async, expireInMins=expireInMins)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling DevicesV2OtaApi->devicesV2OtaUpload: %s\n" % e)</code></pre>
                             </div>
@@ -21158,12 +21513,52 @@ OTA file
 
 
                             <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUpload-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-DevicesV2Ota-devicesV2OtaUpload-200-schema">Schema</a>
+                                </li>
+
+
 
 
                             </ul>
 
 
                             <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUpload-200-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-DevicesV2Ota-devicesV2OtaUpload-200-schema">
+                                  <div id="responses-DevicesV2Ota-devicesV2OtaUpload-schema-200" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-DevicesV2Ota-devicesV2OtaUpload-200-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-DevicesV2Ota-devicesV2OtaUpload-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-DevicesV2Ota-devicesV2OtaUpload-200-schema-data' type='hidden' value=''></input>
+                                </div>
                             </div>
                             <h3 id="examples-DevicesV2Ota-devicesV2OtaUpload-title-202"></h3>
                             <p id="examples-DevicesV2Ota-devicesV2OtaUpload-description-202" class="marked"></p>
@@ -21180,12 +21575,52 @@ OTA file
 
 
                             <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUpload-202" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-DevicesV2Ota-devicesV2OtaUpload-202-schema">Schema</a>
+                                </li>
+
+
 
 
                             </ul>
 
 
                             <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUpload-202-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-DevicesV2Ota-devicesV2OtaUpload-202-schema">
+                                  <div id="responses-DevicesV2Ota-devicesV2OtaUpload-schema-202" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-DevicesV2Ota-devicesV2OtaUpload-202-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-DevicesV2Ota-devicesV2OtaUpload-schema-202');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-DevicesV2Ota-devicesV2OtaUpload-202-schema-data' type='hidden' value=''></input>
+                                </div>
                             </div>
                             <h3 id="examples-DevicesV2Ota-devicesV2OtaUpload-title-400"></h3>
                             <p id="examples-DevicesV2Ota-devicesV2OtaUpload-description-400" class="marked"></p>
@@ -21332,6 +21767,28 @@ OTA file
                                   </div>
                                   <input id='responses-DevicesV2Ota-devicesV2OtaUpload-404-schema-data' type='hidden' value=''></input>
                                 </div>
+                            </div>
+                            <h3 id="examples-DevicesV2Ota-devicesV2OtaUpload-title-409"></h3>
+                            <p id="examples-DevicesV2Ota-devicesV2OtaUpload-description-409" class="marked"></p>
+                            <script>
+                              var responseDevicesV2Ota409_description = `Conflict`;
+                              var responseDevicesV2Ota409_description_break = responseDevicesV2Ota409_description.indexOf('\n');
+                              if (responseDevicesV2Ota409_description_break == -1) {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUpload-title-409").text("Status: 409 - " + responseDevicesV2Ota409_description);
+                              } else {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUpload-title-409").text("Status: 409 - " + responseDevicesV2Ota409_description.substring(0, responseDevicesV2Ota409_description_break));
+                                $("#examples-DevicesV2Ota-devicesV2OtaUpload-description-409").html(responseDevicesV2Ota409_description.substring(responseDevicesV2Ota409_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUpload-409" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUpload-409-wrapper" style='margin-bottom: 10px;'>
                             </div>
                             <h3 id="examples-DevicesV2Ota-devicesV2OtaUpload-title-410"></h3>
                             <p id="examples-DevicesV2Ota-devicesV2OtaUpload-description-410" class="marked"></p>
@@ -21517,6 +21974,754 @@ OTA file
                                     </script>
                                   </div>
                                   <input id='responses-DevicesV2Ota-devicesV2OtaUpload-500-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-DevicesV2Ota-devicesV2OtaUrl">
+                      <article id="api-DevicesV2Ota-devicesV2OtaUrl-0" data-group="User" data-name="devicesV2OtaUrl" data-version="0">
+                        <div class="pull-left">
+                          <h1>devicesV2OtaUrl</h1>
+                          <p>url devices_v2_ota</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Generate a url for downloading a binary</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/v2/devices/{id}/ota/url</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-curl">Curl</a></li>
+                          <!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-java">Java</a></li>-->
+                          <!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-dart">Dart</a></li>-->
+                          <!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-android">Android</a></li>-->
+                          <!--<!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-groovy">Groovy</a></li>-->
+                          <!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-objc">Obj-C</a></li>-->
+                          <li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-angular">Angular</a></li>-->
+                          <!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-csharp">C#</a></li>-->
+                          <!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-php">PHP</a></li>-->
+                          <!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-perl">Perl</a></li>-->
+                          <!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-python">Python</a></li>-->
+                          <!--<li class=""><a href="#examples-DevicesV2Ota-devicesV2OtaUrl-0-rust">Rust</a></li>-->
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST \
+ \
+ -H "Accept: application/vnd.goa.error+json,text/plain" \
+ -H "Content-Type: application/json,application/x-www-form-urlencoded" \
+ "https://api2.arduino.cc/iot/v2/devices/{id}/ota/url" \
+ -d 'Custom MIME type example not yet supported: application/x-www-form-urlencoded'
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.DevicesV2OtaApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DevicesV2OtaApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure OAuth2 access token for authorization: oauth2
+        OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
+        oauth2.setAccessToken("YOUR ACCESS TOKEN");
+
+        // Create an instance of the API class
+        DevicesV2OtaApi apiInstance = new DevicesV2OtaApi();
+        String id = id_example; // String | The id of the device
+        Devicev2Otaurlpyalod devicev2Otaurlpyalod = ; // Devicev2Otaurlpyalod | 
+
+        try {
+            apiInstance.devicesV2OtaUrl(id, devicev2Otaurlpyalod);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DevicesV2OtaApi#devicesV2OtaUrl");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String id = new String(); // String | The id of the device
+final Devicev2Otaurlpyalod devicev2Otaurlpyalod = new Devicev2Otaurlpyalod(); // Devicev2Otaurlpyalod | 
+
+try {
+    final result = await api_instance.devicesV2OtaUrl(id, devicev2Otaurlpyalod);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->devicesV2OtaUrl: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DevicesV2OtaApi;
+
+public class DevicesV2OtaApiExample {
+    public static void main(String[] args) {
+        DevicesV2OtaApi apiInstance = new DevicesV2OtaApi();
+        String id = id_example; // String | The id of the device
+        Devicev2Otaurlpyalod devicev2Otaurlpyalod = ; // Devicev2Otaurlpyalod | 
+
+        try {
+            apiInstance.devicesV2OtaUrl(id, devicev2Otaurlpyalod);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DevicesV2OtaApi#devicesV2OtaUrl");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure OAuth2 access token for authorization: (authentication scheme: oauth2)
+[apiConfig setAccessToken:@"YOUR_ACCESS_TOKEN"];
+
+
+// Create an instance of the API class
+DevicesV2OtaApi *apiInstance = [[DevicesV2OtaApi alloc] init];
+String *id = id_example; // The id of the device (default to null)
+Devicev2Otaurlpyalod *devicev2Otaurlpyalod = ; // 
+
+// url devices_v2_ota
+[apiInstance devicesV2OtaUrlWith:id
+    devicev2Otaurlpyalod:devicev2Otaurlpyalod
+              completionHandler: ^(NSError* error) {
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = "YOUR ACCESS TOKEN";
+
+// Create an instance of the API class
+var api = new ArduinoIotClient.DevicesV2OtaApi()
+var id = id_example; // {String} The id of the device
+var devicev2Otaurlpyalod = ; // {Devicev2Otaurlpyalod} 
+api.devicesV2OtaUrl(id, devicev2Otaurlpyalod).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using iot.Api;
+using iot.Client;
+using iot.Model;
+
+namespace Example
+{
+    public class devicesV2OtaUrlExample
+    {
+        public void main()
+        {
+            // Configure OAuth2 access token for authorization: oauth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
+            // Create an instance of the API class
+            var apiInstance = new DevicesV2OtaApi();
+            var id = id_example;  // String | The id of the device (default to null)
+            var devicev2Otaurlpyalod = new Devicev2Otaurlpyalod(); // Devicev2Otaurlpyalod | 
+
+            try {
+                // url devices_v2_ota
+                apiInstance.devicesV2OtaUrl(id, devicev2Otaurlpyalod);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling DevicesV2OtaApi.devicesV2OtaUrl: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: oauth2
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\DevicesV2OtaApi();
+$id = id_example; // String | The id of the device
+$devicev2Otaurlpyalod = ; // Devicev2Otaurlpyalod | 
+
+try {
+    $api_instance->devicesV2OtaUrl($id, $devicev2Otaurlpyalod);
+} catch (Exception $e) {
+    echo 'Exception when calling DevicesV2OtaApi->devicesV2OtaUrl: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::DevicesV2OtaApi;
+
+# Configure OAuth2 access token for authorization: oauth2
+$WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::DevicesV2OtaApi->new();
+my $id = id_example; # String | The id of the device
+my $devicev2Otaurlpyalod = WWW::OPenAPIClient::Object::Devicev2Otaurlpyalod->new(); # Devicev2Otaurlpyalod | 
+
+eval {
+    $api_instance->devicesV2OtaUrl(id => $id, devicev2Otaurlpyalod => $devicev2Otaurlpyalod);
+};
+if ($@) {
+    warn "Exception when calling DevicesV2OtaApi->devicesV2OtaUrl: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth2
+openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
+# Create an instance of the API class
+api_instance = openapi_client.DevicesV2OtaApi()
+id = id_example # String | The id of the device (default to null)
+devicev2Otaurlpyalod =  # Devicev2Otaurlpyalod | 
+
+try:
+    # url devices_v2_ota
+    api_instance.devices_v2_ota_url(id, devicev2Otaurlpyalod)
+except ApiException as e:
+    print("Exception when calling DevicesV2OtaApi->devicesV2OtaUrl: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DevicesV2Ota-devicesV2OtaUrl-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate DevicesV2OtaApi;
+
+pub fn main() {
+    let id = id_example; // String
+    let devicev2Otaurlpyalod = ; // Devicev2Otaurlpyalod
+
+    let mut context = DevicesV2OtaApi::Context::default();
+    let result = client.devicesV2OtaUrl(id, devicev2Otaurlpyalod, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">id*</td>
+<td>
+
+
+    <div id="d2e199_devicesV2OtaUrl_id">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+The id of the device
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">devicev2Otaurlpyalod <span style="color:red;">*</span></td>
+<td>
+<p class="marked"></p>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/devicev2.otaurlpyalod"
+      }
+    },
+    "application/x-www-form-urlencoded" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/devicev2.otaurlpyalod"
+      }
+    }
+  },
+  "required" : true,
+  "x-originalParamName" : "payload"
+};
+
+  var schema = findNode('schema',schemaWrapper).schema;
+  if (!schema) {
+    schema = schemaWrapper.schema;
+  }
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_devicesV2OtaUrl_devicev2Otaurlpyalod');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_devicesV2OtaUrl_devicev2Otaurlpyalod"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-DevicesV2Ota-devicesV2OtaUrl-title-200"></h3>
+                            <p id="examples-DevicesV2Ota-devicesV2OtaUrl-description-200" class="marked"></p>
+                            <script>
+                              var responseDevicesV2Ota200_description = `OK`;
+                              var responseDevicesV2Ota200_description_break = responseDevicesV2Ota200_description.indexOf('\n');
+                              if (responseDevicesV2Ota200_description_break == -1) {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-200").text("Status: 200 - " + responseDevicesV2Ota200_description);
+                              } else {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-200").text("Status: 200 - " + responseDevicesV2Ota200_description.substring(0, responseDevicesV2Ota200_description_break));
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-description-200").html(responseDevicesV2Ota200_description.substring(responseDevicesV2Ota200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUrl-200" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUrl-200-wrapper" style='margin-bottom: 10px;'>
+                            </div>
+                            <h3 id="examples-DevicesV2Ota-devicesV2OtaUrl-title-202"></h3>
+                            <p id="examples-DevicesV2Ota-devicesV2OtaUrl-description-202" class="marked"></p>
+                            <script>
+                              var responseDevicesV2Ota202_description = `Accepted`;
+                              var responseDevicesV2Ota202_description_break = responseDevicesV2Ota202_description.indexOf('\n');
+                              if (responseDevicesV2Ota202_description_break == -1) {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-202").text("Status: 202 - " + responseDevicesV2Ota202_description);
+                              } else {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-202").text("Status: 202 - " + responseDevicesV2Ota202_description.substring(0, responseDevicesV2Ota202_description_break));
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-description-202").html(responseDevicesV2Ota202_description.substring(responseDevicesV2Ota202_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUrl-202" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUrl-202-wrapper" style='margin-bottom: 10px;'>
+                            </div>
+                            <h3 id="examples-DevicesV2Ota-devicesV2OtaUrl-title-400"></h3>
+                            <p id="examples-DevicesV2Ota-devicesV2OtaUrl-description-400" class="marked"></p>
+                            <script>
+                              var responseDevicesV2Ota400_description = `Bad Request`;
+                              var responseDevicesV2Ota400_description_break = responseDevicesV2Ota400_description.indexOf('\n');
+                              if (responseDevicesV2Ota400_description_break == -1) {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-400").text("Status: 400 - " + responseDevicesV2Ota400_description);
+                              } else {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-400").text("Status: 400 - " + responseDevicesV2Ota400_description.substring(0, responseDevicesV2Ota400_description_break));
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-description-400").html(responseDevicesV2Ota400_description.substring(responseDevicesV2Ota400_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUrl-400" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-DevicesV2Ota-devicesV2OtaUrl-400-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUrl-400-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-DevicesV2Ota-devicesV2OtaUrl-400-schema">
+                                  <div id="responses-DevicesV2Ota-devicesV2OtaUrl-schema-400" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-DevicesV2Ota-devicesV2OtaUrl-400-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-DevicesV2Ota-devicesV2OtaUrl-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-DevicesV2Ota-devicesV2OtaUrl-400-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-DevicesV2Ota-devicesV2OtaUrl-title-401"></h3>
+                            <p id="examples-DevicesV2Ota-devicesV2OtaUrl-description-401" class="marked"></p>
+                            <script>
+                              var responseDevicesV2Ota401_description = `Unauthorized`;
+                              var responseDevicesV2Ota401_description_break = responseDevicesV2Ota401_description.indexOf('\n');
+                              if (responseDevicesV2Ota401_description_break == -1) {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-401").text("Status: 401 - " + responseDevicesV2Ota401_description);
+                              } else {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-401").text("Status: 401 - " + responseDevicesV2Ota401_description.substring(0, responseDevicesV2Ota401_description_break));
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-description-401").html(responseDevicesV2Ota401_description.substring(responseDevicesV2Ota401_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUrl-401" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUrl-401-wrapper" style='margin-bottom: 10px;'>
+                            </div>
+                            <h3 id="examples-DevicesV2Ota-devicesV2OtaUrl-title-404"></h3>
+                            <p id="examples-DevicesV2Ota-devicesV2OtaUrl-description-404" class="marked"></p>
+                            <script>
+                              var responseDevicesV2Ota404_description = `Not Found`;
+                              var responseDevicesV2Ota404_description_break = responseDevicesV2Ota404_description.indexOf('\n');
+                              if (responseDevicesV2Ota404_description_break == -1) {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-404").text("Status: 404 - " + responseDevicesV2Ota404_description);
+                              } else {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-404").text("Status: 404 - " + responseDevicesV2Ota404_description.substring(0, responseDevicesV2Ota404_description_break));
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-description-404").html(responseDevicesV2Ota404_description.substring(responseDevicesV2Ota404_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUrl-404" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-DevicesV2Ota-devicesV2OtaUrl-404-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUrl-404-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-DevicesV2Ota-devicesV2OtaUrl-404-schema">
+                                  <div id="responses-DevicesV2Ota-devicesV2OtaUrl-schema-404" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-DevicesV2Ota-devicesV2OtaUrl-404-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-DevicesV2Ota-devicesV2OtaUrl-schema-404');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-DevicesV2Ota-devicesV2OtaUrl-404-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-DevicesV2Ota-devicesV2OtaUrl-title-410"></h3>
+                            <p id="examples-DevicesV2Ota-devicesV2OtaUrl-description-410" class="marked"></p>
+                            <script>
+                              var responseDevicesV2Ota410_description = `Gone`;
+                              var responseDevicesV2Ota410_description_break = responseDevicesV2Ota410_description.indexOf('\n');
+                              if (responseDevicesV2Ota410_description_break == -1) {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-410").text("Status: 410 - " + responseDevicesV2Ota410_description);
+                              } else {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-410").text("Status: 410 - " + responseDevicesV2Ota410_description.substring(0, responseDevicesV2Ota410_description_break));
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-description-410").html(responseDevicesV2Ota410_description.substring(responseDevicesV2Ota410_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUrl-410" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-DevicesV2Ota-devicesV2OtaUrl-410-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUrl-410-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-DevicesV2Ota-devicesV2OtaUrl-410-schema">
+                                  <div id="responses-DevicesV2Ota-devicesV2OtaUrl-schema-410" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-DevicesV2Ota-devicesV2OtaUrl-410-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-DevicesV2Ota-devicesV2OtaUrl-schema-410');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-DevicesV2Ota-devicesV2OtaUrl-410-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-DevicesV2Ota-devicesV2OtaUrl-title-412"></h3>
+                            <p id="examples-DevicesV2Ota-devicesV2OtaUrl-description-412" class="marked"></p>
+                            <script>
+                              var responseDevicesV2Ota412_description = `Precondition Failed`;
+                              var responseDevicesV2Ota412_description_break = responseDevicesV2Ota412_description.indexOf('\n');
+                              if (responseDevicesV2Ota412_description_break == -1) {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-412").text("Status: 412 - " + responseDevicesV2Ota412_description);
+                              } else {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-412").text("Status: 412 - " + responseDevicesV2Ota412_description.substring(0, responseDevicesV2Ota412_description_break));
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-description-412").html(responseDevicesV2Ota412_description.substring(responseDevicesV2Ota412_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUrl-412" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-DevicesV2Ota-devicesV2OtaUrl-412-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUrl-412-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-DevicesV2Ota-devicesV2OtaUrl-412-schema">
+                                  <div id="responses-DevicesV2Ota-devicesV2OtaUrl-schema-412" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-DevicesV2Ota-devicesV2OtaUrl-412-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-DevicesV2Ota-devicesV2OtaUrl-schema-412');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-DevicesV2Ota-devicesV2OtaUrl-412-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-DevicesV2Ota-devicesV2OtaUrl-title-500"></h3>
+                            <p id="examples-DevicesV2Ota-devicesV2OtaUrl-description-500" class="marked"></p>
+                            <script>
+                              var responseDevicesV2Ota500_description = `Internal Server Error`;
+                              var responseDevicesV2Ota500_description_break = responseDevicesV2Ota500_description.indexOf('\n');
+                              if (responseDevicesV2Ota500_description_break == -1) {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-500").text("Status: 500 - " + responseDevicesV2Ota500_description);
+                              } else {
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-title-500").text("Status: 500 - " + responseDevicesV2Ota500_description.substring(0, responseDevicesV2Ota500_description_break));
+                                $("#examples-DevicesV2Ota-devicesV2OtaUrl-description-500").html(responseDevicesV2Ota500_description.substring(responseDevicesV2Ota500_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DevicesV2Ota-devicesV2OtaUrl-500" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-DevicesV2Ota-devicesV2OtaUrl-500-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DevicesV2Ota-devicesV2OtaUrl-500-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-DevicesV2Ota-devicesV2OtaUrl-500-schema">
+                                  <div id="responses-DevicesV2Ota-devicesV2OtaUrl-schema-500" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-DevicesV2Ota-devicesV2OtaUrl-500-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-DevicesV2Ota-devicesV2OtaUrl-schema-500');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-DevicesV2Ota-devicesV2OtaUrl-500-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
                         </article>
@@ -26133,6 +27338,791 @@ pub fn main() {
                                   </div>
                                   <input id='responses-LoraFreqPlanV1-loraFreqPlanV1List-500-schema-data' type='hidden' value=''></input>
                                 </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
+                <section id="api-NetworkCredentialsV1">
+                  <h1>NetworkCredentialsV1</h1>
+                    <div id="api-NetworkCredentialsV1-networkCredentialsV1Show">
+                      <article id="api-NetworkCredentialsV1-networkCredentialsV1Show-0" data-group="User" data-name="networkCredentialsV1Show" data-version="0">
+                        <div class="pull-left">
+                          <h1>networkCredentialsV1Show</h1>
+                          <p>show network_credentials_v1</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Show required network credentials depending on device type</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/v1/network_credentials/{type}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-NetworkCredentialsV1-networkCredentialsV1Show-0-curl">Curl</a></li>
+                          <!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1Show-0-java">Java</a></li>-->
+                          <!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1Show-0-dart">Dart</a></li>-->
+                          <!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1Show-0-android">Android</a></li>-->
+                          <!--<!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1Show-0-groovy">Groovy</a></li>-->
+                          <!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1Show-0-objc">Obj-C</a></li>-->
+                          <li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1Show-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1Show-0-angular">Angular</a></li>-->
+                          <!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1Show-0-csharp">C#</a></li>-->
+                          <!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1Show-0-php">PHP</a></li>-->
+                          <!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1Show-0-perl">Perl</a></li>-->
+                          <!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1Show-0-python">Python</a></li>-->
+                          <!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1Show-0-rust">Rust</a></li>-->
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-NetworkCredentialsV1-networkCredentialsV1Show-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET \
+ -H "Accept: application/vnd.arduino.credentialsv1+json; type=collection" \
+ "https://api2.arduino.cc/iot/v1/network_credentials/{type}?connection=connection_example"
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1Show-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.NetworkCredentialsV1Api;
+
+import java.io.File;
+import java.util.*;
+
+public class NetworkCredentialsV1ApiExample {
+    public static void main(String[] args) {
+
+        // Create an instance of the API class
+        NetworkCredentialsV1Api apiInstance = new NetworkCredentialsV1Api();
+        String type = type_example; // String | Device type
+        String connection = connection_example; // String | Connection used by the device
+
+        try {
+            array[ArduinoCredentialsv1] result = apiInstance.networkCredentialsV1Show(type, connection);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NetworkCredentialsV1Api#networkCredentialsV1Show");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1Show-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String type = new String(); // String | Device type
+final String connection = new String(); // String | Connection used by the device
+
+try {
+    final result = await api_instance.networkCredentialsV1Show(type, connection);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->networkCredentialsV1Show: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1Show-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.NetworkCredentialsV1Api;
+
+public class NetworkCredentialsV1ApiExample {
+    public static void main(String[] args) {
+        NetworkCredentialsV1Api apiInstance = new NetworkCredentialsV1Api();
+        String type = type_example; // String | Device type
+        String connection = connection_example; // String | Connection used by the device
+
+        try {
+            array[ArduinoCredentialsv1] result = apiInstance.networkCredentialsV1Show(type, connection);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NetworkCredentialsV1Api#networkCredentialsV1Show");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1Show-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1Show-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">
+
+// Create an instance of the API class
+NetworkCredentialsV1Api *apiInstance = [[NetworkCredentialsV1Api alloc] init];
+String *type = type_example; // Device type (default to null)
+String *connection = connection_example; // Connection used by the device (optional) (default to null)
+
+// show network_credentials_v1
+[apiInstance networkCredentialsV1ShowWith:type
+    connection:connection
+              completionHandler: ^(array[ArduinoCredentialsv1] output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1Show-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+
+// Create an instance of the API class
+var api = new ArduinoIotClient.NetworkCredentialsV1Api()
+var type = type_example; // {String} Device type
+var opts = {
+  'connection': connection_example // {String} Connection used by the device
+};
+api.networkCredentialsV1Show(type, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1Show-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1Show-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using iot.Api;
+using iot.Client;
+using iot.Model;
+
+namespace Example
+{
+    public class networkCredentialsV1ShowExample
+    {
+        public void main()
+        {
+
+            // Create an instance of the API class
+            var apiInstance = new NetworkCredentialsV1Api();
+            var type = type_example;  // String | Device type (default to null)
+            var connection = connection_example;  // String | Connection used by the device (optional)  (default to null)
+
+            try {
+                // show network_credentials_v1
+                array[ArduinoCredentialsv1] result = apiInstance.networkCredentialsV1Show(type, connection);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling NetworkCredentialsV1Api.networkCredentialsV1Show: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1Show-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\NetworkCredentialsV1Api();
+$type = type_example; // String | Device type
+$connection = connection_example; // String | Connection used by the device
+
+try {
+    $result = $api_instance->networkCredentialsV1Show($type, $connection);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling NetworkCredentialsV1Api->networkCredentialsV1Show: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1Show-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::NetworkCredentialsV1Api;
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::NetworkCredentialsV1Api->new();
+my $type = type_example; # String | Device type
+my $connection = connection_example; # String | Connection used by the device
+
+eval {
+    my $result = $api_instance->networkCredentialsV1Show(type => $type, connection => $connection);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling NetworkCredentialsV1Api->networkCredentialsV1Show: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1Show-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Create an instance of the API class
+api_instance = openapi_client.NetworkCredentialsV1Api()
+type = type_example # String | Device type (default to null)
+connection = connection_example # String | Connection used by the device (optional) (default to null)
+
+try:
+    # show network_credentials_v1
+    api_response = api_instance.network_credentials_v1_show(type, connection=connection)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NetworkCredentialsV1Api->networkCredentialsV1Show: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1Show-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate NetworkCredentialsV1Api;
+
+pub fn main() {
+    let type = type_example; // String
+    let connection = connection_example; // String
+
+    let mut context = NetworkCredentialsV1Api::Context::default();
+    let result = client.networkCredentialsV1Show(type, connection, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">type*</td>
+<td>
+
+
+    <div id="d2e199_networkCredentialsV1Show_type">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+Device type
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">connection</td>
+<td>
+
+
+    <div id="d2e199_networkCredentialsV1Show_connection">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+Connection used by the device
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-NetworkCredentialsV1-networkCredentialsV1Show-title-200"></h3>
+                            <p id="examples-NetworkCredentialsV1-networkCredentialsV1Show-description-200" class="marked"></p>
+                            <script>
+                              var responseNetworkCredentialsV1200_description = `OK`;
+                              var responseNetworkCredentialsV1200_description_break = responseNetworkCredentialsV1200_description.indexOf('\n');
+                              if (responseNetworkCredentialsV1200_description_break == -1) {
+                                $("#examples-NetworkCredentialsV1-networkCredentialsV1Show-title-200").text("Status: 200 - " + responseNetworkCredentialsV1200_description);
+                              } else {
+                                $("#examples-NetworkCredentialsV1-networkCredentialsV1Show-title-200").text("Status: 200 - " + responseNetworkCredentialsV1200_description.substring(0, responseNetworkCredentialsV1200_description_break));
+                                $("#examples-NetworkCredentialsV1-networkCredentialsV1Show-description-200").html(responseNetworkCredentialsV1200_description.substring(responseNetworkCredentialsV1200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-NetworkCredentialsV1-networkCredentialsV1Show-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-NetworkCredentialsV1-networkCredentialsV1Show-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-NetworkCredentialsV1-networkCredentialsV1Show-200-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-NetworkCredentialsV1-networkCredentialsV1Show-200-schema">
+                                  <div id="responses-NetworkCredentialsV1-networkCredentialsV1Show-schema-200" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-NetworkCredentialsV1-networkCredentialsV1Show-200-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-NetworkCredentialsV1-networkCredentialsV1Show-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-NetworkCredentialsV1-networkCredentialsV1Show-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-NetworkCredentialsV1-networkCredentialsV1Show-title-401"></h3>
+                            <p id="examples-NetworkCredentialsV1-networkCredentialsV1Show-description-401" class="marked"></p>
+                            <script>
+                              var responseNetworkCredentialsV1401_description = `Unauthorized`;
+                              var responseNetworkCredentialsV1401_description_break = responseNetworkCredentialsV1401_description.indexOf('\n');
+                              if (responseNetworkCredentialsV1401_description_break == -1) {
+                                $("#examples-NetworkCredentialsV1-networkCredentialsV1Show-title-401").text("Status: 401 - " + responseNetworkCredentialsV1401_description);
+                              } else {
+                                $("#examples-NetworkCredentialsV1-networkCredentialsV1Show-title-401").text("Status: 401 - " + responseNetworkCredentialsV1401_description.substring(0, responseNetworkCredentialsV1401_description_break));
+                                $("#examples-NetworkCredentialsV1-networkCredentialsV1Show-description-401").html(responseNetworkCredentialsV1401_description.substring(responseNetworkCredentialsV1401_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-NetworkCredentialsV1-networkCredentialsV1Show-401" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-NetworkCredentialsV1-networkCredentialsV1Show-401-wrapper" style='margin-bottom: 10px;'>
+                            </div>
+                            <h3 id="examples-NetworkCredentialsV1-networkCredentialsV1Show-title-404"></h3>
+                            <p id="examples-NetworkCredentialsV1-networkCredentialsV1Show-description-404" class="marked"></p>
+                            <script>
+                              var responseNetworkCredentialsV1404_description = `Not Found`;
+                              var responseNetworkCredentialsV1404_description_break = responseNetworkCredentialsV1404_description.indexOf('\n');
+                              if (responseNetworkCredentialsV1404_description_break == -1) {
+                                $("#examples-NetworkCredentialsV1-networkCredentialsV1Show-title-404").text("Status: 404 - " + responseNetworkCredentialsV1404_description);
+                              } else {
+                                $("#examples-NetworkCredentialsV1-networkCredentialsV1Show-title-404").text("Status: 404 - " + responseNetworkCredentialsV1404_description.substring(0, responseNetworkCredentialsV1404_description_break));
+                                $("#examples-NetworkCredentialsV1-networkCredentialsV1Show-description-404").html(responseNetworkCredentialsV1404_description.substring(responseNetworkCredentialsV1404_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-NetworkCredentialsV1-networkCredentialsV1Show-404" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-NetworkCredentialsV1-networkCredentialsV1Show-404-wrapper" style='margin-bottom: 10px;'>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-NetworkCredentialsV1-networkCredentialsV1ShowByDevice">
+                      <article id="api-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0" data-group="User" data-name="networkCredentialsV1ShowByDevice" data-version="0">
+                        <div class="pull-left">
+                          <h1>networkCredentialsV1ShowByDevice</h1>
+                          <p>showByDevice network_credentials_v1</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Show available connection types depending on device type</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/v1/network_credentials/{type}/connections</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-curl">Curl</a></li>
+                          <!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-java">Java</a></li>-->
+                          <!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-dart">Dart</a></li>-->
+                          <!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-android">Android</a></li>-->
+                          <!--<!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-groovy">Groovy</a></li>-->
+                          <!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-objc">Obj-C</a></li>-->
+                          <li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-angular">Angular</a></li>-->
+                          <!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-csharp">C#</a></li>-->
+                          <!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-php">PHP</a></li>-->
+                          <!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-perl">Perl</a></li>-->
+                          <!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-python">Python</a></li>-->
+                          <!--<li class=""><a href="#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-rust">Rust</a></li>-->
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET \
+ "https://api2.arduino.cc/iot/v1/network_credentials/{type}/connections"
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.NetworkCredentialsV1Api;
+
+import java.io.File;
+import java.util.*;
+
+public class NetworkCredentialsV1ApiExample {
+    public static void main(String[] args) {
+
+        // Create an instance of the API class
+        NetworkCredentialsV1Api apiInstance = new NetworkCredentialsV1Api();
+        String type = type_example; // String | Device type
+
+        try {
+            apiInstance.networkCredentialsV1ShowByDevice(type);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NetworkCredentialsV1Api#networkCredentialsV1ShowByDevice");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String type = new String(); // String | Device type
+
+try {
+    final result = await api_instance.networkCredentialsV1ShowByDevice(type);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->networkCredentialsV1ShowByDevice: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.NetworkCredentialsV1Api;
+
+public class NetworkCredentialsV1ApiExample {
+    public static void main(String[] args) {
+        NetworkCredentialsV1Api apiInstance = new NetworkCredentialsV1Api();
+        String type = type_example; // String | Device type
+
+        try {
+            apiInstance.networkCredentialsV1ShowByDevice(type);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NetworkCredentialsV1Api#networkCredentialsV1ShowByDevice");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">
+
+// Create an instance of the API class
+NetworkCredentialsV1Api *apiInstance = [[NetworkCredentialsV1Api alloc] init];
+String *type = type_example; // Device type (default to null)
+
+// showByDevice network_credentials_v1
+[apiInstance networkCredentialsV1ShowByDeviceWith:type
+              completionHandler: ^(NSError* error) {
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+
+// Create an instance of the API class
+var api = new ArduinoIotClient.NetworkCredentialsV1Api()
+var type = type_example; // {String} Device type
+api.networkCredentialsV1ShowByDevice(type).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using iot.Api;
+using iot.Client;
+using iot.Model;
+
+namespace Example
+{
+    public class networkCredentialsV1ShowByDeviceExample
+    {
+        public void main()
+        {
+
+            // Create an instance of the API class
+            var apiInstance = new NetworkCredentialsV1Api();
+            var type = type_example;  // String | Device type (default to null)
+
+            try {
+                // showByDevice network_credentials_v1
+                apiInstance.networkCredentialsV1ShowByDevice(type);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling NetworkCredentialsV1Api.networkCredentialsV1ShowByDevice: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\NetworkCredentialsV1Api();
+$type = type_example; // String | Device type
+
+try {
+    $api_instance->networkCredentialsV1ShowByDevice($type);
+} catch (Exception $e) {
+    echo 'Exception when calling NetworkCredentialsV1Api->networkCredentialsV1ShowByDevice: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::NetworkCredentialsV1Api;
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::NetworkCredentialsV1Api->new();
+my $type = type_example; # String | Device type
+
+eval {
+    $api_instance->networkCredentialsV1ShowByDevice(type => $type);
+};
+if ($@) {
+    warn "Exception when calling NetworkCredentialsV1Api->networkCredentialsV1ShowByDevice: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Create an instance of the API class
+api_instance = openapi_client.NetworkCredentialsV1Api()
+type = type_example # String | Device type (default to null)
+
+try:
+    # showByDevice network_credentials_v1
+    api_instance.network_credentials_v1_show_by_device(type)
+except ApiException as e:
+    print("Exception when calling NetworkCredentialsV1Api->networkCredentialsV1ShowByDevice: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate NetworkCredentialsV1Api;
+
+pub fn main() {
+    let type = type_example; // String
+
+    let mut context = NetworkCredentialsV1Api::Context::default();
+    let result = client.networkCredentialsV1ShowByDevice(type, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">type*</td>
+<td>
+
+
+    <div id="d2e199_networkCredentialsV1ShowByDevice_type">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+Device type
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-title-200"></h3>
+                            <p id="examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-description-200" class="marked"></p>
+                            <script>
+                              var responseNetworkCredentialsV1200_description = `OK`;
+                              var responseNetworkCredentialsV1200_description_break = responseNetworkCredentialsV1200_description.indexOf('\n');
+                              if (responseNetworkCredentialsV1200_description_break == -1) {
+                                $("#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-title-200").text("Status: 200 - " + responseNetworkCredentialsV1200_description);
+                              } else {
+                                $("#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-title-200").text("Status: 200 - " + responseNetworkCredentialsV1200_description.substring(0, responseNetworkCredentialsV1200_description_break));
+                                $("#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-description-200").html(responseNetworkCredentialsV1200_description.substring(responseNetworkCredentialsV1200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-200" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-200-wrapper" style='margin-bottom: 10px;'>
+                            </div>
+                            <h3 id="examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-title-401"></h3>
+                            <p id="examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-description-401" class="marked"></p>
+                            <script>
+                              var responseNetworkCredentialsV1401_description = `Unauthorized`;
+                              var responseNetworkCredentialsV1401_description_break = responseNetworkCredentialsV1401_description.indexOf('\n');
+                              if (responseNetworkCredentialsV1401_description_break == -1) {
+                                $("#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-title-401").text("Status: 401 - " + responseNetworkCredentialsV1401_description);
+                              } else {
+                                $("#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-title-401").text("Status: 401 - " + responseNetworkCredentialsV1401_description.substring(0, responseNetworkCredentialsV1401_description_break));
+                                $("#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-description-401").html(responseNetworkCredentialsV1401_description.substring(responseNetworkCredentialsV1401_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-401" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-401-wrapper" style='margin-bottom: 10px;'>
+                            </div>
+                            <h3 id="examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-title-404"></h3>
+                            <p id="examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-description-404" class="marked"></p>
+                            <script>
+                              var responseNetworkCredentialsV1404_description = `Not Found`;
+                              var responseNetworkCredentialsV1404_description_break = responseNetworkCredentialsV1404_description.indexOf('\n');
+                              if (responseNetworkCredentialsV1404_description_break == -1) {
+                                $("#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-title-404").text("Status: 404 - " + responseNetworkCredentialsV1404_description);
+                              } else {
+                                $("#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-title-404").text("Status: 404 - " + responseNetworkCredentialsV1404_description.substring(0, responseNetworkCredentialsV1404_description_break));
+                                $("#examples-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-description-404").html(responseNetworkCredentialsV1404_description.substring(responseNetworkCredentialsV1404_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-404" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-NetworkCredentialsV1-networkCredentialsV1ShowByDevice-404-wrapper" style='margin-bottom: 10px;'>
                             </div>
                         </article>
                       </div>
@@ -32904,6 +34894,654 @@ $(document).ready(function() {
                         </article>
                       </div>
                       <hr>
+                    <div id="api-SeriesV2-seriesV2BatchQuerySampling">
+                      <article id="api-SeriesV2-seriesV2BatchQuerySampling-0" data-group="User" data-name="seriesV2BatchQuerySampling" data-version="0">
+                        <div class="pull-left">
+                          <h1>seriesV2BatchQuerySampling</h1>
+                          <p>batch_query_sampling series_v2</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Returns a batch of time-series sampled samples. To be used for types that does not support mathematic aggregation. Types supported: strings, complex types.</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/v2/series/batch_query_sampling</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-SeriesV2-seriesV2BatchQuerySampling-0-curl">Curl</a></li>
+                          <!--<li class=""><a href="#examples-SeriesV2-seriesV2BatchQuerySampling-0-java">Java</a></li>-->
+                          <!--<li class=""><a href="#examples-SeriesV2-seriesV2BatchQuerySampling-0-dart">Dart</a></li>-->
+                          <!--<li class=""><a href="#examples-SeriesV2-seriesV2BatchQuerySampling-0-android">Android</a></li>-->
+                          <!--<!--<li class=""><a href="#examples-SeriesV2-seriesV2BatchQuerySampling-0-groovy">Groovy</a></li>-->
+                          <!--<li class=""><a href="#examples-SeriesV2-seriesV2BatchQuerySampling-0-objc">Obj-C</a></li>-->
+                          <li class=""><a href="#examples-SeriesV2-seriesV2BatchQuerySampling-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-SeriesV2-seriesV2BatchQuerySampling-0-angular">Angular</a></li>-->
+                          <!--<li class=""><a href="#examples-SeriesV2-seriesV2BatchQuerySampling-0-csharp">C#</a></li>-->
+                          <!--<li class=""><a href="#examples-SeriesV2-seriesV2BatchQuerySampling-0-php">PHP</a></li>-->
+                          <!--<li class=""><a href="#examples-SeriesV2-seriesV2BatchQuerySampling-0-perl">Perl</a></li>-->
+                          <!--<li class=""><a href="#examples-SeriesV2-seriesV2BatchQuerySampling-0-python">Python</a></li>-->
+                          <!--<li class=""><a href="#examples-SeriesV2-seriesV2BatchQuerySampling-0-rust">Rust</a></li>-->
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-SeriesV2-seriesV2BatchQuerySampling-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST \
+ \
+ -H "Accept: application/vnd.arduino.series.batch.sampled+json,application/vnd.goa.error+json" \
+ -H "Content-Type: application/json,application/x-www-form-urlencoded" \
+ "https://api2.arduino.cc/iot/v2/series/batch_query_sampling" \
+ -d '{
+  &quot;resp_version&quot; : 1,
+  &quot;requests&quot; : [ {
+    &quot;q&quot; : &quot;q&quot;,
+    &quot;series_limit&quot; : 6,
+    &quot;from&quot; : &quot;2000-01-23T04:56:07.000+00:00&quot;,
+    &quot;interval&quot; : 6974,
+    &quot;to&quot; : &quot;2000-01-23T04:56:07.000+00:00&quot;
+  }, {
+    &quot;q&quot; : &quot;q&quot;,
+    &quot;series_limit&quot; : 6,
+    &quot;from&quot; : &quot;2000-01-23T04:56:07.000+00:00&quot;,
+    &quot;interval&quot; : 6974,
+    &quot;to&quot; : &quot;2000-01-23T04:56:07.000+00:00&quot;
+  } ]
+}' \
+ -d 'Custom MIME type example not yet supported: application/x-www-form-urlencoded'
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-SeriesV2-seriesV2BatchQuerySampling-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.SeriesV2Api;
+
+import java.io.File;
+import java.util.*;
+
+public class SeriesV2ApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure OAuth2 access token for authorization: oauth2
+        OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
+        oauth2.setAccessToken("YOUR ACCESS TOKEN");
+
+        // Create an instance of the API class
+        SeriesV2Api apiInstance = new SeriesV2Api();
+        BatchQuerySampledRequestsMediaV1 batchQuerySampledRequestsMediaV1 = ; // BatchQuerySampledRequestsMediaV1 | 
+
+        try {
+            ArduinoSeriesBatchSampled result = apiInstance.seriesV2BatchQuerySampling(batchQuerySampledRequestsMediaV1);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling SeriesV2Api#seriesV2BatchQuerySampling");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-SeriesV2-seriesV2BatchQuerySampling-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final BatchQuerySampledRequestsMediaV1 batchQuerySampledRequestsMediaV1 = new BatchQuerySampledRequestsMediaV1(); // BatchQuerySampledRequestsMediaV1 | 
+
+try {
+    final result = await api_instance.seriesV2BatchQuerySampling(batchQuerySampledRequestsMediaV1);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->seriesV2BatchQuerySampling: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-SeriesV2-seriesV2BatchQuerySampling-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.SeriesV2Api;
+
+public class SeriesV2ApiExample {
+    public static void main(String[] args) {
+        SeriesV2Api apiInstance = new SeriesV2Api();
+        BatchQuerySampledRequestsMediaV1 batchQuerySampledRequestsMediaV1 = ; // BatchQuerySampledRequestsMediaV1 | 
+
+        try {
+            ArduinoSeriesBatchSampled result = apiInstance.seriesV2BatchQuerySampling(batchQuerySampledRequestsMediaV1);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling SeriesV2Api#seriesV2BatchQuerySampling");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-SeriesV2-seriesV2BatchQuerySampling-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-SeriesV2-seriesV2BatchQuerySampling-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure OAuth2 access token for authorization: (authentication scheme: oauth2)
+[apiConfig setAccessToken:@"YOUR_ACCESS_TOKEN"];
+
+
+// Create an instance of the API class
+SeriesV2Api *apiInstance = [[SeriesV2Api alloc] init];
+BatchQuerySampledRequestsMediaV1 *batchQuerySampledRequestsMediaV1 = ; // 
+
+// batch_query_sampling series_v2
+[apiInstance seriesV2BatchQuerySamplingWith:batchQuerySampledRequestsMediaV1
+              completionHandler: ^(ArduinoSeriesBatchSampled output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-SeriesV2-seriesV2BatchQuerySampling-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+var defaultClient = ArduinoIotClient.ApiClient.instance;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = "YOUR ACCESS TOKEN";
+
+// Create an instance of the API class
+var api = new ArduinoIotClient.SeriesV2Api()
+var batchQuerySampledRequestsMediaV1 = ; // {BatchQuerySampledRequestsMediaV1} 
+api.seriesV2BatchQuerySampling(batchQuerySampledRequestsMediaV1).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-SeriesV2-seriesV2BatchQuerySampling-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-SeriesV2-seriesV2BatchQuerySampling-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using iot.Api;
+using iot.Client;
+using iot.Model;
+
+namespace Example
+{
+    public class seriesV2BatchQuerySamplingExample
+    {
+        public void main()
+        {
+            // Configure OAuth2 access token for authorization: oauth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
+            // Create an instance of the API class
+            var apiInstance = new SeriesV2Api();
+            var batchQuerySampledRequestsMediaV1 = new BatchQuerySampledRequestsMediaV1(); // BatchQuerySampledRequestsMediaV1 | 
+
+            try {
+                // batch_query_sampling series_v2
+                ArduinoSeriesBatchSampled result = apiInstance.seriesV2BatchQuerySampling(batchQuerySampledRequestsMediaV1);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling SeriesV2Api.seriesV2BatchQuerySampling: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-SeriesV2-seriesV2BatchQuerySampling-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: oauth2
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\SeriesV2Api();
+$batchQuerySampledRequestsMediaV1 = ; // BatchQuerySampledRequestsMediaV1 | 
+
+try {
+    $result = $api_instance->seriesV2BatchQuerySampling($batchQuerySampledRequestsMediaV1);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling SeriesV2Api->seriesV2BatchQuerySampling: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-SeriesV2-seriesV2BatchQuerySampling-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::SeriesV2Api;
+
+# Configure OAuth2 access token for authorization: oauth2
+$WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::SeriesV2Api->new();
+my $batchQuerySampledRequestsMediaV1 = WWW::OPenAPIClient::Object::BatchQuerySampledRequestsMediaV1->new(); # BatchQuerySampledRequestsMediaV1 | 
+
+eval {
+    my $result = $api_instance->seriesV2BatchQuerySampling(batchQuerySampledRequestsMediaV1 => $batchQuerySampledRequestsMediaV1);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling SeriesV2Api->seriesV2BatchQuerySampling: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-SeriesV2-seriesV2BatchQuerySampling-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth2
+openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
+# Create an instance of the API class
+api_instance = openapi_client.SeriesV2Api()
+batchQuerySampledRequestsMediaV1 =  # BatchQuerySampledRequestsMediaV1 | 
+
+try:
+    # batch_query_sampling series_v2
+    api_response = api_instance.series_v2_batch_query_sampling(batchQuerySampledRequestsMediaV1)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling SeriesV2Api->seriesV2BatchQuerySampling: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-SeriesV2-seriesV2BatchQuerySampling-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate SeriesV2Api;
+
+pub fn main() {
+    let batchQuerySampledRequestsMediaV1 = ; // BatchQuerySampledRequestsMediaV1
+
+    let mut context = SeriesV2Api::Context::default();
+    let result = client.seriesV2BatchQuerySampling(batchQuerySampledRequestsMediaV1, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">batchQuerySampledRequestsMediaV1 <span style="color:red;">*</span></td>
+<td>
+<p class="marked"></p>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/BatchQuerySampledRequestsMediaV1"
+      }
+    },
+    "application/x-www-form-urlencoded" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/BatchQuerySampledRequestsMediaV1"
+      }
+    }
+  },
+  "required" : true,
+  "x-originalParamName" : "payload"
+};
+
+  var schema = findNode('schema',schemaWrapper).schema;
+  if (!schema) {
+    schema = schemaWrapper.schema;
+  }
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_seriesV2BatchQuerySampling_batchQuerySampledRequestsMediaV1');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_seriesV2BatchQuerySampling_batchQuerySampledRequestsMediaV1"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-SeriesV2-seriesV2BatchQuerySampling-title-200"></h3>
+                            <p id="examples-SeriesV2-seriesV2BatchQuerySampling-description-200" class="marked"></p>
+                            <script>
+                              var responseSeriesV2200_description = `OK`;
+                              var responseSeriesV2200_description_break = responseSeriesV2200_description.indexOf('\n');
+                              if (responseSeriesV2200_description_break == -1) {
+                                $("#examples-SeriesV2-seriesV2BatchQuerySampling-title-200").text("Status: 200 - " + responseSeriesV2200_description);
+                              } else {
+                                $("#examples-SeriesV2-seriesV2BatchQuerySampling-title-200").text("Status: 200 - " + responseSeriesV2200_description.substring(0, responseSeriesV2200_description_break));
+                                $("#examples-SeriesV2-seriesV2BatchQuerySampling-description-200").html(responseSeriesV2200_description.substring(responseSeriesV2200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-SeriesV2-seriesV2BatchQuerySampling-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-SeriesV2-seriesV2BatchQuerySampling-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-SeriesV2-seriesV2BatchQuerySampling-200-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-SeriesV2-seriesV2BatchQuerySampling-200-schema">
+                                  <div id="responses-SeriesV2-seriesV2BatchQuerySampling-schema-200" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-SeriesV2-seriesV2BatchQuerySampling-200-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-SeriesV2-seriesV2BatchQuerySampling-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-SeriesV2-seriesV2BatchQuerySampling-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-SeriesV2-seriesV2BatchQuerySampling-title-400"></h3>
+                            <p id="examples-SeriesV2-seriesV2BatchQuerySampling-description-400" class="marked"></p>
+                            <script>
+                              var responseSeriesV2400_description = `Bad Request`;
+                              var responseSeriesV2400_description_break = responseSeriesV2400_description.indexOf('\n');
+                              if (responseSeriesV2400_description_break == -1) {
+                                $("#examples-SeriesV2-seriesV2BatchQuerySampling-title-400").text("Status: 400 - " + responseSeriesV2400_description);
+                              } else {
+                                $("#examples-SeriesV2-seriesV2BatchQuerySampling-title-400").text("Status: 400 - " + responseSeriesV2400_description.substring(0, responseSeriesV2400_description_break));
+                                $("#examples-SeriesV2-seriesV2BatchQuerySampling-description-400").html(responseSeriesV2400_description.substring(responseSeriesV2400_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-SeriesV2-seriesV2BatchQuerySampling-400" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-SeriesV2-seriesV2BatchQuerySampling-400-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-SeriesV2-seriesV2BatchQuerySampling-400-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-SeriesV2-seriesV2BatchQuerySampling-400-schema">
+                                  <div id="responses-SeriesV2-seriesV2BatchQuerySampling-schema-400" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-SeriesV2-seriesV2BatchQuerySampling-400-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-SeriesV2-seriesV2BatchQuerySampling-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-SeriesV2-seriesV2BatchQuerySampling-400-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-SeriesV2-seriesV2BatchQuerySampling-title-401"></h3>
+                            <p id="examples-SeriesV2-seriesV2BatchQuerySampling-description-401" class="marked"></p>
+                            <script>
+                              var responseSeriesV2401_description = `Unauthorized`;
+                              var responseSeriesV2401_description_break = responseSeriesV2401_description.indexOf('\n');
+                              if (responseSeriesV2401_description_break == -1) {
+                                $("#examples-SeriesV2-seriesV2BatchQuerySampling-title-401").text("Status: 401 - " + responseSeriesV2401_description);
+                              } else {
+                                $("#examples-SeriesV2-seriesV2BatchQuerySampling-title-401").text("Status: 401 - " + responseSeriesV2401_description.substring(0, responseSeriesV2401_description_break));
+                                $("#examples-SeriesV2-seriesV2BatchQuerySampling-description-401").html(responseSeriesV2401_description.substring(responseSeriesV2401_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-SeriesV2-seriesV2BatchQuerySampling-401" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-SeriesV2-seriesV2BatchQuerySampling-401-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-SeriesV2-seriesV2BatchQuerySampling-401-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-SeriesV2-seriesV2BatchQuerySampling-401-schema">
+                                  <div id="responses-SeriesV2-seriesV2BatchQuerySampling-schema-401" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-SeriesV2-seriesV2BatchQuerySampling-401-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-SeriesV2-seriesV2BatchQuerySampling-schema-401');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-SeriesV2-seriesV2BatchQuerySampling-401-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-SeriesV2-seriesV2BatchQuerySampling-title-404"></h3>
+                            <p id="examples-SeriesV2-seriesV2BatchQuerySampling-description-404" class="marked"></p>
+                            <script>
+                              var responseSeriesV2404_description = `Not Found`;
+                              var responseSeriesV2404_description_break = responseSeriesV2404_description.indexOf('\n');
+                              if (responseSeriesV2404_description_break == -1) {
+                                $("#examples-SeriesV2-seriesV2BatchQuerySampling-title-404").text("Status: 404 - " + responseSeriesV2404_description);
+                              } else {
+                                $("#examples-SeriesV2-seriesV2BatchQuerySampling-title-404").text("Status: 404 - " + responseSeriesV2404_description.substring(0, responseSeriesV2404_description_break));
+                                $("#examples-SeriesV2-seriesV2BatchQuerySampling-description-404").html(responseSeriesV2404_description.substring(responseSeriesV2404_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-SeriesV2-seriesV2BatchQuerySampling-404" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-SeriesV2-seriesV2BatchQuerySampling-404-wrapper" style='margin-bottom: 10px;'>
+                            </div>
+                            <h3 id="examples-SeriesV2-seriesV2BatchQuerySampling-title-501"></h3>
+                            <p id="examples-SeriesV2-seriesV2BatchQuerySampling-description-501" class="marked"></p>
+                            <script>
+                              var responseSeriesV2501_description = `Not Implemented`;
+                              var responseSeriesV2501_description_break = responseSeriesV2501_description.indexOf('\n');
+                              if (responseSeriesV2501_description_break == -1) {
+                                $("#examples-SeriesV2-seriesV2BatchQuerySampling-title-501").text("Status: 501 - " + responseSeriesV2501_description);
+                              } else {
+                                $("#examples-SeriesV2-seriesV2BatchQuerySampling-title-501").text("Status: 501 - " + responseSeriesV2501_description.substring(0, responseSeriesV2501_description_break));
+                                $("#examples-SeriesV2-seriesV2BatchQuerySampling-description-501").html(responseSeriesV2501_description.substring(responseSeriesV2501_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-SeriesV2-seriesV2BatchQuerySampling-501" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-SeriesV2-seriesV2BatchQuerySampling-501-wrapper" style='margin-bottom: 10px;'>
+                            </div>
+                            <h3 id="examples-SeriesV2-seriesV2BatchQuerySampling-title-503"></h3>
+                            <p id="examples-SeriesV2-seriesV2BatchQuerySampling-description-503" class="marked"></p>
+                            <script>
+                              var responseSeriesV2503_description = `Service Unavailable`;
+                              var responseSeriesV2503_description_break = responseSeriesV2503_description.indexOf('\n');
+                              if (responseSeriesV2503_description_break == -1) {
+                                $("#examples-SeriesV2-seriesV2BatchQuerySampling-title-503").text("Status: 503 - " + responseSeriesV2503_description);
+                              } else {
+                                $("#examples-SeriesV2-seriesV2BatchQuerySampling-title-503").text("Status: 503 - " + responseSeriesV2503_description.substring(0, responseSeriesV2503_description_break));
+                                $("#examples-SeriesV2-seriesV2BatchQuerySampling-description-503").html(responseSeriesV2503_description.substring(responseSeriesV2503_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-SeriesV2-seriesV2BatchQuerySampling-503" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-SeriesV2-seriesV2BatchQuerySampling-503-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-SeriesV2-seriesV2BatchQuerySampling-503-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-SeriesV2-seriesV2BatchQuerySampling-503-schema">
+                                  <div id="responses-SeriesV2-seriesV2BatchQuerySampling-schema-503" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-SeriesV2-seriesV2BatchQuerySampling-503-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-SeriesV2-seriesV2BatchQuerySampling-schema-503');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-SeriesV2-seriesV2BatchQuerySampling-503-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
                     <div id="api-SeriesV2-seriesV2HistoricData">
                       <article id="api-SeriesV2-seriesV2HistoricData-0" data-group="User" data-name="seriesV2HistoricData" data-version="0">
                         <div class="pull-left">
@@ -33443,6 +36081,693 @@ $(document).ready(function() {
                                     </script>
                                   </div>
                                   <input id='responses-SeriesV2-seriesV2HistoricData-500-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
+                <section id="api-Templates">
+                  <h1>Templates</h1>
+                    <div id="api-Templates-templatesApply">
+                      <article id="api-Templates-templatesApply-0" data-group="User" data-name="templatesApply" data-version="0">
+                        <div class="pull-left">
+                          <h1>templatesApply</h1>
+                          <p>apply templates</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Apply an existing cloud template and generate all the needed resources</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="put"><code><span class="pln">/v1/templates</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Templates-templatesApply-0-curl">Curl</a></li>
+                          <!--<li class=""><a href="#examples-Templates-templatesApply-0-java">Java</a></li>-->
+                          <!--<li class=""><a href="#examples-Templates-templatesApply-0-dart">Dart</a></li>-->
+                          <!--<li class=""><a href="#examples-Templates-templatesApply-0-android">Android</a></li>-->
+                          <!--<!--<li class=""><a href="#examples-Templates-templatesApply-0-groovy">Groovy</a></li>-->
+                          <!--<li class=""><a href="#examples-Templates-templatesApply-0-objc">Obj-C</a></li>-->
+                          <li class=""><a href="#examples-Templates-templatesApply-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Templates-templatesApply-0-angular">Angular</a></li>-->
+                          <!--<li class=""><a href="#examples-Templates-templatesApply-0-csharp">C#</a></li>-->
+                          <!--<li class=""><a href="#examples-Templates-templatesApply-0-php">PHP</a></li>-->
+                          <!--<li class=""><a href="#examples-Templates-templatesApply-0-perl">Perl</a></li>-->
+                          <!--<li class=""><a href="#examples-Templates-templatesApply-0-python">Python</a></li>-->
+                          <!--<li class=""><a href="#examples-Templates-templatesApply-0-rust">Rust</a></li>-->
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Templates-templatesApply-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT \
+ -H "Accept: application/vnd.arduino.template+json,application/vnd.goa.error+json" \
+ -H "Content-Type: application/json,application/x-www-form-urlencoded" \
+ "https://api2.arduino.cc/iot/v1/templates" \
+ -d 'Custom MIME type example not yet supported: application/x-www-form-urlencoded'
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Templates-templatesApply-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.TemplatesApi;
+
+import java.io.File;
+import java.util.*;
+
+public class TemplatesApiExample {
+    public static void main(String[] args) {
+
+        // Create an instance of the API class
+        TemplatesApi apiInstance = new TemplatesApi();
+        Template template = ; // Template | 
+        String xOrganization = xOrganization_example; // String | 
+
+        try {
+            ArduinoTemplate result = apiInstance.templatesApply(template, xOrganization);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TemplatesApi#templatesApply");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Templates-templatesApply-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final Template template = new Template(); // Template | 
+final String xOrganization = new String(); // String | 
+
+try {
+    final result = await api_instance.templatesApply(template, xOrganization);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->templatesApply: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Templates-templatesApply-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.TemplatesApi;
+
+public class TemplatesApiExample {
+    public static void main(String[] args) {
+        TemplatesApi apiInstance = new TemplatesApi();
+        Template template = ; // Template | 
+        String xOrganization = xOrganization_example; // String | 
+
+        try {
+            ArduinoTemplate result = apiInstance.templatesApply(template, xOrganization);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TemplatesApi#templatesApply");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Templates-templatesApply-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Templates-templatesApply-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">
+
+// Create an instance of the API class
+TemplatesApi *apiInstance = [[TemplatesApi alloc] init];
+Template *template = ; // 
+String *xOrganization = xOrganization_example; //  (optional) (default to null)
+
+// apply templates
+[apiInstance templatesApplyWith:template
+    xOrganization:xOrganization
+              completionHandler: ^(ArduinoTemplate output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Templates-templatesApply-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var ArduinoIotClient = require('@arduino/arduino-iot-client');
+
+// Create an instance of the API class
+var api = new ArduinoIotClient.TemplatesApi()
+var template = ; // {Template} 
+var opts = {
+  'xOrganization': xOrganization_example // {String} 
+};
+api.templatesApply(template, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Templates-templatesApply-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Templates-templatesApply-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using iot.Api;
+using iot.Client;
+using iot.Model;
+
+namespace Example
+{
+    public class templatesApplyExample
+    {
+        public void main()
+        {
+
+            // Create an instance of the API class
+            var apiInstance = new TemplatesApi();
+            var template = new Template(); // Template | 
+            var xOrganization = xOrganization_example;  // String |  (optional)  (default to null)
+
+            try {
+                // apply templates
+                ArduinoTemplate result = apiInstance.templatesApply(template, xOrganization);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling TemplatesApi.templatesApply: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Templates-templatesApply-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\TemplatesApi();
+$template = ; // Template | 
+$xOrganization = xOrganization_example; // String | 
+
+try {
+    $result = $api_instance->templatesApply($template, $xOrganization);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling TemplatesApi->templatesApply: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Templates-templatesApply-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::TemplatesApi;
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::TemplatesApi->new();
+my $template = WWW::OPenAPIClient::Object::Template->new(); # Template | 
+my $xOrganization = xOrganization_example; # String | 
+
+eval {
+    my $result = $api_instance->templatesApply(template => $template, xOrganization => $xOrganization);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling TemplatesApi->templatesApply: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Templates-templatesApply-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Create an instance of the API class
+api_instance = openapi_client.TemplatesApi()
+template =  # Template | 
+xOrganization = xOrganization_example # String |  (optional) (default to null)
+
+try:
+    # apply templates
+    api_response = api_instance.templates_apply(template, xOrganization=xOrganization)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling TemplatesApi->templatesApply: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Templates-templatesApply-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate TemplatesApi;
+
+pub fn main() {
+    let template = ; // Template
+    let xOrganization = xOrganization_example; // String
+
+    let mut context = TemplatesApi::Context::default();
+    let result = client.templatesApply(template, xOrganization, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+                            <div class="methodsubtabletitle">Header parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                  <tr><td style="width:150px;">X-Organization</td>
+<td>
+
+
+    <div id="d2e199_templatesApply_xOrganization">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">template <span style="color:red;">*</span></td>
+<td>
+<p class="marked">TemplatePayload describes the needed attribute to apply a template</p>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "description" : "TemplatePayload describes the needed attribute to apply a template",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/template"
+      }
+    },
+    "application/x-www-form-urlencoded" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/template"
+      }
+    }
+  },
+  "required" : true,
+  "x-originalParamName" : "payload"
+};
+
+  var schema = findNode('schema',schemaWrapper).schema;
+  if (!schema) {
+    schema = schemaWrapper.schema;
+  }
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_templatesApply_template');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_templatesApply_template"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Templates-templatesApply-title-200"></h3>
+                            <p id="examples-Templates-templatesApply-description-200" class="marked"></p>
+                            <script>
+                              var responseTemplates200_description = `OK`;
+                              var responseTemplates200_description_break = responseTemplates200_description.indexOf('\n');
+                              if (responseTemplates200_description_break == -1) {
+                                $("#examples-Templates-templatesApply-title-200").text("Status: 200 - " + responseTemplates200_description);
+                              } else {
+                                $("#examples-Templates-templatesApply-title-200").text("Status: 200 - " + responseTemplates200_description.substring(0, responseTemplates200_description_break));
+                                $("#examples-Templates-templatesApply-description-200").html(responseTemplates200_description.substring(responseTemplates200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Templates-templatesApply-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Templates-templatesApply-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Templates-templatesApply-200-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-Templates-templatesApply-200-schema">
+                                  <div id="responses-Templates-templatesApply-schema-200" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-Templates-templatesApply-200-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-Templates-templatesApply-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-Templates-templatesApply-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-Templates-templatesApply-title-400"></h3>
+                            <p id="examples-Templates-templatesApply-description-400" class="marked"></p>
+                            <script>
+                              var responseTemplates400_description = `Bad Request`;
+                              var responseTemplates400_description_break = responseTemplates400_description.indexOf('\n');
+                              if (responseTemplates400_description_break == -1) {
+                                $("#examples-Templates-templatesApply-title-400").text("Status: 400 - " + responseTemplates400_description);
+                              } else {
+                                $("#examples-Templates-templatesApply-title-400").text("Status: 400 - " + responseTemplates400_description.substring(0, responseTemplates400_description_break));
+                                $("#examples-Templates-templatesApply-description-400").html(responseTemplates400_description.substring(responseTemplates400_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Templates-templatesApply-400" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Templates-templatesApply-400-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Templates-templatesApply-400-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-Templates-templatesApply-400-schema">
+                                  <div id="responses-Templates-templatesApply-schema-400" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-Templates-templatesApply-400-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-Templates-templatesApply-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-Templates-templatesApply-400-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-Templates-templatesApply-title-401"></h3>
+                            <p id="examples-Templates-templatesApply-description-401" class="marked"></p>
+                            <script>
+                              var responseTemplates401_description = `Unauthorized`;
+                              var responseTemplates401_description_break = responseTemplates401_description.indexOf('\n');
+                              if (responseTemplates401_description_break == -1) {
+                                $("#examples-Templates-templatesApply-title-401").text("Status: 401 - " + responseTemplates401_description);
+                              } else {
+                                $("#examples-Templates-templatesApply-title-401").text("Status: 401 - " + responseTemplates401_description.substring(0, responseTemplates401_description_break));
+                                $("#examples-Templates-templatesApply-description-401").html(responseTemplates401_description.substring(responseTemplates401_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Templates-templatesApply-401" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Templates-templatesApply-401-wrapper" style='margin-bottom: 10px;'>
+                            </div>
+                            <h3 id="examples-Templates-templatesApply-title-404"></h3>
+                            <p id="examples-Templates-templatesApply-description-404" class="marked"></p>
+                            <script>
+                              var responseTemplates404_description = `Not Found`;
+                              var responseTemplates404_description_break = responseTemplates404_description.indexOf('\n');
+                              if (responseTemplates404_description_break == -1) {
+                                $("#examples-Templates-templatesApply-title-404").text("Status: 404 - " + responseTemplates404_description);
+                              } else {
+                                $("#examples-Templates-templatesApply-title-404").text("Status: 404 - " + responseTemplates404_description.substring(0, responseTemplates404_description_break));
+                                $("#examples-Templates-templatesApply-description-404").html(responseTemplates404_description.substring(responseTemplates404_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Templates-templatesApply-404" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Templates-templatesApply-404-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Templates-templatesApply-404-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-Templates-templatesApply-404-schema">
+                                  <div id="responses-Templates-templatesApply-schema-404" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-Templates-templatesApply-404-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-Templates-templatesApply-schema-404');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-Templates-templatesApply-404-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-Templates-templatesApply-title-409"></h3>
+                            <p id="examples-Templates-templatesApply-description-409" class="marked"></p>
+                            <script>
+                              var responseTemplates409_description = `Conflict`;
+                              var responseTemplates409_description_break = responseTemplates409_description.indexOf('\n');
+                              if (responseTemplates409_description_break == -1) {
+                                $("#examples-Templates-templatesApply-title-409").text("Status: 409 - " + responseTemplates409_description);
+                              } else {
+                                $("#examples-Templates-templatesApply-title-409").text("Status: 409 - " + responseTemplates409_description.substring(0, responseTemplates409_description_break));
+                                $("#examples-Templates-templatesApply-description-409").html(responseTemplates409_description.substring(responseTemplates409_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Templates-templatesApply-409" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Templates-templatesApply-409-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Templates-templatesApply-409-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-Templates-templatesApply-409-schema">
+                                  <div id="responses-Templates-templatesApply-schema-409" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-Templates-templatesApply-409-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-Templates-templatesApply-schema-409');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-Templates-templatesApply-409-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-Templates-templatesApply-title-500"></h3>
+                            <p id="examples-Templates-templatesApply-description-500" class="marked"></p>
+                            <script>
+                              var responseTemplates500_description = `Internal Server Error`;
+                              var responseTemplates500_description_break = responseTemplates500_description.indexOf('\n');
+                              if (responseTemplates500_description_break == -1) {
+                                $("#examples-Templates-templatesApply-title-500").text("Status: 500 - " + responseTemplates500_description);
+                              } else {
+                                $("#examples-Templates-templatesApply-title-500").text("Status: 500 - " + responseTemplates500_description.substring(0, responseTemplates500_description_break));
+                                $("#examples-Templates-templatesApply-description-500").html(responseTemplates500_description.substring(responseTemplates500_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Templates-templatesApply-500" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Templates-templatesApply-500-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Templates-templatesApply-500-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-Templates-templatesApply-500-schema">
+                                  <div id="responses-Templates-templatesApply-schema-500" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-Templates-templatesApply-500-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-Templates-templatesApply-schema-500');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-Templates-templatesApply-500-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
                         </article>
@@ -34146,6 +37471,7 @@ $(document).ready(function() {
  -d '{
   &quot;device_id&quot; : &quot;046b6c7f-0b8a-43b9-b35d-6489e6daee91&quot;,
   &quot;timezone&quot; : &quot;America/New_York&quot;,
+  &quot;assistant&quot; : &quot;ALEXA&quot;,
   &quot;webhook_uri&quot; : &quot;webhook_uri&quot;,
   &quot;name&quot; : &quot;name&quot;,
   &quot;id&quot; : &quot;046b6c7f-0b8a-43b9-b35d-6489e6daee91&quot;,
@@ -38416,6 +41742,68 @@ The id of the thing
                                     </script>
                                   </div>
                                   <input id='responses-ThingsV2-thingsV2Template-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-ThingsV2-thingsV2Template-title-400"></h3>
+                            <p id="examples-ThingsV2-thingsV2Template-description-400" class="marked"></p>
+                            <script>
+                              var responseThingsV2400_description = `Bad Request`;
+                              var responseThingsV2400_description_break = responseThingsV2400_description.indexOf('\n');
+                              if (responseThingsV2400_description_break == -1) {
+                                $("#examples-ThingsV2-thingsV2Template-title-400").text("Status: 400 - " + responseThingsV2400_description);
+                              } else {
+                                $("#examples-ThingsV2-thingsV2Template-title-400").text("Status: 400 - " + responseThingsV2400_description.substring(0, responseThingsV2400_description_break));
+                                $("#examples-ThingsV2-thingsV2Template-description-400").html(responseThingsV2400_description.substring(responseThingsV2400_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-ThingsV2-thingsV2Template-400" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-ThingsV2-thingsV2Template-400-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-ThingsV2-thingsV2Template-400-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-ThingsV2-thingsV2Template-400-schema">
+                                  <div id="responses-ThingsV2-thingsV2Template-schema-400" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-ThingsV2-thingsV2Template-400-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-ThingsV2-thingsV2Template-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-ThingsV2-thingsV2Template-400-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
                             <h3 id="examples-ThingsV2-thingsV2Template-title-401"></h3>
