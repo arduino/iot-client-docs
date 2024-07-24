@@ -957,6 +957,11 @@ ul.nav-tabs {
   "required" : [ "id", "name", "updated_at" ],
   "type" : "object",
   "properties" : {
+    "cover_image" : {
+      "maxLength" : 1024,
+      "type" : "string",
+      "description" : "The cover image of the dashboard"
+    },
     "created_by" : {
       "$ref" : "#/components/schemas/ArduinoDashboardowner"
     },
@@ -996,6 +1001,10 @@ ul.nav-tabs {
   "required" : [ "name" ],
   "type" : "object",
   "properties" : {
+    "cover_image" : {
+      "type" : "string",
+      "description" : "The cover image of the dashboard"
+    },
     "id" : {
       "type" : "string",
       "description" : "The friendly ID of the dashboard"
@@ -2807,6 +2816,11 @@ ul.nav-tabs {
   "title" : "dashboardv2",
   "type" : "object",
   "properties" : {
+    "cover_image" : {
+      "maxLength" : 1024,
+      "type" : "string",
+      "description" : "The cover image of the dashboard"
+    },
     "name" : {
       "maxLength" : 64,
       "pattern" : "[a-zA-Z0-9_.@-]+",
@@ -33097,9 +33111,10 @@ public class SeriesV2ApiExample {
         // Create an instance of the API class
         SeriesV2Api apiInstance = new SeriesV2Api();
         BatchQueryRequestsMediaV1 batchQueryRequestsMediaV1 = ; // BatchQueryRequestsMediaV1 | 
+        String xOrganization = xOrganization_example; // String | 
 
         try {
-            ArduinoSeriesBatch result = apiInstance.seriesV2BatchQuery(batchQueryRequestsMediaV1);
+            ArduinoSeriesBatch result = apiInstance.seriesV2BatchQuery(batchQueryRequestsMediaV1, xOrganization);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SeriesV2Api#seriesV2BatchQuery");
@@ -33116,9 +33131,10 @@ public class SeriesV2ApiExample {
 final api_instance = DefaultApi();
 
 final BatchQueryRequestsMediaV1 batchQueryRequestsMediaV1 = new BatchQueryRequestsMediaV1(); // BatchQueryRequestsMediaV1 | 
+final String xOrganization = new String(); // String | 
 
 try {
-    final result = await api_instance.seriesV2BatchQuery(batchQueryRequestsMediaV1);
+    final result = await api_instance.seriesV2BatchQuery(batchQueryRequestsMediaV1, xOrganization);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->seriesV2BatchQuery: $e\n');
@@ -33134,9 +33150,10 @@ public class SeriesV2ApiExample {
     public static void main(String[] args) {
         SeriesV2Api apiInstance = new SeriesV2Api();
         BatchQueryRequestsMediaV1 batchQueryRequestsMediaV1 = ; // BatchQueryRequestsMediaV1 | 
+        String xOrganization = xOrganization_example; // String | 
 
         try {
-            ArduinoSeriesBatch result = apiInstance.seriesV2BatchQuery(batchQueryRequestsMediaV1);
+            ArduinoSeriesBatch result = apiInstance.seriesV2BatchQuery(batchQueryRequestsMediaV1, xOrganization);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SeriesV2Api#seriesV2BatchQuery");
@@ -33159,9 +33176,11 @@ public class SeriesV2ApiExample {
 // Create an instance of the API class
 SeriesV2Api *apiInstance = [[SeriesV2Api alloc] init];
 BatchQueryRequestsMediaV1 *batchQueryRequestsMediaV1 = ; // 
+String *xOrganization = xOrganization_example; //  (optional) (default to null)
 
 // batch_query series_v2
 [apiInstance seriesV2BatchQueryWith:batchQueryRequestsMediaV1
+    xOrganization:xOrganization
               completionHandler: ^(ArduinoSeriesBatch output, NSError* error) {
     if (output) {
         NSLog(@"%@", output);
@@ -33184,7 +33203,10 @@ oauth2.accessToken = "YOUR ACCESS TOKEN";
 // Create an instance of the API class
 var api = new ArduinoIotClient.SeriesV2Api()
 var batchQueryRequestsMediaV1 = ; // {BatchQueryRequestsMediaV1} 
-api.seriesV2BatchQuery(batchQueryRequestsMediaV1).then(function(data) {
+var opts = {
+  'xOrganization': xOrganization_example // {String} 
+};
+api.seriesV2BatchQuery(batchQueryRequestsMediaV1, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -33215,10 +33237,11 @@ namespace Example
             // Create an instance of the API class
             var apiInstance = new SeriesV2Api();
             var batchQueryRequestsMediaV1 = new BatchQueryRequestsMediaV1(); // BatchQueryRequestsMediaV1 | 
+            var xOrganization = xOrganization_example;  // String |  (optional)  (default to null)
 
             try {
                 // batch_query series_v2
-                ArduinoSeriesBatch result = apiInstance.seriesV2BatchQuery(batchQueryRequestsMediaV1);
+                ArduinoSeriesBatch result = apiInstance.seriesV2BatchQuery(batchQueryRequestsMediaV1, xOrganization);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling SeriesV2Api.seriesV2BatchQuery: " + e.Message );
@@ -33239,9 +33262,10 @@ OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('YO
 // Create an instance of the API class
 $api_instance = new OpenAPITools\Client\Api\SeriesV2Api();
 $batchQueryRequestsMediaV1 = ; // BatchQueryRequestsMediaV1 | 
+$xOrganization = xOrganization_example; // String | 
 
 try {
-    $result = $api_instance->seriesV2BatchQuery($batchQueryRequestsMediaV1);
+    $result = $api_instance->seriesV2BatchQuery($batchQueryRequestsMediaV1, $xOrganization);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling SeriesV2Api->seriesV2BatchQuery: ', $e->getMessage(), PHP_EOL;
@@ -33260,9 +33284,10 @@ $WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
 # Create an instance of the API class
 my $api_instance = WWW::OPenAPIClient::SeriesV2Api->new();
 my $batchQueryRequestsMediaV1 = WWW::OPenAPIClient::Object::BatchQueryRequestsMediaV1->new(); # BatchQueryRequestsMediaV1 | 
+my $xOrganization = xOrganization_example; # String | 
 
 eval {
-    my $result = $api_instance->seriesV2BatchQuery(batchQueryRequestsMediaV1 => $batchQueryRequestsMediaV1);
+    my $result = $api_instance->seriesV2BatchQuery(batchQueryRequestsMediaV1 => $batchQueryRequestsMediaV1, xOrganization => $xOrganization);
     print Dumper($result);
 };
 if ($@) {
@@ -33283,10 +33308,11 @@ openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 # Create an instance of the API class
 api_instance = openapi_client.SeriesV2Api()
 batchQueryRequestsMediaV1 =  # BatchQueryRequestsMediaV1 | 
+xOrganization = xOrganization_example # String |  (optional) (default to null)
 
 try:
     # batch_query series_v2
-    api_response = api_instance.series_v2_batch_query(batchQueryRequestsMediaV1)
+    api_response = api_instance.series_v2_batch_query(batchQueryRequestsMediaV1, xOrganization=xOrganization)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling SeriesV2Api->seriesV2BatchQuery: %s\n" % e)</code></pre>
@@ -33297,9 +33323,10 @@ except ApiException as e:
 
 pub fn main() {
     let batchQueryRequestsMediaV1 = ; // BatchQueryRequestsMediaV1
+    let xOrganization = xOrganization_example; // String
 
     let mut context = SeriesV2Api::Context::default();
-    let result = client.seriesV2BatchQuery(batchQueryRequestsMediaV1, &context).wait();
+    let result = client.seriesV2BatchQuery(batchQueryRequestsMediaV1, xOrganization, &context).wait();
 
     println!("{:?}", result);
 }
@@ -33315,6 +33342,30 @@ pub fn main() {
                           <h2>Parameters</h2>
 
 
+                            <div class="methodsubtabletitle">Header parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                  <tr><td style="width:150px;">X-Organization</td>
+<td>
+
+
+    <div id="d2e199_seriesV2BatchQuery_xOrganization">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
 
                             <div class="methodsubtabletitle">Body parameters</div>
                             <table id="methodsubtable">
@@ -33745,9 +33796,10 @@ public class SeriesV2ApiExample {
         // Create an instance of the API class
         SeriesV2Api apiInstance = new SeriesV2Api();
         BatchQueryRawRequestsMediaV1 batchQueryRawRequestsMediaV1 = ; // BatchQueryRawRequestsMediaV1 | 
+        String xOrganization = xOrganization_example; // String | 
 
         try {
-            ArduinoSeriesRawBatch result = apiInstance.seriesV2BatchQueryRaw(batchQueryRawRequestsMediaV1);
+            ArduinoSeriesRawBatch result = apiInstance.seriesV2BatchQueryRaw(batchQueryRawRequestsMediaV1, xOrganization);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SeriesV2Api#seriesV2BatchQueryRaw");
@@ -33764,9 +33816,10 @@ public class SeriesV2ApiExample {
 final api_instance = DefaultApi();
 
 final BatchQueryRawRequestsMediaV1 batchQueryRawRequestsMediaV1 = new BatchQueryRawRequestsMediaV1(); // BatchQueryRawRequestsMediaV1 | 
+final String xOrganization = new String(); // String | 
 
 try {
-    final result = await api_instance.seriesV2BatchQueryRaw(batchQueryRawRequestsMediaV1);
+    final result = await api_instance.seriesV2BatchQueryRaw(batchQueryRawRequestsMediaV1, xOrganization);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->seriesV2BatchQueryRaw: $e\n');
@@ -33782,9 +33835,10 @@ public class SeriesV2ApiExample {
     public static void main(String[] args) {
         SeriesV2Api apiInstance = new SeriesV2Api();
         BatchQueryRawRequestsMediaV1 batchQueryRawRequestsMediaV1 = ; // BatchQueryRawRequestsMediaV1 | 
+        String xOrganization = xOrganization_example; // String | 
 
         try {
-            ArduinoSeriesRawBatch result = apiInstance.seriesV2BatchQueryRaw(batchQueryRawRequestsMediaV1);
+            ArduinoSeriesRawBatch result = apiInstance.seriesV2BatchQueryRaw(batchQueryRawRequestsMediaV1, xOrganization);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SeriesV2Api#seriesV2BatchQueryRaw");
@@ -33807,9 +33861,11 @@ public class SeriesV2ApiExample {
 // Create an instance of the API class
 SeriesV2Api *apiInstance = [[SeriesV2Api alloc] init];
 BatchQueryRawRequestsMediaV1 *batchQueryRawRequestsMediaV1 = ; // 
+String *xOrganization = xOrganization_example; //  (optional) (default to null)
 
 // batch_query_raw series_v2
 [apiInstance seriesV2BatchQueryRawWith:batchQueryRawRequestsMediaV1
+    xOrganization:xOrganization
               completionHandler: ^(ArduinoSeriesRawBatch output, NSError* error) {
     if (output) {
         NSLog(@"%@", output);
@@ -33832,7 +33888,10 @@ oauth2.accessToken = "YOUR ACCESS TOKEN";
 // Create an instance of the API class
 var api = new ArduinoIotClient.SeriesV2Api()
 var batchQueryRawRequestsMediaV1 = ; // {BatchQueryRawRequestsMediaV1} 
-api.seriesV2BatchQueryRaw(batchQueryRawRequestsMediaV1).then(function(data) {
+var opts = {
+  'xOrganization': xOrganization_example // {String} 
+};
+api.seriesV2BatchQueryRaw(batchQueryRawRequestsMediaV1, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -33863,10 +33922,11 @@ namespace Example
             // Create an instance of the API class
             var apiInstance = new SeriesV2Api();
             var batchQueryRawRequestsMediaV1 = new BatchQueryRawRequestsMediaV1(); // BatchQueryRawRequestsMediaV1 | 
+            var xOrganization = xOrganization_example;  // String |  (optional)  (default to null)
 
             try {
                 // batch_query_raw series_v2
-                ArduinoSeriesRawBatch result = apiInstance.seriesV2BatchQueryRaw(batchQueryRawRequestsMediaV1);
+                ArduinoSeriesRawBatch result = apiInstance.seriesV2BatchQueryRaw(batchQueryRawRequestsMediaV1, xOrganization);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling SeriesV2Api.seriesV2BatchQueryRaw: " + e.Message );
@@ -33887,9 +33947,10 @@ OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('YO
 // Create an instance of the API class
 $api_instance = new OpenAPITools\Client\Api\SeriesV2Api();
 $batchQueryRawRequestsMediaV1 = ; // BatchQueryRawRequestsMediaV1 | 
+$xOrganization = xOrganization_example; // String | 
 
 try {
-    $result = $api_instance->seriesV2BatchQueryRaw($batchQueryRawRequestsMediaV1);
+    $result = $api_instance->seriesV2BatchQueryRaw($batchQueryRawRequestsMediaV1, $xOrganization);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling SeriesV2Api->seriesV2BatchQueryRaw: ', $e->getMessage(), PHP_EOL;
@@ -33908,9 +33969,10 @@ $WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
 # Create an instance of the API class
 my $api_instance = WWW::OPenAPIClient::SeriesV2Api->new();
 my $batchQueryRawRequestsMediaV1 = WWW::OPenAPIClient::Object::BatchQueryRawRequestsMediaV1->new(); # BatchQueryRawRequestsMediaV1 | 
+my $xOrganization = xOrganization_example; # String | 
 
 eval {
-    my $result = $api_instance->seriesV2BatchQueryRaw(batchQueryRawRequestsMediaV1 => $batchQueryRawRequestsMediaV1);
+    my $result = $api_instance->seriesV2BatchQueryRaw(batchQueryRawRequestsMediaV1 => $batchQueryRawRequestsMediaV1, xOrganization => $xOrganization);
     print Dumper($result);
 };
 if ($@) {
@@ -33931,10 +33993,11 @@ openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 # Create an instance of the API class
 api_instance = openapi_client.SeriesV2Api()
 batchQueryRawRequestsMediaV1 =  # BatchQueryRawRequestsMediaV1 | 
+xOrganization = xOrganization_example # String |  (optional) (default to null)
 
 try:
     # batch_query_raw series_v2
-    api_response = api_instance.series_v2_batch_query_raw(batchQueryRawRequestsMediaV1)
+    api_response = api_instance.series_v2_batch_query_raw(batchQueryRawRequestsMediaV1, xOrganization=xOrganization)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling SeriesV2Api->seriesV2BatchQueryRaw: %s\n" % e)</code></pre>
@@ -33945,9 +34008,10 @@ except ApiException as e:
 
 pub fn main() {
     let batchQueryRawRequestsMediaV1 = ; // BatchQueryRawRequestsMediaV1
+    let xOrganization = xOrganization_example; // String
 
     let mut context = SeriesV2Api::Context::default();
-    let result = client.seriesV2BatchQueryRaw(batchQueryRawRequestsMediaV1, &context).wait();
+    let result = client.seriesV2BatchQueryRaw(batchQueryRawRequestsMediaV1, xOrganization, &context).wait();
 
     println!("{:?}", result);
 }
@@ -33963,6 +34027,30 @@ pub fn main() {
                           <h2>Parameters</h2>
 
 
+                            <div class="methodsubtabletitle">Header parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                  <tr><td style="width:150px;">X-Organization</td>
+<td>
+
+
+    <div id="d2e199_seriesV2BatchQueryRaw_xOrganization">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
 
                             <div class="methodsubtabletitle">Body parameters</div>
                             <table id="methodsubtable">
@@ -34386,9 +34474,10 @@ public class SeriesV2ApiExample {
         // Create an instance of the API class
         SeriesV2Api apiInstance = new SeriesV2Api();
         BatchLastValueRequestsMediaV1 batchLastValueRequestsMediaV1 = ; // BatchLastValueRequestsMediaV1 | 
+        String xOrganization = xOrganization_example; // String | 
 
         try {
-            ArduinoSeriesRawBatchLastvalue result = apiInstance.seriesV2BatchQueryRawLastValue(batchLastValueRequestsMediaV1);
+            ArduinoSeriesRawBatchLastvalue result = apiInstance.seriesV2BatchQueryRawLastValue(batchLastValueRequestsMediaV1, xOrganization);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SeriesV2Api#seriesV2BatchQueryRawLastValue");
@@ -34405,9 +34494,10 @@ public class SeriesV2ApiExample {
 final api_instance = DefaultApi();
 
 final BatchLastValueRequestsMediaV1 batchLastValueRequestsMediaV1 = new BatchLastValueRequestsMediaV1(); // BatchLastValueRequestsMediaV1 | 
+final String xOrganization = new String(); // String | 
 
 try {
-    final result = await api_instance.seriesV2BatchQueryRawLastValue(batchLastValueRequestsMediaV1);
+    final result = await api_instance.seriesV2BatchQueryRawLastValue(batchLastValueRequestsMediaV1, xOrganization);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->seriesV2BatchQueryRawLastValue: $e\n');
@@ -34423,9 +34513,10 @@ public class SeriesV2ApiExample {
     public static void main(String[] args) {
         SeriesV2Api apiInstance = new SeriesV2Api();
         BatchLastValueRequestsMediaV1 batchLastValueRequestsMediaV1 = ; // BatchLastValueRequestsMediaV1 | 
+        String xOrganization = xOrganization_example; // String | 
 
         try {
-            ArduinoSeriesRawBatchLastvalue result = apiInstance.seriesV2BatchQueryRawLastValue(batchLastValueRequestsMediaV1);
+            ArduinoSeriesRawBatchLastvalue result = apiInstance.seriesV2BatchQueryRawLastValue(batchLastValueRequestsMediaV1, xOrganization);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SeriesV2Api#seriesV2BatchQueryRawLastValue");
@@ -34448,9 +34539,11 @@ public class SeriesV2ApiExample {
 // Create an instance of the API class
 SeriesV2Api *apiInstance = [[SeriesV2Api alloc] init];
 BatchLastValueRequestsMediaV1 *batchLastValueRequestsMediaV1 = ; // 
+String *xOrganization = xOrganization_example; //  (optional) (default to null)
 
 // batch_query_raw_last_value series_v2
 [apiInstance seriesV2BatchQueryRawLastValueWith:batchLastValueRequestsMediaV1
+    xOrganization:xOrganization
               completionHandler: ^(ArduinoSeriesRawBatchLastvalue output, NSError* error) {
     if (output) {
         NSLog(@"%@", output);
@@ -34473,7 +34566,10 @@ oauth2.accessToken = "YOUR ACCESS TOKEN";
 // Create an instance of the API class
 var api = new ArduinoIotClient.SeriesV2Api()
 var batchLastValueRequestsMediaV1 = ; // {BatchLastValueRequestsMediaV1} 
-api.seriesV2BatchQueryRawLastValue(batchLastValueRequestsMediaV1).then(function(data) {
+var opts = {
+  'xOrganization': xOrganization_example // {String} 
+};
+api.seriesV2BatchQueryRawLastValue(batchLastValueRequestsMediaV1, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -34504,10 +34600,11 @@ namespace Example
             // Create an instance of the API class
             var apiInstance = new SeriesV2Api();
             var batchLastValueRequestsMediaV1 = new BatchLastValueRequestsMediaV1(); // BatchLastValueRequestsMediaV1 | 
+            var xOrganization = xOrganization_example;  // String |  (optional)  (default to null)
 
             try {
                 // batch_query_raw_last_value series_v2
-                ArduinoSeriesRawBatchLastvalue result = apiInstance.seriesV2BatchQueryRawLastValue(batchLastValueRequestsMediaV1);
+                ArduinoSeriesRawBatchLastvalue result = apiInstance.seriesV2BatchQueryRawLastValue(batchLastValueRequestsMediaV1, xOrganization);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling SeriesV2Api.seriesV2BatchQueryRawLastValue: " + e.Message );
@@ -34528,9 +34625,10 @@ OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('YO
 // Create an instance of the API class
 $api_instance = new OpenAPITools\Client\Api\SeriesV2Api();
 $batchLastValueRequestsMediaV1 = ; // BatchLastValueRequestsMediaV1 | 
+$xOrganization = xOrganization_example; // String | 
 
 try {
-    $result = $api_instance->seriesV2BatchQueryRawLastValue($batchLastValueRequestsMediaV1);
+    $result = $api_instance->seriesV2BatchQueryRawLastValue($batchLastValueRequestsMediaV1, $xOrganization);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling SeriesV2Api->seriesV2BatchQueryRawLastValue: ', $e->getMessage(), PHP_EOL;
@@ -34549,9 +34647,10 @@ $WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
 # Create an instance of the API class
 my $api_instance = WWW::OPenAPIClient::SeriesV2Api->new();
 my $batchLastValueRequestsMediaV1 = WWW::OPenAPIClient::Object::BatchLastValueRequestsMediaV1->new(); # BatchLastValueRequestsMediaV1 | 
+my $xOrganization = xOrganization_example; # String | 
 
 eval {
-    my $result = $api_instance->seriesV2BatchQueryRawLastValue(batchLastValueRequestsMediaV1 => $batchLastValueRequestsMediaV1);
+    my $result = $api_instance->seriesV2BatchQueryRawLastValue(batchLastValueRequestsMediaV1 => $batchLastValueRequestsMediaV1, xOrganization => $xOrganization);
     print Dumper($result);
 };
 if ($@) {
@@ -34572,10 +34671,11 @@ openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 # Create an instance of the API class
 api_instance = openapi_client.SeriesV2Api()
 batchLastValueRequestsMediaV1 =  # BatchLastValueRequestsMediaV1 | 
+xOrganization = xOrganization_example # String |  (optional) (default to null)
 
 try:
     # batch_query_raw_last_value series_v2
-    api_response = api_instance.series_v2_batch_query_raw_last_value(batchLastValueRequestsMediaV1)
+    api_response = api_instance.series_v2_batch_query_raw_last_value(batchLastValueRequestsMediaV1, xOrganization=xOrganization)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling SeriesV2Api->seriesV2BatchQueryRawLastValue: %s\n" % e)</code></pre>
@@ -34586,9 +34686,10 @@ except ApiException as e:
 
 pub fn main() {
     let batchLastValueRequestsMediaV1 = ; // BatchLastValueRequestsMediaV1
+    let xOrganization = xOrganization_example; // String
 
     let mut context = SeriesV2Api::Context::default();
-    let result = client.seriesV2BatchQueryRawLastValue(batchLastValueRequestsMediaV1, &context).wait();
+    let result = client.seriesV2BatchQueryRawLastValue(batchLastValueRequestsMediaV1, xOrganization, &context).wait();
 
     println!("{:?}", result);
 }
@@ -34604,6 +34705,30 @@ pub fn main() {
                           <h2>Parameters</h2>
 
 
+                            <div class="methodsubtabletitle">Header parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                  <tr><td style="width:150px;">X-Organization</td>
+<td>
+
+
+    <div id="d2e199_seriesV2BatchQueryRawLastValue_xOrganization">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
 
                             <div class="methodsubtabletitle">Body parameters</div>
                             <table id="methodsubtable">
@@ -34972,9 +35097,10 @@ public class SeriesV2ApiExample {
         // Create an instance of the API class
         SeriesV2Api apiInstance = new SeriesV2Api();
         BatchQuerySampledRequestsMediaV1 batchQuerySampledRequestsMediaV1 = ; // BatchQuerySampledRequestsMediaV1 | 
+        String xOrganization = xOrganization_example; // String | 
 
         try {
-            ArduinoSeriesBatchSampled result = apiInstance.seriesV2BatchQuerySampling(batchQuerySampledRequestsMediaV1);
+            ArduinoSeriesBatchSampled result = apiInstance.seriesV2BatchQuerySampling(batchQuerySampledRequestsMediaV1, xOrganization);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SeriesV2Api#seriesV2BatchQuerySampling");
@@ -34991,9 +35117,10 @@ public class SeriesV2ApiExample {
 final api_instance = DefaultApi();
 
 final BatchQuerySampledRequestsMediaV1 batchQuerySampledRequestsMediaV1 = new BatchQuerySampledRequestsMediaV1(); // BatchQuerySampledRequestsMediaV1 | 
+final String xOrganization = new String(); // String | 
 
 try {
-    final result = await api_instance.seriesV2BatchQuerySampling(batchQuerySampledRequestsMediaV1);
+    final result = await api_instance.seriesV2BatchQuerySampling(batchQuerySampledRequestsMediaV1, xOrganization);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->seriesV2BatchQuerySampling: $e\n');
@@ -35009,9 +35136,10 @@ public class SeriesV2ApiExample {
     public static void main(String[] args) {
         SeriesV2Api apiInstance = new SeriesV2Api();
         BatchQuerySampledRequestsMediaV1 batchQuerySampledRequestsMediaV1 = ; // BatchQuerySampledRequestsMediaV1 | 
+        String xOrganization = xOrganization_example; // String | 
 
         try {
-            ArduinoSeriesBatchSampled result = apiInstance.seriesV2BatchQuerySampling(batchQuerySampledRequestsMediaV1);
+            ArduinoSeriesBatchSampled result = apiInstance.seriesV2BatchQuerySampling(batchQuerySampledRequestsMediaV1, xOrganization);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SeriesV2Api#seriesV2BatchQuerySampling");
@@ -35034,9 +35162,11 @@ public class SeriesV2ApiExample {
 // Create an instance of the API class
 SeriesV2Api *apiInstance = [[SeriesV2Api alloc] init];
 BatchQuerySampledRequestsMediaV1 *batchQuerySampledRequestsMediaV1 = ; // 
+String *xOrganization = xOrganization_example; //  (optional) (default to null)
 
 // batch_query_sampling series_v2
 [apiInstance seriesV2BatchQuerySamplingWith:batchQuerySampledRequestsMediaV1
+    xOrganization:xOrganization
               completionHandler: ^(ArduinoSeriesBatchSampled output, NSError* error) {
     if (output) {
         NSLog(@"%@", output);
@@ -35059,7 +35189,10 @@ oauth2.accessToken = "YOUR ACCESS TOKEN";
 // Create an instance of the API class
 var api = new ArduinoIotClient.SeriesV2Api()
 var batchQuerySampledRequestsMediaV1 = ; // {BatchQuerySampledRequestsMediaV1} 
-api.seriesV2BatchQuerySampling(batchQuerySampledRequestsMediaV1).then(function(data) {
+var opts = {
+  'xOrganization': xOrganization_example // {String} 
+};
+api.seriesV2BatchQuerySampling(batchQuerySampledRequestsMediaV1, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -35090,10 +35223,11 @@ namespace Example
             // Create an instance of the API class
             var apiInstance = new SeriesV2Api();
             var batchQuerySampledRequestsMediaV1 = new BatchQuerySampledRequestsMediaV1(); // BatchQuerySampledRequestsMediaV1 | 
+            var xOrganization = xOrganization_example;  // String |  (optional)  (default to null)
 
             try {
                 // batch_query_sampling series_v2
-                ArduinoSeriesBatchSampled result = apiInstance.seriesV2BatchQuerySampling(batchQuerySampledRequestsMediaV1);
+                ArduinoSeriesBatchSampled result = apiInstance.seriesV2BatchQuerySampling(batchQuerySampledRequestsMediaV1, xOrganization);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling SeriesV2Api.seriesV2BatchQuerySampling: " + e.Message );
@@ -35114,9 +35248,10 @@ OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('YO
 // Create an instance of the API class
 $api_instance = new OpenAPITools\Client\Api\SeriesV2Api();
 $batchQuerySampledRequestsMediaV1 = ; // BatchQuerySampledRequestsMediaV1 | 
+$xOrganization = xOrganization_example; // String | 
 
 try {
-    $result = $api_instance->seriesV2BatchQuerySampling($batchQuerySampledRequestsMediaV1);
+    $result = $api_instance->seriesV2BatchQuerySampling($batchQuerySampledRequestsMediaV1, $xOrganization);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling SeriesV2Api->seriesV2BatchQuerySampling: ', $e->getMessage(), PHP_EOL;
@@ -35135,9 +35270,10 @@ $WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
 # Create an instance of the API class
 my $api_instance = WWW::OPenAPIClient::SeriesV2Api->new();
 my $batchQuerySampledRequestsMediaV1 = WWW::OPenAPIClient::Object::BatchQuerySampledRequestsMediaV1->new(); # BatchQuerySampledRequestsMediaV1 | 
+my $xOrganization = xOrganization_example; # String | 
 
 eval {
-    my $result = $api_instance->seriesV2BatchQuerySampling(batchQuerySampledRequestsMediaV1 => $batchQuerySampledRequestsMediaV1);
+    my $result = $api_instance->seriesV2BatchQuerySampling(batchQuerySampledRequestsMediaV1 => $batchQuerySampledRequestsMediaV1, xOrganization => $xOrganization);
     print Dumper($result);
 };
 if ($@) {
@@ -35158,10 +35294,11 @@ openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 # Create an instance of the API class
 api_instance = openapi_client.SeriesV2Api()
 batchQuerySampledRequestsMediaV1 =  # BatchQuerySampledRequestsMediaV1 | 
+xOrganization = xOrganization_example # String |  (optional) (default to null)
 
 try:
     # batch_query_sampling series_v2
-    api_response = api_instance.series_v2_batch_query_sampling(batchQuerySampledRequestsMediaV1)
+    api_response = api_instance.series_v2_batch_query_sampling(batchQuerySampledRequestsMediaV1, xOrganization=xOrganization)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling SeriesV2Api->seriesV2BatchQuerySampling: %s\n" % e)</code></pre>
@@ -35172,9 +35309,10 @@ except ApiException as e:
 
 pub fn main() {
     let batchQuerySampledRequestsMediaV1 = ; // BatchQuerySampledRequestsMediaV1
+    let xOrganization = xOrganization_example; // String
 
     let mut context = SeriesV2Api::Context::default();
-    let result = client.seriesV2BatchQuerySampling(batchQuerySampledRequestsMediaV1, &context).wait();
+    let result = client.seriesV2BatchQuerySampling(batchQuerySampledRequestsMediaV1, xOrganization, &context).wait();
 
     println!("{:?}", result);
 }
@@ -35190,6 +35328,30 @@ pub fn main() {
                           <h2>Parameters</h2>
 
 
+                            <div class="methodsubtabletitle">Header parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                  <tr><td style="width:150px;">X-Organization</td>
+<td>
+
+
+    <div id="d2e199_seriesV2BatchQuerySampling_xOrganization">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
 
                             <div class="methodsubtabletitle">Body parameters</div>
                             <table id="methodsubtable">
@@ -35609,9 +35771,10 @@ public class SeriesV2ApiExample {
         // Create an instance of the API class
         SeriesV2Api apiInstance = new SeriesV2Api();
         HistoricDataRequest historicDataRequest = ; // HistoricDataRequest | 
+        String xOrganization = xOrganization_example; // String | 
 
         try {
-            apiInstance.seriesV2HistoricData(historicDataRequest);
+            apiInstance.seriesV2HistoricData(historicDataRequest, xOrganization);
         } catch (ApiException e) {
             System.err.println("Exception when calling SeriesV2Api#seriesV2HistoricData");
             e.printStackTrace();
@@ -35627,9 +35790,10 @@ public class SeriesV2ApiExample {
 final api_instance = DefaultApi();
 
 final HistoricDataRequest historicDataRequest = new HistoricDataRequest(); // HistoricDataRequest | 
+final String xOrganization = new String(); // String | 
 
 try {
-    final result = await api_instance.seriesV2HistoricData(historicDataRequest);
+    final result = await api_instance.seriesV2HistoricData(historicDataRequest, xOrganization);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->seriesV2HistoricData: $e\n');
@@ -35645,9 +35809,10 @@ public class SeriesV2ApiExample {
     public static void main(String[] args) {
         SeriesV2Api apiInstance = new SeriesV2Api();
         HistoricDataRequest historicDataRequest = ; // HistoricDataRequest | 
+        String xOrganization = xOrganization_example; // String | 
 
         try {
-            apiInstance.seriesV2HistoricData(historicDataRequest);
+            apiInstance.seriesV2HistoricData(historicDataRequest, xOrganization);
         } catch (ApiException e) {
             System.err.println("Exception when calling SeriesV2Api#seriesV2HistoricData");
             e.printStackTrace();
@@ -35669,9 +35834,11 @@ public class SeriesV2ApiExample {
 // Create an instance of the API class
 SeriesV2Api *apiInstance = [[SeriesV2Api alloc] init];
 HistoricDataRequest *historicDataRequest = ; // 
+String *xOrganization = xOrganization_example; //  (optional) (default to null)
 
 // historic_data series_v2
 [apiInstance seriesV2HistoricDataWith:historicDataRequest
+    xOrganization:xOrganization
               completionHandler: ^(NSError* error) {
     if (error) {
         NSLog(@"Error: %@", error);
@@ -35691,7 +35858,10 @@ oauth2.accessToken = "YOUR ACCESS TOKEN";
 // Create an instance of the API class
 var api = new ArduinoIotClient.SeriesV2Api()
 var historicDataRequest = ; // {HistoricDataRequest} 
-api.seriesV2HistoricData(historicDataRequest).then(function() {
+var opts = {
+  'xOrganization': xOrganization_example // {String} 
+};
+api.seriesV2HistoricData(historicDataRequest, opts).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -35722,10 +35892,11 @@ namespace Example
             // Create an instance of the API class
             var apiInstance = new SeriesV2Api();
             var historicDataRequest = new HistoricDataRequest(); // HistoricDataRequest | 
+            var xOrganization = xOrganization_example;  // String |  (optional)  (default to null)
 
             try {
                 // historic_data series_v2
-                apiInstance.seriesV2HistoricData(historicDataRequest);
+                apiInstance.seriesV2HistoricData(historicDataRequest, xOrganization);
             } catch (Exception e) {
                 Debug.Print("Exception when calling SeriesV2Api.seriesV2HistoricData: " + e.Message );
             }
@@ -35745,9 +35916,10 @@ OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('YO
 // Create an instance of the API class
 $api_instance = new OpenAPITools\Client\Api\SeriesV2Api();
 $historicDataRequest = ; // HistoricDataRequest | 
+$xOrganization = xOrganization_example; // String | 
 
 try {
-    $api_instance->seriesV2HistoricData($historicDataRequest);
+    $api_instance->seriesV2HistoricData($historicDataRequest, $xOrganization);
 } catch (Exception $e) {
     echo 'Exception when calling SeriesV2Api->seriesV2HistoricData: ', $e->getMessage(), PHP_EOL;
 }
@@ -35765,9 +35937,10 @@ $WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
 # Create an instance of the API class
 my $api_instance = WWW::OPenAPIClient::SeriesV2Api->new();
 my $historicDataRequest = WWW::OPenAPIClient::Object::HistoricDataRequest->new(); # HistoricDataRequest | 
+my $xOrganization = xOrganization_example; # String | 
 
 eval {
-    $api_instance->seriesV2HistoricData(historicDataRequest => $historicDataRequest);
+    $api_instance->seriesV2HistoricData(historicDataRequest => $historicDataRequest, xOrganization => $xOrganization);
 };
 if ($@) {
     warn "Exception when calling SeriesV2Api->seriesV2HistoricData: $@\n";
@@ -35787,10 +35960,11 @@ openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 # Create an instance of the API class
 api_instance = openapi_client.SeriesV2Api()
 historicDataRequest =  # HistoricDataRequest | 
+xOrganization = xOrganization_example # String |  (optional) (default to null)
 
 try:
     # historic_data series_v2
-    api_instance.series_v2_historic_data(historicDataRequest)
+    api_instance.series_v2_historic_data(historicDataRequest, xOrganization=xOrganization)
 except ApiException as e:
     print("Exception when calling SeriesV2Api->seriesV2HistoricData: %s\n" % e)</code></pre>
                             </div>
@@ -35800,9 +35974,10 @@ except ApiException as e:
 
 pub fn main() {
     let historicDataRequest = ; // HistoricDataRequest
+    let xOrganization = xOrganization_example; // String
 
     let mut context = SeriesV2Api::Context::default();
-    let result = client.seriesV2HistoricData(historicDataRequest, &context).wait();
+    let result = client.seriesV2HistoricData(historicDataRequest, xOrganization, &context).wait();
 
     println!("{:?}", result);
 }
@@ -35818,6 +35993,30 @@ pub fn main() {
                           <h2>Parameters</h2>
 
 
+                            <div class="methodsubtabletitle">Header parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                  <tr><td style="width:150px;">X-Organization</td>
+<td>
+
+
+    <div id="d2e199_seriesV2HistoricData_xOrganization">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
 
                             <div class="methodsubtabletitle">Body parameters</div>
                             <table id="methodsubtable">
