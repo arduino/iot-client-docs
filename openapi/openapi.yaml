@@ -2092,6 +2092,7 @@ components:
             title: CheckDevicesV2PassPayload
             type: object
         Clone:
+            description: Add overrides used when performing a clone of a dashboard
             properties:
                 overrides:
                     description: 'The overrides to apply to the cloned dashboard. An override is a tuple of ids: the id of the thing to override and the id of the new thing to link'
@@ -3581,7 +3582,8 @@ paths:
             description: Create a new lora device. Its info are saved on our database, and on the lora provider network. Creates a device_v2 automatically
             operationId: lora_devices_v1#create
             parameters:
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -3791,7 +3793,8 @@ paths:
             description: Apply an existing cloud template and generate all the needed resources
             operationId: templates#apply
             parameters:
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -4336,19 +4339,20 @@ paths:
             description: Returns the list of dashboards
             operationId: dashboards_v2#list
             parameters:
-                - description: The name of the dashboard
+                - description: Filter by name of the dashboard. It support like matching.
                   in: query
                   name: name
                   schema:
                     maxLength: 64
                     pattern: '[a-zA-Z0-9_.@-]+'
                     type: string
-                - description: The user_id of the dashboard's owner
+                - description: Filter by user_id of the dashboard's owner
                   in: query
                   name: user_id
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -4407,7 +4411,8 @@ paths:
             description: Create a new dashboard
             operationId: dashboards_v2#create
             parameters:
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -4487,7 +4492,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -4538,7 +4544,7 @@ paths:
             tags:
                 - dashboards_v2
         get:
-            description: Show a dashboard
+            description: Show a dashboard by id
             operationId: dashboards_v2#show
             parameters:
                 - description: The id of the dashboard
@@ -4547,7 +4553,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -4605,7 +4612,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -4680,7 +4688,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -4756,7 +4765,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -4765,6 +4775,7 @@ paths:
                     application/json:
                         schema:
                             $ref: '#/components/schemas/Clone'
+                description: Add overrides used when performing a clone of a dashboard
                 required: true
                 x-originalParamName: payload
             responses:
@@ -4831,7 +4842,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -4899,7 +4911,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -4966,7 +4979,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -5040,7 +5054,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -5101,7 +5116,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -5175,7 +5191,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -5270,7 +5287,8 @@ paths:
                         pattern: ^[a-zA-Z0-9_.@-]+:[a-zA-Z0-9_.@-]+$
                         type: string
                     type: array
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -5329,7 +5347,8 @@ paths:
             description: Creates a new device associated to the user.
             operationId: devices_v2#create
             parameters:
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -5409,7 +5428,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -5460,7 +5480,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -5518,7 +5539,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -5874,7 +5896,8 @@ paths:
                   name: start
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -6430,7 +6453,8 @@ paths:
                   schema:
                     default: false
                     type: boolean
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -6488,7 +6512,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -6563,7 +6588,8 @@ paths:
                   name: start
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -6642,7 +6668,8 @@ paths:
                   name: start
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -6863,7 +6890,8 @@ paths:
             description: Returns the batch of time-series aggregated samples
             operationId: series_v2#batch_query
             parameters:
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -6934,7 +6962,8 @@ paths:
             description: Returns the batch of time-series raw samples
             operationId: series_v2#batch_query_raw
             parameters:
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -7005,7 +7034,8 @@ paths:
             description: Returns the batch of time-series data raw
             operationId: series_v2#batch_query_raw_last_value
             parameters:
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -7067,7 +7097,8 @@ paths:
             description: 'Returns a batch of time-series sampled samples. To be used for types that does not support mathematic aggregation. Types supported: strings, complex types.'
             operationId: series_v2#batch_query_sampling
             parameters:
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -7138,7 +7169,8 @@ paths:
             description: Request sending of historical data of properties by email
             operationId: series_v2#historic_data
             parameters:
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -7227,7 +7259,8 @@ paths:
                         pattern: ^[a-zA-Z0-9_.@-]+:[a-zA-Z0-9_.@-]+$
                         type: string
                     type: array
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -7292,7 +7325,8 @@ paths:
                   schema:
                     default: false
                     type: boolean
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -7390,7 +7424,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -7456,7 +7491,8 @@ paths:
                   schema:
                     default: false
                     type: boolean
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -7520,7 +7556,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -7614,7 +7651,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -7696,7 +7734,7 @@ paths:
                   schema:
                     default: false
                     type: boolean
-                - description: The id of the organization
+                - description: Organization space identifer (optional)
                   in: header
                   name: X-Organization
                   schema:
@@ -7753,7 +7791,7 @@ paths:
                   required: true
                   schema:
                     type: string
-                - description: The id of the organization
+                - description: Organization space identifer (optional)
                   in: header
                   name: X-Organization
                   schema:
@@ -7842,7 +7880,7 @@ paths:
                   required: true
                   schema:
                     type: string
-                - description: The id of the organization
+                - description: Organization space identifer (optional)
                   in: header
                   name: X-Organization
                   schema:
@@ -7897,7 +7935,7 @@ paths:
                   schema:
                     default: false
                     type: boolean
-                - description: The id of the organization
+                - description: Organization space identifer (optional)
                   in: header
                   name: X-Organization
                   schema:
@@ -7960,7 +7998,7 @@ paths:
                   required: true
                   schema:
                     type: string
-                - description: The id of the organization
+                - description: Organization space identifer (optional)
                   in: header
                   name: X-Organization
                   schema:
@@ -8041,7 +8079,7 @@ paths:
                   required: true
                   schema:
                     type: string
-                - description: The id of the organization
+                - description: Organization space identifer (optional)
                   in: header
                   name: X-Organization
                   schema:
@@ -8148,7 +8186,7 @@ paths:
                   name: to
                   schema:
                     type: string
-                - description: The id of the organization
+                - description: Organization space identifer (optional)
                   in: header
                   name: X-Organization
                   schema:
@@ -8207,7 +8245,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -8265,7 +8304,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -8356,7 +8396,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
@@ -8628,7 +8669,8 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: header
+                - description: Organization space identifer (optional)
+                  in: header
                   name: X-Organization
                   schema:
                     type: string
